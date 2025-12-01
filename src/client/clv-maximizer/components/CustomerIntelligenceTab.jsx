@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { CustomerIntelligenceService } from '../services/CustomerIntelligenceService.js';
+import CustomerProfileModal from './CustomerProfileModal.jsx';
+import ChurnRiskHeatmap from './ChurnRiskHeatmap.jsx';
 import { display, value } from '../utils/fields.js';
 import './CustomerIntelligenceTab.css';
 
@@ -19,13 +21,67 @@ export default function CustomerIntelligenceTab() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [selectedDrillDown, setSelectedDrillDown] = useState(null);
+  
+  // Profile modal state
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  
+  // User context for the top-right identity display
+  const [userContext] = useState({
+    role: 'analyst',
+    name: 'Emma Thompson',
+    title: 'Senior Marketing Analyst',
+    assigned_segments: ['Premium', 'VIP'],
+    assigned_regions: ['North America', 'Europe'],
+    permissions: {
+      viewSensitiveData: true,
+      editCustomers: false,
+      createCampaigns: true,
+      exportData: true
+    }
+  });
 
   const service = useMemo(() => new CustomerIntelligenceService(), []);
+
+  // Inline styles for buttons to force colors (highest specificity)
+  const profileButtonStyle = {
+    background: '#2563eb',
+    color: 'white',
+    border: '1px solid #2563eb',
+    padding: '8px 12px',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    minWidth: '60px',
+    textAlign: 'center'
+  };
+
+  const snapshotButtonStyle = {
+    background: '#ea580c',
+    color: 'white',
+    border: '1px solid #ea580c',
+    padding: '8px 12px',
+    borderRadius: '6px',
+    fontSize: '12px',
+    fontWeight: '600',
+    cursor: 'pointer',
+    transition: 'all 0.2s ease',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    minWidth: '60px',
+    textAlign: 'center'
+  };
 
   useEffect(() => {
     loadCustomerData();
     
-    // Auto-refresh every 3 minutes
+    // Auto-refresh every 3 minutes for real-time data
     const interval = setInterval(loadCustomerData, 3 * 60 * 1000);
     return () => clearInterval(interval);
   }, [service]);
@@ -33,12 +89,14 @@ export default function CustomerIntelligenceTab() {
   const loadCustomerData = async () => {
     setLoading(true);
     try {
+      console.log('Loading customer data from csm_consumer table...');
       const consumerData = await service.getCSMConsumerData();
       const analyticsData = service.generateCustomerAnalytics(consumerData);
       
       setRawData(consumerData);
       setAnalytics(analyticsData);
       setLastUpdated(new Date());
+      console.log('Customer Intelligence data loaded successfully');
     } catch (error) {
       console.error('Error loading customer intelligence data:', error);
     } finally {
@@ -46,26 +104,28 @@ export default function CustomerIntelligenceTab() {
     }
   };
 
-  // Filter and search customers
+  // Filter and search customers with drill-down support
   const filteredCustomers = useMemo(() => {
     if (!analytics) return [];
     
     let filtered = analytics.customers;
 
-    // Apply filters
+    // Apply tier filter with drill-down support
     if (filters.tier !== 'All') {
       filtered = filtered.filter(customer => customer.tier === filters.tier);
     }
 
+    // Apply churn risk filter with drill-down support
     if (filters.churnRisk !== 'All') {
       filtered = filtered.filter(customer => customer.churnRisk === filters.churnRisk);
     }
 
+    // Apply renewal filter with drill-down support
     if (filters.renewal !== 'All') {
       filtered = filtered.filter(customer => customer.renewal === filters.renewal);
     }
 
-    // Apply search filter
+    // Apply search filter across multiple fields
     if (filters.search) {
       const term = filters.search.toLowerCase();
       filtered = filtered.filter(customer => 
@@ -79,7 +139,7 @@ export default function CustomerIntelligenceTab() {
     return filtered;
   }, [analytics, filters]);
 
-  // Sort customers
+  // Sort customers with comprehensive sorting options
   const sortedCustomers = useMemo(() => {
     const sorted = [...filteredCustomers].sort((a, b) => {
       let aVal, bVal;
@@ -125,7 +185,7 @@ export default function CustomerIntelligenceTab() {
     return sorted;
   }, [filteredCustomers, sortField, sortDirection, service]);
 
-  // Paginate customers
+  // Paginate customers with "X of Y customers" display
   const paginatedCustomers = useMemo(() => {
     const startIndex = (currentPage - 1) * pageSize;
     return sortedCustomers.slice(startIndex, startIndex + pageSize);
@@ -133,7 +193,7 @@ export default function CustomerIntelligenceTab() {
 
   const totalPages = Math.ceil(sortedCustomers.length / pageSize);
 
-  // Handle sorting
+  // Handle sorting with visual indicators
   const handleSort = (field) => {
     if (sortField === field) {
       setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
@@ -144,7 +204,7 @@ export default function CustomerIntelligenceTab() {
     setCurrentPage(1);
   };
 
-  // Handle filter changes
+  // Handle filter changes with drill-down support
   const handleFilterChange = (filterName, value) => {
     setFilters(prev => ({
       ...prev,
@@ -153,11 +213,15 @@ export default function CustomerIntelligenceTab() {
     setCurrentPage(1);
   };
 
-  // Handle drill-down clicks
+  // Handle drill-down clicks from summary cards and charts
   const handleDrillDown = (type, value) => {
     let drillDownFilters = { ...filters };
     
     switch (type) {
+      case 'total':
+        // Reset all filters to show all customers
+        drillDownFilters = { tier: 'All', churnRisk: 'All', renewal: 'All', search: '' };
+        break;
       case 'highRisk':
         drillDownFilters.churnRisk = 'High';
         break;
@@ -177,34 +241,61 @@ export default function CustomerIntelligenceTab() {
     setCurrentPage(1);
   };
 
-  // Handle export
+  // Handle export functionality
   const handleExport = () => {
-    if (analytics) {
+    if (analytics && userContext.permissions.exportData) {
       service.exportToCSV(sortedCustomers);
     }
   };
 
-  // Handle customer actions
+  // Handle customer profile modal
   const handleViewProfile = (customer) => {
-    alert(`Customer Profile for ${customer.customerName}:\n\n` +
-          `Email: ${customer.email}\n` +
-          `Company: ${customer.company}\n` +
-          `Tier: ${customer.tier}\n` +
-          `CLV: ${service.formatCurrency(customer.clv)}\n` +
-          `Churn Risk: ${customer.churnRisk}\n` +
-          `Engagement Score: ${customer.engagementScore}/100\n` +
-          `Tenure: ${customer.tenure} months\n` +
-          `Location: ${customer.location}\n` +
-          `Risk Factors: ${customer.riskFactors.join(', ')}\n` +
-          `Opportunities: ${customer.opportunities.join(', ')}`);
+    setSelectedCustomer(customer);
+    setIsProfileModalOpen(true);
   };
 
+  const handleCloseProfile = () => {
+    setIsProfileModalOpen(false);
+    setSelectedCustomer(null);
+  };
+
+  // Handle quick customer snapshot
   const handleViewSnapshot = (customer) => {
     alert(`Quick Snapshot - ${customer.customerName}:\n\n` +
           `${customer.tier} Customer | CLV: ${service.formatCurrency(customer.clv)}\n` +
           `Churn Risk: ${customer.churnRisk} | Engagement: ${customer.engagementScore}/100\n` +
           `Renewal: ${service.formatDate(customer.renewalDate)} (${service.getDaysUntilRenewal(customer.renewalDate)} days)\n` +
-          `Top Opportunity: ${customer.opportunities[0] || 'None identified'}`);
+          `Top Opportunity: ${customer.opportunities[0] || 'None identified'}\n` +
+          `Risk Factors: ${customer.riskFactors.join(', ')}`);
+  };
+
+  // Button hover handlers for inline styles
+  const handleProfileHover = (e, isHovering) => {
+    if (isHovering) {
+      e.target.style.background = '#1d4ed8';
+      e.target.style.borderColor = '#1d4ed8';
+      e.target.style.transform = 'translateY(-2px)';
+      e.target.style.boxShadow = '0 4px 12px rgba(59, 130, 246, 0.4)';
+    } else {
+      e.target.style.background = '#2563eb';
+      e.target.style.borderColor = '#2563eb';
+      e.target.style.transform = 'translateY(0)';
+      e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+    }
+  };
+
+  const handleSnapshotHover = (e, isHovering) => {
+    if (isHovering) {
+      e.target.style.background = '#dc2626';
+      e.target.style.borderColor = '#dc2626';
+      e.target.style.transform = 'translateY(-2px)';
+      e.target.style.boxShadow = '0 4px 12px rgba(234, 88, 12, 0.4)';
+    } else {
+      e.target.style.background = '#ea580c';
+      e.target.style.borderColor = '#ea580c';
+      e.target.style.transform = 'translateY(0)';
+      e.target.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.1)';
+    }
   };
 
   // Utility functions
@@ -214,9 +305,9 @@ export default function CustomerIntelligenceTab() {
   };
 
   const getProgressBarColor = (score) => {
-    if (score >= 80) return '#10b981';
-    if (score >= 60) return '#f59e0b';
-    return '#ef4444';
+    if (score >= 80) return '#10b981'; // Green
+    if (score >= 60) return '#f59e0b'; // Orange
+    return '#ef4444'; // Red
   };
 
   if (loading) {
@@ -224,6 +315,7 @@ export default function CustomerIntelligenceTab() {
       <div className="intelligence-loading">
         <div className="loading-spinner"></div>
         <p>Loading Customer Intelligence Hub...</p>
+        <small>Fetching data from csm_consumer table...</small>
       </div>
     );
   }
@@ -246,20 +338,22 @@ export default function CustomerIntelligenceTab() {
           <p className="header-subtitle">Advanced analytics and insights for customer lifetime value optimization</p>
         </div>
         <div className="header-actions">
-          <span className="workspace-timestamp">Last updated: {lastUpdated.toLocaleTimeString()}</span>
-          <button className="export-data-btn" onClick={handleExport}>
-            📊 Export Data
-          </button>
           <div className="user-identity">
-            <strong>Emma Thompson</strong>
-            <p>Senior Marketing Analyst</p>
+            <strong>{userContext.name}</strong>
+            <p>{userContext.title}</p>
           </div>
+          <span className="workspace-timestamp">Last updated: {lastUpdated.toLocaleTimeString()}</span>
+          {userContext.permissions.exportData && (
+            <button className="export-data-btn" onClick={handleExport}>
+              📊 Export Data
+            </button>
+          )}
         </div>
       </header>
 
       {/* Section 2: Summary Metrics Panel */}
       <section className="summary-metrics-panel">
-        <div className="metric-card" onClick={() => handleDrillDown('total', 'all')}>
+        <div className="metric-card" onClick={() => handleDrillDown('total', 'all')} title="Click to view all customers">
           <div className="metric-icon">👥</div>
           <div className="metric-content">
             <div className="metric-value">{analytics.summaryMetrics.totalCustomers.toLocaleString()}</div>
@@ -268,7 +362,7 @@ export default function CustomerIntelligenceTab() {
           <div className="metric-trend positive">↗ +5.2%</div>
         </div>
 
-        <div className="metric-card" onClick={() => handleDrillDown('highRisk', 'high')}>
+        <div className="metric-card" onClick={() => handleDrillDown('highRisk', 'high')} title="Click to view high risk customers">
           <div className="metric-icon">⚠️</div>
           <div className="metric-content">
             <div className="metric-value">{analytics.summaryMetrics.highRiskCount.toLocaleString()}</div>
@@ -277,7 +371,7 @@ export default function CustomerIntelligenceTab() {
           <div className="metric-trend negative">↘ -2.1%</div>
         </div>
 
-        <div className="metric-card">
+        <div className="metric-card" title="Average customer lifetime value">
           <div className="metric-icon">💰</div>
           <div className="metric-content">
             <div className="metric-value">{service.formatCurrency(analytics.summaryMetrics.averageCLV)}</div>
@@ -286,7 +380,7 @@ export default function CustomerIntelligenceTab() {
           <div className="metric-trend positive">↗ +8.3%</div>
         </div>
 
-        <div className="metric-card" onClick={() => handleDrillDown('platinum', 'platinum')}>
+        <div className="metric-card" onClick={() => handleDrillDown('platinum', 'platinum')} title="Click to view Platinum tier customers">
           <div className="metric-icon">🏆</div>
           <div className="metric-content">
             <div className="metric-value">{analytics.summaryMetrics.platinumCount.toLocaleString()}</div>
@@ -298,65 +392,17 @@ export default function CustomerIntelligenceTab() {
 
       <div className="analytics-grid">
         <div className="analytics-main">
-          {/* Section 3: Churn Risk Heatmap */}
-          <section className="churn-risk-heatmap">
-            <h2>Churn Risk Heatmap</h2>
-            <div className="heatmap-bars">
-              <div className="risk-bar" onClick={() => handleDrillDown('churnRisk', 'High')}>
-                <div className="bar-info">
-                  <span className="bar-label">High Risk</span>
-                  <span className="bar-stats">{analytics.churnDistribution.high.count} ({analytics.churnDistribution.high.percentage}%)</span>
-                </div>
-                <div className="bar-visual">
-                  <div 
-                    className="bar-fill" 
-                    style={{ 
-                      width: `${analytics.churnDistribution.high.percentage}%`, 
-                      backgroundColor: analytics.churnDistribution.high.color 
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="risk-bar" onClick={() => handleDrillDown('churnRisk', 'Medium')}>
-                <div className="bar-info">
-                  <span className="bar-label">Medium Risk</span>
-                  <span className="bar-stats">{analytics.churnDistribution.medium.count} ({analytics.churnDistribution.medium.percentage}%)</span>
-                </div>
-                <div className="bar-visual">
-                  <div 
-                    className="bar-fill" 
-                    style={{ 
-                      width: `${analytics.churnDistribution.medium.percentage}%`, 
-                      backgroundColor: analytics.churnDistribution.medium.color 
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              <div className="risk-bar" onClick={() => handleDrillDown('churnRisk', 'Low')}>
-                <div className="bar-info">
-                  <span className="bar-label">Low Risk</span>
-                  <span className="bar-stats">{analytics.churnDistribution.low.count} ({analytics.churnDistribution.low.percentage}%)</span>
-                </div>
-                <div className="bar-visual">
-                  <div 
-                    className="bar-fill" 
-                    style={{ 
-                      width: `${analytics.churnDistribution.low.percentage}%`, 
-                      backgroundColor: analytics.churnDistribution.low.color 
-                    }}
-                  ></div>
-                </div>
-              </div>
-            </div>
-          </section>
+          {/* Section 3: Enhanced Churn Risk Heatmap */}
+          <ChurnRiskHeatmap 
+            analytics={analytics}
+            onDrillDown={handleDrillDown}
+          />
 
           {/* Section 4: Renewal Timeline Heatmap */}
           <section className="renewal-timeline-heatmap">
             <h2>Renewal Timeline Heatmap</h2>
             <div className="timeline-bars">
-              <div className="timeline-segment urgent" onClick={() => handleDrillDown('renewalUrgent')}>
+              <div className="timeline-segment urgent" onClick={() => handleDrillDown('renewalUrgent')} title="Click to view urgent renewals">
                 <div className="segment-header">
                   <span className="segment-label">Next 30 Days</span>
                   <span className="urgent-badge">URGENT</span>
@@ -366,14 +412,14 @@ export default function CustomerIntelligenceTab() {
                   <div 
                     className="segment-fill" 
                     style={{ 
-                      width: `${Math.max(20, (analytics.renewalTimeline.next30.count / analytics.summaryMetrics.totalCustomers) * 100 * 10)}%`,
+                      width: `${Math.max(20, (analytics.renewalTimeline.next30.count / Math.max(analytics.summaryMetrics.totalCustomers, 1)) * 100 * 3)}%`,
                       backgroundColor: analytics.renewalTimeline.next30.color 
                     }}
                   ></div>
                 </div>
               </div>
 
-              <div className="timeline-segment">
+              <div className="timeline-segment" title="Renewals in 31-60 days">
                 <div className="segment-header">
                   <span className="segment-label">31–60 Days</span>
                 </div>
@@ -382,14 +428,14 @@ export default function CustomerIntelligenceTab() {
                   <div 
                     className="segment-fill" 
                     style={{ 
-                      width: `${Math.max(15, (analytics.renewalTimeline.days31to60.count / analytics.summaryMetrics.totalCustomers) * 100 * 10)}%`,
+                      width: `${Math.max(15, (analytics.renewalTimeline.days31to60.count / Math.max(analytics.summaryMetrics.totalCustomers, 1)) * 100 * 3)}%`,
                       backgroundColor: analytics.renewalTimeline.days31to60.color 
                     }}
                   ></div>
                 </div>
               </div>
 
-              <div className="timeline-segment">
+              <div className="timeline-segment" title="Renewals in 61-90 days">
                 <div className="segment-header">
                   <span className="segment-label">61–90 Days</span>
                 </div>
@@ -398,7 +444,7 @@ export default function CustomerIntelligenceTab() {
                   <div 
                     className="segment-fill" 
                     style={{ 
-                      width: `${Math.max(10, (analytics.renewalTimeline.days61to90.count / analytics.summaryMetrics.totalCustomers) * 100 * 10)}%`,
+                      width: `${Math.max(10, (analytics.renewalTimeline.days61to90.count / Math.max(analytics.summaryMetrics.totalCustomers, 1)) * 100 * 3)}%`,
                       backgroundColor: analytics.renewalTimeline.days61to90.color 
                     }}
                   ></div>
@@ -412,7 +458,7 @@ export default function CustomerIntelligenceTab() {
         <aside className="engagement-metrics-panel">
           <h2>Engagement & Loyalty Metrics</h2>
           <div className="metrics-list">
-            <div className="engagement-metric">
+            <div className="engagement-metric" title="Average customer engagement score">
               <div className="metric-header">
                 <span className="metric-name">Engagement Score</span>
                 <span className="metric-score">{analytics.engagementMetrics.engagement.score.toFixed(1)}</span>
@@ -428,7 +474,7 @@ export default function CustomerIntelligenceTab() {
               </div>
             </div>
 
-            <div className="engagement-metric">
+            <div className="engagement-metric" title="Customer retention rate">
               <div className="metric-header">
                 <span className="metric-name">Retention Score</span>
                 <span className="metric-score">{analytics.engagementMetrics.retention.score.toFixed(1)}</span>
@@ -444,7 +490,7 @@ export default function CustomerIntelligenceTab() {
               </div>
             </div>
 
-            <div className="engagement-metric">
+            <div className="engagement-metric" title="Customer loyalty index">
               <div className="metric-header">
                 <span className="metric-name">Loyalty Score</span>
                 <span className="metric-score">{analytics.engagementMetrics.loyalty.score.toFixed(1)}</span>
@@ -460,7 +506,7 @@ export default function CustomerIntelligenceTab() {
               </div>
             </div>
 
-            <div className="engagement-metric">
+            <div className="engagement-metric" title="Campaign effectiveness score">
               <div className="metric-header">
                 <span className="metric-name">Campaign Score</span>
                 <span className="metric-score">{analytics.engagementMetrics.campaign.score.toFixed(1)}</span>
@@ -490,12 +536,14 @@ export default function CustomerIntelligenceTab() {
               value={filters.search}
               onChange={(e) => handleFilterChange('search', e.target.value)}
               className="search-input"
+              aria-label="Search customers by name, email, company, or location"
             />
             
             <select
               value={filters.tier}
               onChange={(e) => handleFilterChange('tier', e.target.value)}
               className="filter-select"
+              aria-label="Filter by CLV tier"
             >
               <option value="All">All Tiers</option>
               <option value="Platinum">Platinum</option>
@@ -508,6 +556,7 @@ export default function CustomerIntelligenceTab() {
               value={filters.churnRisk}
               onChange={(e) => handleFilterChange('churnRisk', e.target.value)}
               className="filter-select"
+              aria-label="Filter by churn risk level"
             >
               <option value="All">All Risk Levels</option>
               <option value="High">High Risk</option>
@@ -519,6 +568,7 @@ export default function CustomerIntelligenceTab() {
               value={filters.renewal}
               onChange={(e) => handleFilterChange('renewal', e.target.value)}
               className="filter-select"
+              aria-label="Filter by renewal status"
             >
               <option value="All">All Renewals</option>
               <option value="Yes">Has Renewal</option>
@@ -535,28 +585,28 @@ export default function CustomerIntelligenceTab() {
         </div>
 
         <div className="table-container">
-          <table className="customer-table">
+          <table className="customer-table" role="table">
             <thead>
               <tr>
-                <th onClick={() => handleSort('customerName')} className="sortable">
+                <th onClick={() => handleSort('customerName')} className="sortable" title="Click to sort by name">
                   Name {getSortIndicator('customerName')}
                 </th>
-                <th onClick={() => handleSort('tier')} className="sortable">
+                <th onClick={() => handleSort('tier')} className="sortable" title="Click to sort by CLV tier">
                   CLV Tier {getSortIndicator('tier')}
                 </th>
-                <th onClick={() => handleSort('clv')} className="sortable">
+                <th onClick={() => handleSort('clv')} className="sortable" title="Click to sort by CLV amount">
                   CLV (12M) {getSortIndicator('clv')}
                 </th>
-                <th onClick={() => handleSort('renewal')} className="sortable">
+                <th onClick={() => handleSort('renewal')} className="sortable" title="Click to sort by renewal status">
                   Renewal {getSortIndicator('renewal')}
                 </th>
-                <th onClick={() => handleSort('churnRisk')} className="sortable">
+                <th onClick={() => handleSort('churnRisk')} className="sortable" title="Click to sort by churn risk">
                   Churn Risk {getSortIndicator('churnRisk')}
                 </th>
-                <th onClick={() => handleSort('engagementScore')} className="sortable">
+                <th onClick={() => handleSort('engagementScore')} className="sortable" title="Click to sort by engagement score">
                   Engagement Score {getSortIndicator('engagementScore')}
                 </th>
-                <th onClick={() => handleSort('tenure')} className="sortable">
+                <th onClick={() => handleSort('tenure')} className="sortable" title="Click to sort by tenure">
                   Tenure {getSortIndicator('tenure')}
                 </th>
                 <th>Location</th>
@@ -568,7 +618,19 @@ export default function CustomerIntelligenceTab() {
                 <tr key={customer.id} className="customer-row">
                   <td className="customer-name-cell">
                     <div className="name-info">
-                      <strong>{customer.customerName}</strong>
+                      <div className="name-row">
+                        <button 
+                          className="profile-icon-btn"
+                          onClick={() => handleViewProfile(customer)}
+                          title="View detailed customer profile"
+                          aria-label={`View profile for ${customer.customerName}`}
+                        >
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                          </svg>
+                        </button>
+                        <strong>{customer.customerName}</strong>
+                      </div>
                       <small>{customer.email}</small>
                     </div>
                   </td>
@@ -604,15 +666,19 @@ export default function CustomerIntelligenceTab() {
                   </td>
                   <td className="actions-cell">
                     <button 
-                      className="action-btn profile-btn"
+                      style={profileButtonStyle}
                       onClick={() => handleViewProfile(customer)}
+                      onMouseEnter={(e) => handleProfileHover(e, true)}
+                      onMouseLeave={(e) => handleProfileHover(e, false)}
                       title="View detailed customer profile"
                     >
                       Profile
                     </button>
                     <button 
-                      className="action-btn snapshot-btn"
+                      style={snapshotButtonStyle}
                       onClick={() => handleViewSnapshot(customer)}
+                      onMouseEnter={(e) => handleSnapshotHover(e, true)}
+                      onMouseLeave={(e) => handleSnapshotHover(e, false)}
                       title="Quick customer snapshot"
                     >
                       Snapshot
@@ -624,13 +690,14 @@ export default function CustomerIntelligenceTab() {
           </table>
         </div>
 
-        {/* Pagination */}
+        {/* Pagination with "X of Y customers" display */}
         {totalPages > 1 && (
           <div className="pagination">
             <button 
               className="page-btn"
               onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
               disabled={currentPage === 1}
+              aria-label="Previous page"
             >
               ← Previous
             </button>
@@ -653,6 +720,7 @@ export default function CustomerIntelligenceTab() {
                     key={pageNum}
                     className={`page-btn ${currentPage === pageNum ? 'active' : ''}`}
                     onClick={() => setCurrentPage(pageNum)}
+                    aria-label={`Page ${pageNum}`}
                   >
                     {pageNum}
                   </button>
@@ -664,6 +732,7 @@ export default function CustomerIntelligenceTab() {
               className="page-btn"
               onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
               disabled={currentPage === totalPages}
+              aria-label="Next page"
             >
               Next →
             </button>
@@ -674,6 +743,14 @@ export default function CustomerIntelligenceTab() {
           </div>
         )}
       </section>
+
+      {/* Customer Profile Modal */}
+      <CustomerProfileModal
+        customer={selectedCustomer}
+        isOpen={isProfileModalOpen}
+        onClose={handleCloseProfile}
+        userContext={userContext}
+      />
     </div>
   );
 }

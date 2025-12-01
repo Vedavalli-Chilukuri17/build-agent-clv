@@ -31,13 +31,6 @@ export default function Navigation({ currentTab, onTabChange }) {
           </li>
         ))}
       </ul>
-      
-      <div className="nav-footer">
-        <div className="user-identity">
-          <strong>Emma Thompson</strong>
-          <p>Senior Marketing Analyst</p>
-        </div>
-      </div>
     </nav>
   );
 }
