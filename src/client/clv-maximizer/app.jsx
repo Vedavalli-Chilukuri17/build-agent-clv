@@ -5,6 +5,7 @@ import RenewalTab from './components/RenewalTab.jsx';
 import CustomerIntelligenceTab from './components/CustomerIntelligenceTab.jsx';
 import CampaignTab from './components/CampaignTab.jsx';
 import DataIngestionTab from './components/DataIngestionTab.jsx';
+import ModelExecutionTab from './components/ModelExecutionTab.jsx';
 import './app.css';
 
 export default function CLVMaximizerApp() {
@@ -41,15 +42,7 @@ export default function CLVMaximizerApp() {
       case 'ingestion':
         return <DataIngestionTab />;
       case 'execution':
-        return (
-          <div className="tab-content">
-            <h1>Model Execution</h1>
-            <div className="coming-soon">
-              <h2>⚙️ ML Model Pipeline</h2>
-              <p>Machine learning model execution and monitoring tools coming soon.</p>
-            </div>
-          </div>
-        );
+        return <ModelExecutionTab />;
       default:
         return <Dashboard />;
     }

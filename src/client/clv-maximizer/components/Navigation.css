@@ -49,7 +49,7 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 12px 20px;
+  padding: 14px 20px;
   background: none;
   border: none;
   color: #d1d5db;
@@ -70,13 +70,6 @@
   background: rgba(59, 130, 246, 0.15);
   color: #60a5fa;
   border-left-color: #3b82f6;
-}
-
-.nav-icon {
-  font-size: 16px;
-  margin-right: 12px;
-  width: 20px;
-  text-align: center;
 }
 
 .nav-label {
@@ -106,23 +99,34 @@
 /* Responsive behavior */
 @media (max-width: 768px) {
   .clv-navigation {
-    width: 60px;
-    overflow: hidden;
-  }
-  
-  .nav-label,
-  .nav-title,
-  .nav-subtitle,
-  .user-identity {
-    display: none;
+    width: 240px;
   }
   
   .nav-button {
-    justify-content: center;
-    padding: 12px 0;
+    padding: 12px 16px;
+    font-size: 13px;
   }
   
-  .nav-icon {
-    margin: 0;
+  .nav-header {
+    padding: 20px 16px;
+  }
+  
+  .nav-footer {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .clv-navigation {
+    width: 200px;
+  }
+  
+  .nav-button {
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+  
+  .nav-title {
+    font-size: 18px;
   }
 }
