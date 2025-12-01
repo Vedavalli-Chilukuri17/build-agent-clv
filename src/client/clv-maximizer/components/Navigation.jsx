@@ -3,12 +3,12 @@ import './Navigation.css';
 
 export default function Navigation({ currentTab, onTabChange }) {
   const navigationItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: '📊' },
-    { id: 'renewal', label: 'Renewal', icon: '🔄' },
-    { id: 'intelligence', label: 'Customer Intelligence', icon: '🧠' },
-    { id: 'campaign', label: 'Campaign', icon: '📢' },
-    { id: 'ingestion', label: 'Data Ingestion', icon: '📥' },
-    { id: 'execution', label: 'Model Execution', icon: '⚙️' }
+    { id: 'dashboard', label: 'Dashboard' },
+    { id: 'renewal', label: 'Renewal' },
+    { id: 'intelligence', label: 'Customer Intelligence' },
+    { id: 'campaign', label: 'Campaign' },
+    { id: 'ingestion', label: 'Data Ingestion' },
+    { id: 'execution', label: 'Model Execution' }
   ];
 
   return (
@@ -26,7 +26,6 @@ export default function Navigation({ currentTab, onTabChange }) {
               onClick={() => onTabChange(item.id)}
               aria-label={item.label}
             >
-              <span className="nav-icon" role="img" aria-hidden="true">{item.icon}</span>
               <span className="nav-label">{item.label}</span>
             </button>
           </li>
