@@ -1,0 +1,542 @@
+/* Enhanced Churn Risk Heatmap Styles */
+.churn-risk-heatmap {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.churn-risk-heatmap:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Header Section */
+.heatmap-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.heatmap-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.heatmap-refresh-indicator {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #10b981;
+  font-weight: 500;
+}
+
+.refresh-dot {
+  width: 8px;
+  height: 8px;
+  background: #10b981;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* Loading State */
+.heatmap-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: #6b7280;
+}
+
+.heatmap-loading .loading-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #e5e7eb;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+/* Enhanced Risk Bars */
+.heatmap-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.risk-bar {
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 0;
+  border-radius: 12px;
+  border: 2px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #f3f4f6, #e5e7eb) border-box;
+  overflow: hidden;
+}
+
+.risk-bar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-color: transparent;
+}
+
+.risk-bar:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.risk-bar:active {
+  transform: translateY(0);
+}
+
+/* Risk Bar Color Variants */
+.risk-bar--high {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #fecaca, #ef4444) border-box;
+}
+
+.risk-bar--high:hover {
+  background: linear-gradient(#fff5f5, white) padding-box,
+              linear-gradient(45deg, #ef4444, #dc2626) border-box;
+}
+
+.risk-bar--medium {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #fef3c7, #f59e0b) border-box;
+}
+
+.risk-bar--medium:hover {
+  background: linear-gradient(#fffbeb, white) padding-box,
+              linear-gradient(45deg, #f59e0b, #d97706) border-box;
+}
+
+.risk-bar--low {
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #d1fae5, #10b981) border-box;
+}
+
+.risk-bar--low:hover {
+  background: linear-gradient(#f0fdf4, white) padding-box,
+              linear-gradient(45deg, #10b981, #059669) border-box;
+}
+
+/* Risk Bar Content Layout */
+.risk-bar__content {
+  padding: 20px;
+  position: relative;
+}
+
+.risk-bar__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  min-height: 24px;
+}
+
+.risk-bar__labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.risk-bar__label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  letter-spacing: -0.025em;
+}
+
+.risk-bar__metrics {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.risk-bar__count {
+  font-size: 20px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.risk-bar__percentage {
+  font-size: 16px;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Visual Progress Bar */
+.risk-bar__visual {
+  width: 100%;
+  height: 12px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.risk-bar__fill {
+  height: 100%;
+  border-radius: 6px;
+  position: relative;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.risk-bar__fill-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.3) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0.3) 75%,
+    transparent 75%
+  );
+  background-size: 20px 20px;
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Enhanced Tooltips */
+.risk-bar__tooltip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1f2937;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 13px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  min-width: 200px;
+  pointer-events: none;
+}
+
+.risk-bar__tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #1f2937;
+}
+
+.risk-bar:hover .risk-bar__tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(-4px);
+}
+
+.tooltip-header {
+  margin-bottom: 8px;
+  border-bottom: 1px solid #374151;
+  padding-bottom: 6px;
+}
+
+.tooltip-header strong {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.tooltip-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.tooltip-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tooltip-label {
+  color: #d1d5db;
+  font-weight: 500;
+}
+
+.tooltip-value {
+  font-weight: 600;
+  color: white;
+}
+
+.tooltip-action {
+  margin-top: 6px;
+  padding-top: 6px;
+  border-top: 1px solid #374151;
+  color: #3b82f6;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* Footer Section */
+.heatmap-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+  font-size: 12px;
+}
+
+.heatmap-legend {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.legend-color--high {
+  background: #ef4444;
+}
+
+.legend-color--medium {
+  background: #f59e0b;
+}
+
+.legend-color--low {
+  background: #10b981;
+}
+
+.heatmap-summary {
+  color: #374151;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .churn-risk-heatmap {
+    padding: 20px;
+  }
+  
+  .risk-bar__content {
+    padding: 16px;
+  }
+  
+  .risk-bar__label {
+    font-size: 16px;
+  }
+  
+  .risk-bar__count {
+    font-size: 18px;
+  }
+  
+  .risk-bar__percentage {
+    font-size: 14px;
+  }
+  
+  .heatmap-footer {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .heatmap-legend {
+    justify-content: center;
+  }
+  
+  .heatmap-summary {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .churn-risk-heatmap {
+    padding: 16px;
+  }
+  
+  .heatmap-header {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .heatmap-bars {
+    gap: 16px;
+  }
+  
+  .risk-bar__content {
+    padding: 14px;
+  }
+  
+  .risk-bar__info {
+    margin-bottom: 12px;
+  }
+  
+  .risk-bar__labels {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  
+  .risk-bar__metrics {
+    align-self: flex-end;
+  }
+  
+  .risk-bar__label {
+    font-size: 15px;
+  }
+  
+  .risk-bar__count {
+    font-size: 16px;
+  }
+  
+  .risk-bar__percentage {
+    font-size: 13px;
+  }
+  
+  .risk-bar__visual {
+    height: 10px;
+  }
+  
+  .heatmap-legend {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  
+  .legend-item {
+    font-size: 11px;
+  }
+  
+  .legend-color {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .churn-risk-heatmap {
+    padding: 12px;
+  }
+  
+  .heatmap-header h2 {
+    font-size: 18px;
+  }
+  
+  .risk-bar__content {
+    padding: 12px;
+  }
+  
+  .risk-bar__labels {
+    gap: 6px;
+  }
+  
+  .risk-bar__metrics {
+    gap: 8px;
+  }
+  
+  .risk-bar__visual {
+    height: 8px;
+  }
+  
+  .heatmap-footer {
+    font-size: 11px;
+  }
+  
+  /* Disable tooltips on mobile for better touch experience */
+  .risk-bar__tooltip {
+    display: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .risk-bar {
+    border-width: 3px;
+  }
+  
+  .risk-bar__fill {
+    border: 1px solid currentColor;
+  }
+  
+  .legend-color {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .risk-bar,
+  .risk-bar__fill,
+  .risk-bar__tooltip,
+  .refresh-dot,
+  .risk-bar__fill-inner {
+    animation: none;
+    transition: none;
+  }
+  
+  .risk-bar:hover {
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .churn-risk-heatmap {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 2px solid #000;
+  }
+  
+  .risk-bar__tooltip {
+    display: none;
+  }
+  
+  .heatmap-refresh-indicator {
+    display: none;
+  }
+}
