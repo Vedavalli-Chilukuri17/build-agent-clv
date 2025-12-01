@@ -1,0 +1,1241 @@
+/* Data Ingestion Tab Styles */
+.data-ingestion-tab {
+  padding: 24px;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.ingestion-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  color: #6b7280;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.ingestion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.ingestion-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.ingestion-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.last-updated {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.user-identity {
+  text-align: right;
+}
+
+.user-identity strong {
+  font-size: 14px;
+  color: #1f2937;
+}
+
+/* Section 1: Summary Metrics Panel */
+.summary-metrics-section {
+  margin-bottom: 32px;
+}
+
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.summary-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.summary-card.total-datasets {
+  border-left: 4px solid #3b82f6;
+}
+
+.summary-card.viewed-datasets {
+  border-left: 4px solid #10b981;
+}
+
+.summary-card.validated-datasets {
+  border-left: 4px solid #8b5cf6;
+}
+
+.card-icon {
+  font-size: 32px;
+  padding: 12px;
+  background: #f3f4f6;
+  border-radius: 8px;
+}
+
+.card-content {
+  flex: 1;
+}
+
+.card-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 4px;
+}
+
+.card-label {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.card-trend .trend-indicator {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.trend-indicator.positive {
+  color: #059669;
+  background: #ecfdf5;
+}
+
+.trend-indicator.negative {
+  color: #dc2626;
+  background: #fef2f2;
+}
+
+.trend-indicator.warning {
+  color: #d97706;
+  background: #fef3c7;
+}
+
+.trend-indicator.neutral {
+  color: #4b5563;
+  background: #f3f4f6;
+}
+
+/* Section 2: Upload & Validation Workflow */
+.upload-workflow-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.upload-workflow-section h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 24px 0;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* NEW: Upload and CRM Side-by-Side Layout */
+.upload-and-crm-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.upload-container {
+  display: grid;
+  gap: 24px;
+}
+
+.upload-zone-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.upload-zone {
+  border: 2px dashed #d1d5db;
+  border-radius: 8px;
+  padding: 48px 24px;
+  text-align: center;
+  background: #f9fafb;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.upload-zone:hover,
+.upload-zone.has-file {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.upload-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.upload-icon {
+  font-size: 48px;
+  color: #6b7280;
+}
+
+.upload-text {
+  font-size: 16px;
+  color: #374151;
+}
+
+.browse-btn {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.upload-formats {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.upload-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.source-type-select {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  color: #374151;
+}
+
+.upload-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.upload-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.upload-progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  min-width: 40px;
+}
+
+/* Workflow Panels */
+.workflow-panels {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.workflow-panel {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.workflow-panel h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0 0 12px 0;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.preview-panel {
+  border-left: 4px solid #3b82f6;
+}
+
+.analytics-panel {
+  border-left: 4px solid #10b981;
+}
+
+.validation-panel {
+  border-left: 4px solid #f59e0b;
+}
+
+/* Data Preview */
+.data-preview {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.preview-table {
+  overflow-x: auto;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.preview-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.preview-table th {
+  background: #f3f4f6;
+  padding: 6px 8px;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+}
+
+.preview-table td {
+  padding: 4px 8px;
+  font-size: 11px;
+  color: #4b5563;
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.no-preview,
+.no-analytics,
+.no-validation {
+  text-align: center;
+  padding: 16px;
+  color: #6b7280;
+  font-style: italic;
+  font-size: 14px;
+}
+
+/* Quick Analytics */
+.analytics-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.analytics-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 6px 8px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e5e7eb;
+}
+
+.analytics-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.analytics-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Validation */
+.validation-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.validation-result {
+  padding: 12px;
+  border-radius: 4px;
+  border: 1px solid;
+}
+
+.validation-result.validated {
+  background: #ecfdf5;
+  border-color: #10b981;
+  color: #065f46;
+}
+
+.validation-result.failed {
+  background: #fef2f2;
+  border-color: #ef4444;
+  color: #991b1b;
+}
+
+.validation-result.processing {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.validation-status {
+  margin-bottom: 8px;
+}
+
+.status-badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-badge.validated {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-badge.failed {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.status-badge.processing {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.status-badge.pending {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.validation-errors ul {
+  margin: 6px 0 0 0;
+  padding-left: 16px;
+}
+
+.validation-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.validation-btn {
+  padding: 4px 8px;
+  border: 1px solid;
+  border-radius: 3px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.validation-btn.run-validation {
+  background: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.validation-btn.run-validation:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.validation-btn.reprocess {
+  background: white;
+  border-color: #d1d5db;
+  color: #374151;
+}
+
+.validation-btn.reprocess:hover:not(:disabled) {
+  background: #f9fafb;
+}
+
+.validation-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* NEW: CRM Data Analytics & Dataset Sheet */
+.crm-analytics-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.crm-analytics-section {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.crm-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.crm-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.crm-refresh {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.refresh-indicator {
+  animation: spin 2s linear infinite;
+}
+
+.last-updated-small {
+  font-size: 11px;
+}
+
+/* Dataset Cards */
+.crm-dataset-cards {
+  margin-bottom: 20px;
+}
+
+.crm-dataset-cards h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.dataset-cards-grid {
+  display: grid;
+  gap: 12px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.dataset-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.dataset-card:hover {
+  border-color: #3b82f6;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dataset-card.selected {
+  border-color: #3b82f6;
+  background: #eff6ff;
+}
+
+.dataset-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dataset-card-header h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.dataset-status-badge {
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 500;
+}
+
+.dataset-status-badge.validated {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.dataset-status-badge.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.dataset-card-info {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 11px;
+}
+
+.dataset-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.info-label {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.info-value {
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.dataset-card-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.dataset-action-btn {
+  padding: 4px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  background: white;
+  color: #374151;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.dataset-action-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.dataset-action-btn.view {
+  color: #3b82f6;
+  border-color: #93c5fd;
+}
+
+.dataset-action-btn.metadata {
+  color: #8b5cf6;
+  border-color: #c4b5fd;
+}
+
+/* Data Sheet Preview */
+.crm-data-sheet {
+  margin-bottom: 20px;
+}
+
+.crm-data-sheet h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.data-sheet-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  gap: 12px;
+}
+
+.sheet-stats {
+  display: flex;
+  gap: 16px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.filter-input,
+.sort-select {
+  padding: 4px 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  background: white;
+}
+
+.filter-input {
+  width: 120px;
+}
+
+.sort-select {
+  width: 100px;
+}
+
+.data-sheet-preview {
+  max-height: 300px;
+  overflow: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+}
+
+.crm-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.crm-data-table th {
+  background: #f9fafb;
+  padding: 6px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  position: sticky;
+  top: 0;
+  white-space: nowrap;
+}
+
+.crm-data-table td {
+  padding: 4px 8px;
+  color: #4b5563;
+  border-bottom: 1px solid #f3f4f6;
+  white-space: nowrap;
+}
+
+/* CRM Quick Analytics */
+.crm-quick-analytics {
+  margin-bottom: 20px;
+}
+
+.crm-quick-analytics h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.crm-analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.crm-analytics-card {
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.analytics-card-icon {
+  font-size: 24px;
+  padding: 8px;
+  background: #f3f4f6;
+  border-radius: 6px;
+}
+
+.analytics-card-content {
+  flex: 1;
+}
+
+.analytics-card-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 2px;
+}
+
+.analytics-card-label {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* CRM Metadata Summary */
+.crm-metadata-summary h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 12px 0;
+}
+
+.metadata-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+}
+
+.metadata-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+}
+
+.metadata-label {
+  font-size: 12px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.metadata-value {
+  font-size: 12px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.metadata-value.status.validated {
+  color: #059669;
+}
+
+.metadata-value.status.pending {
+  color: #d97706;
+}
+
+.no-crm-dataset {
+  text-align: center;
+  padding: 40px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Section 3: Recent Data Uploads Table */
+.uploads-table-section {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 32px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.table-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.filter-select {
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  color: #374151;
+}
+
+.uploads-table {
+  overflow-x: auto;
+  margin-bottom: 16px;
+}
+
+.uploads-table table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 800px;
+}
+
+.uploads-table th {
+  background: #f9fafb;
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.uploads-table th:hover {
+  background: #f3f4f6;
+}
+
+.uploads-table td {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #4b5563;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.file-name {
+  font-weight: 500;
+  color: #1f2937;
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.source-type {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.source-type.external {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.source-type.crm {
+  background: #ecfdf5;
+  color: #065f46;
+}
+
+.source-type.campaign {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.source-type.internal {
+  background: #f3e8ff;
+  color: #6b21a8;
+}
+
+.source-type.api {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: none;
+  border: 1px solid #e5e7eb;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: #f3f4f6;
+}
+
+.action-btn.delete:hover {
+  background: #fef2f2;
+  border-color: #f87171;
+}
+
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.pagination-btn {
+  padding: 8px 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Section 4: Footer Metrics Panel */
+.footer-metrics-section {
+  margin-bottom: 24px;
+}
+
+.footer-metrics-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.footer-metric-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.footer-metric-card:hover {
+  transform: translateY(-2px);
+}
+
+.footer-metric-card.quality-score {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.footer-metric-card.total-records {
+  background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
+}
+
+.footer-metric-card.last-sync {
+  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.metric-icon {
+  font-size: 32px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.metric-label {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 8px;
+}
+
+.metric-trend .trend-indicator {
+  font-size: 12px;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.trend-indicator.up {
+  color: #86efac;
+}
+
+.trend-indicator.down {
+  color: #fca5a5;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .upload-and-crm-container {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .crm-analytics-container {
+    max-height: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .data-ingestion-tab {
+    padding: 16px;
+  }
+  
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .workflow-panels {
+    grid-template-columns: 1fr;
+  }
+  
+  .upload-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .table-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .uploads-table {
+    font-size: 12px;
+  }
+  
+  .uploads-table th,
+  .uploads-table td {
+    padding: 8px 12px;
+  }
+  
+  .footer-metrics-cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .crm-analytics-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .dataset-card-info {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .ingestion-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .summary-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+  
+  .upload-zone {
+    padding: 24px 16px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .dataset-card-actions {
+    flex-direction: column;
+  }
+  
+  .data-sheet-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .sheet-actions {
+    justify-content: stretch;
+  }
+  
+  .filter-input,
+  .sort-select {
+    flex: 1;
+  }
+}
