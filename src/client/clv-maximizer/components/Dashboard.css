@@ -51,6 +51,12 @@
   gap: 16px;
 }
 
+.user-identity {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
 .last-updated {
   font-size: 14px;
   color: #6b7280;
@@ -714,45 +720,115 @@
   font-size: 14px;
 }
 
-/* Renewal Pipeline Section */
+/* ENHANCED Renewal Pipeline Section */
 .renewal-pipeline-section {
   grid-column: 1 / -1;
 }
 
-.renewal-table {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr 1fr;
-  gap: 8px;
+.renewal-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.renewal-section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.renewal-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.renewal-filter-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  min-width: 250px;
+  background: white;
+}
+
+.renewal-filter-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.renewal-count {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.renewal-table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+.renewal-table-enhanced {
+  width: 100%;
+  border-collapse: collapse;
   font-size: 14px;
 }
 
-.renewal-header {
-  display: contents;
+.renewal-table-enhanced th {
+  background: #f8fafc;
+  color: #374151;
   font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+  position: relative;
+}
+
+.renewal-table-enhanced th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.renewal-table-enhanced th.sortable:hover {
+  background: #f1f5f9;
+}
+
+.renewal-table-enhanced td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
   color: #374151;
 }
 
-.renewal-header > span {
-  padding: 12px 8px;
+.renewal-row-enhanced:hover {
   background: #f9fafb;
-  border-radius: 4px;
 }
 
-.renewal-row {
-  display: contents;
+.renewal-customer {
+  font-weight: 500;
+  color: #1f2937;
 }
 
-.renewal-row > span {
-  padding: 8px;
-  border-bottom: 1px solid #f3f4f6;
+.renewal-date {
+  color: #6b7280;
 }
 
-.renewal-status {
-  padding: 4px 8px !important;
+.renewal-status-enhanced {
+  display: inline-block;
+  padding: 4px 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
+  min-width: 80px;
 }
 
 .status-pending {
@@ -773,6 +849,268 @@
 .status-confirmed {
   background: #d1fae5;
   color: #065f46;
+}
+
+.renewal-opportunity {
+  font-weight: 600;
+  color: #059669;
+}
+
+.renewal-amount {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.renewal-clv {
+  font-weight: 600;
+  color: #7c3aed;
+}
+
+.renewal-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  background: #f8fafc;
+  border-radius: 6px;
+}
+
+.pagination-btn {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.pagination-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+/* NEW Product Benchmarking Section */
+.product-benchmarking-section {
+  grid-column: 1 / -1;
+}
+
+.benchmarking-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.benchmarking-section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+}
+
+.benchmarking-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.data-source {
+  background: #f0f9ff;
+  color: #0369a1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.benchmarking-timestamp {
+  font-weight: 500;
+}
+
+.benchmarking-table-container {
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.benchmarking-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  min-width: 1000px;
+}
+
+.benchmarking-table th {
+  background: #f8fafc;
+  color: #374151;
+  font-weight: 600;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.benchmarking-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.benchmarking-table th.sortable:hover {
+  background: #f1f5f9;
+}
+
+.benchmarking-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  color: #374151;
+}
+
+.benchmarking-row:hover {
+  background: #f9fafb;
+}
+
+.product-name-cell {
+  min-width: 180px;
+}
+
+.product-name-with-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.product-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.performance-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.performance-strong {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.performance-competitive {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.performance-challenged {
+  background: #fecaca;
+  color: #991b1b;
+}
+
+.performance-neutral {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+.performance-cell {
+  font-weight: 600;
+  text-align: center;
+}
+
+.performance-strong {
+  color: #059669;
+}
+
+.performance-competitive {
+  color: #d97706;
+}
+
+.performance-challenged {
+  color: #dc2626;
+}
+
+.comparison-cell {
+  text-align: center;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.comparison-cell.positive {
+  color: #059669;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.comparison-cell.negative {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.05);
+}
+
+.metric-cell {
+  text-align: center;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.benchmarking-footer {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 8px;
+}
+
+.benchmarking-legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.legend-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.legend-title {
+  font-weight: 600;
+  color: #374151;
+  font-size: 12px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.legend-indicator {
+  font-size: 14px;
+}
+
+.legend-text {
+  font-weight: 500;
 }
 
 /* Strategic Quadrant Section */
@@ -827,6 +1165,21 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+  .benchmarking-table-container {
+    overflow-x: auto;
+  }
+  
+  .benchmarking-legend {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .legend-group {
+    justify-content: center;
+  }
+}
+
 @media (max-width: 768px) {
   .dashboard-grid {
     grid-template-columns: 1fr;
@@ -846,6 +1199,22 @@
   
   .tier-chart {
     grid-template-columns: 1fr;
+  }
+  
+  .renewal-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .renewal-filter-input {
+    min-width: auto;
+    width: 100%;
+  }
+  
+  .benchmarking-meta {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
   }
   
   /* Mobile Product Blocks */
@@ -870,6 +1239,18 @@
 }
 
 @media (max-width: 480px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .dashboard-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
   .product-horizontal-container {
     margin: 0 -24px;
     padding: 0 24px;
@@ -887,5 +1268,24 @@
   .metric-label,
   .metric-value {
     font-size: 12px;
+  }
+  
+  .renewal-table-enhanced {
+    font-size: 12px;
+  }
+  
+  .renewal-table-enhanced th,
+  .renewal-table-enhanced td {
+    padding: 8px;
+  }
+  
+  .benchmarking-table {
+    font-size: 12px;
+    min-width: 800px;
+  }
+  
+  .benchmarking-table th,
+  .benchmarking-table td {
+    padding: 8px;
   }
 }

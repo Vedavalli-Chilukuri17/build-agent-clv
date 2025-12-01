@@ -13,6 +13,16 @@ export default function Dashboard() {
   });
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  
+  // Renewal pipeline pagination state
+  const [renewalPage, setRenewalPage] = useState(1);
+  const [renewalPageSize] = useState(10);
+  const [renewalSort, setRenewalSort] = useState({ field: 'renewalDate', direction: 'asc' });
+  const [renewalFilter, setRenewalFilter] = useState('');
+  
+  // Product benchmarking state
+  const [productBenchmarking, setProductBenchmarking] = useState(null);
+  const [benchmarkingSort, setBenchmarkingSort] = useState({ field: 'productName', direction: 'asc' });
 
   const service = useMemo(() => new CLVDataService(), []);
 
@@ -27,15 +37,17 @@ export default function Dashboard() {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
-      const [customers, incidents, activities, catalogItems, roles] = await Promise.all([
+      const [customers, incidents, activities, catalogItems, roles, benchmarking] = await Promise.all([
         service.getCustomerData(),
         service.getIncidentData(),
         service.getUserActivity(),
         service.getServiceCatalogData(),
-        service.getRoleData()
+        service.getRoleData(),
+        service.getProductBenchmarkingData()
       ]);
 
       setDashboardData({ customers, incidents, activities, catalogItems, roles });
+      setProductBenchmarking(benchmarking);
       setLastUpdated(new Date());
     } catch (error) {
       console.error('Error loading dashboard data:', error);
@@ -65,14 +77,83 @@ export default function Dashboard() {
     return service.calculateCLVBands(dashboardData.customers);
   }, [service, dashboardData.customers]);
 
-  const upcomingRenewals = useMemo(() => {
-    return service.getUpcomingRenewals(dashboardData.customers);
-  }, [service, dashboardData.customers]);
+  // Enhanced renewal pipeline with pagination and filtering
+  const renewalPipeline = useMemo(() => {
+    const paginatedData = service.getUpcomingRenewals(dashboardData.customers, renewalPage, renewalPageSize);
+    let filteredData = paginatedData.data;
+
+    // Apply filter
+    if (renewalFilter) {
+      filteredData = filteredData.filter(renewal => 
+        renewal.customerName.toLowerCase().includes(renewalFilter.toLowerCase()) ||
+        renewal.renewalStatus.toLowerCase().includes(renewalFilter.toLowerCase())
+      );
+    }
+
+    // Apply sort
+    filteredData.sort((a, b) => {
+      let aVal = a[renewalSort.field];
+      let bVal = b[renewalSort.field];
+      
+      if (renewalSort.field === 'renewalAmount' || renewalSort.field === 'opportunityScore' || renewalSort.field === 'clvScore') {
+        aVal = typeof aVal === 'number' ? aVal : parseFloat(aVal) || 0;
+        bVal = typeof bVal === 'number' ? bVal : parseFloat(bVal) || 0;
+      }
+
+      if (renewalSort.direction === 'asc') {
+        return aVal > bVal ? 1 : -1;
+      } else {
+        return aVal < bVal ? 1 : -1;
+      }
+    });
+
+    return {
+      data: filteredData,
+      pagination: paginatedData.pagination
+    };
+  }, [service, dashboardData.customers, renewalPage, renewalPageSize, renewalSort, renewalFilter]);
+
+  // Sorted product benchmarking data
+  const sortedBenchmarking = useMemo(() => {
+    if (!productBenchmarking?.data) return [];
+    
+    return [...productBenchmarking.data].sort((a, b) => {
+      let aVal = a[benchmarkingSort.field];
+      let bVal = b[benchmarkingSort.field];
+      
+      if (benchmarkingSort.field.includes('Vs') || benchmarkingSort.field.includes('Ratio') || benchmarkingSort.field.includes('Rate')) {
+        aVal = parseFloat(aVal.replace('%', '')) || 0;
+        bVal = parseFloat(bVal.replace('%', '')) || 0;
+      }
+
+      if (benchmarkingSort.direction === 'asc') {
+        return aVal > bVal ? 1 : -1;
+      } else {
+        return aVal < bVal ? 1 : -1;
+      }
+    });
+  }, [productBenchmarking, benchmarkingSort]);
 
   // Handle product block clicks for drill-down
   const handleProductClick = (product) => {
     console.log('Drilling down into product:', product.name);
     // Future: Navigate to detailed product analytics
+  };
+
+  // Handle renewal table sorting
+  const handleRenewalSort = (field) => {
+    setRenewalSort(prev => ({
+      field,
+      direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
+  // Handle benchmarking table sorting
+  const handleBenchmarkingSort = (field) => {
+    setBenchmarkingSort(prev => ({
+      field,
+      direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
+    }));
   };
 
   if (loading) {
@@ -459,34 +540,233 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Section K: Renewal Pipeline Management */}
+        {/* FIXED Section K: Renewal Pipeline Management */}
         <section className="dashboard-section renewal-pipeline-section">
-          <h2>Renewal Pipeline Management</h2>
-          <div className="renewal-table">
-            <div className="renewal-header">
-              <span>Customer Name</span>
-              <span>Renewal Date</span>
-              <span>Status</span>
-              <span>Opportunity Score</span>
-              <span>Renewal Amount</span>
-              <span>CLV Score</span>
+          <div className="renewal-section-header">
+            <h2>Renewal Pipeline Management</h2>
+            <div className="renewal-controls">
+              <input
+                type="text"
+                placeholder="Filter by customer or status..."
+                value={renewalFilter}
+                onChange={(e) => setRenewalFilter(e.target.value)}
+                className="renewal-filter-input"
+              />
+              <span className="renewal-count">
+                {renewalPipeline.data.length} of {renewalPipeline.pagination?.totalRecords || 0} records
+              </span>
             </div>
-            {upcomingRenewals.map((renewal, index) => (
-              <div key={index} className="renewal-row">
-                <span className="renewal-customer">{renewal.customerName}</span>
-                <span className="renewal-date">{renewal.renewalDate}</span>
-                <span className={`renewal-status status-${renewal.renewalStatus.toLowerCase().replace(' ', '-')}`}>
-                  {renewal.renewalStatus}
-                </span>
-                <span className="renewal-opportunity">{renewal.opportunityScore}%</span>
-                <span className="renewal-amount">${renewal.renewalAmount.toLocaleString()}</span>
-                <span className="renewal-clv">{renewal.clvScore}</span>
-              </div>
-            ))}
+          </div>
+
+          <div className="renewal-table-container">
+            <table className="renewal-table-enhanced">
+              <thead>
+                <tr>
+                  <th onClick={() => handleRenewalSort('customerName')} className="sortable" 
+                      title="Sort by Customer Name">
+                    Customer Name {renewalSort.field === 'customerName' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleRenewalSort('renewalDate')} className="sortable"
+                      title="Sort by Renewal Date">
+                    Renewal Date {renewalSort.field === 'renewalDate' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleRenewalSort('renewalStatus')} className="sortable"
+                      title="Sort by Status">
+                    Status {renewalSort.field === 'renewalStatus' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleRenewalSort('opportunityScore')} className="sortable"
+                      title="Sort by Opportunity Score">
+                    Opportunity Score {renewalSort.field === 'opportunityScore' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleRenewalSort('renewalAmount')} className="sortable"
+                      title="Sort by Renewal Amount">
+                    Renewal Amount {renewalSort.field === 'renewalAmount' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleRenewalSort('clvScore')} className="sortable"
+                      title="Sort by CLV Score">
+                    CLV Score {renewalSort.field === 'clvScore' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {renewalPipeline.data.map((renewal, index) => (
+                  <tr key={renewal.id || index} className="renewal-row-enhanced">
+                    <td className="renewal-customer" title={renewal.customerName}>{renewal.customerName}</td>
+                    <td className="renewal-date">{renewal.renewalDate}</td>
+                    <td>
+                      <span className={`renewal-status-enhanced status-${renewal.renewalStatus.toLowerCase().replace(' ', '-')}`}
+                            title={`Status: ${renewal.renewalStatus}`}>
+                        {renewal.renewalStatus}
+                      </span>
+                    </td>
+                    <td className="renewal-opportunity" title={`Opportunity Score: ${renewal.opportunityScore}%`}>
+                      {renewal.opportunityScore}%
+                    </td>
+                    <td className="renewal-amount" title={`Renewal Amount: $${renewal.renewalAmount.toLocaleString()}`}>
+                      ${renewal.renewalAmount.toLocaleString()}
+                    </td>
+                    <td className="renewal-clv" title={`CLV Score: ${renewal.clvScore}`}>
+                      {renewal.clvScore}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Pagination Controls */}
+          <div className="renewal-pagination">
+            <button 
+              onClick={() => setRenewalPage(prev => Math.max(1, prev - 1))}
+              disabled={renewalPage <= 1}
+              className="pagination-btn"
+            >
+              Previous
+            </button>
+            <span className="pagination-info">
+              Page {renewalPage} of {renewalPipeline.pagination?.totalPages || 1}
+            </span>
+            <button 
+              onClick={() => setRenewalPage(prev => prev + 1)}
+              disabled={renewalPage >= (renewalPipeline.pagination?.totalPages || 1)}
+              className="pagination-btn"
+            >
+              Next
+            </button>
           </div>
         </section>
 
-        {/* Section L: Strategic Quadrant Highlights */}
+        {/* NEW Section L: Product Benchmarking Analysis Report */}
+        <section className="dashboard-section product-benchmarking-section">
+          <div className="benchmarking-section-header">
+            <h2>Product Benchmarking Analysis</h2>
+            <div className="benchmarking-meta">
+              <span className="data-source" title="Data source information">
+                📊 {productBenchmarking?.dataSource || 'Loading...'}
+              </span>
+              <span className="benchmarking-timestamp">
+                Updated: {productBenchmarking?.lastUpdated ? productBenchmarking.lastUpdated.toLocaleTimeString() : 'N/A'}
+              </span>
+            </div>
+          </div>
+
+          <div className="benchmarking-table-container">
+            <table className="benchmarking-table">
+              <thead>
+                <tr>
+                  <th onClick={() => handleBenchmarkingSort('productName')} className="sortable"
+                      title="Sort by Product Name">
+                    Product Name {benchmarkingSort.field === 'productName' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('performanceLabel')} className="sortable"
+                      title="Sort by Performance Label">
+                    Performance {benchmarkingSort.field === 'performanceLabel' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('premiumVsComp1')} className="sortable"
+                      title="Premium comparison vs Competitor 1">
+                    Premium vs Comp 1 {benchmarkingSort.field === 'premiumVsComp1' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('premiumVsComp2')} className="sortable"
+                      title="Premium comparison vs Competitor 2">
+                    Premium vs Comp 2 {benchmarkingSort.field === 'premiumVsComp2' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('renewalVsComp1')} className="sortable"
+                      title="Renewal rate vs Competitor 1">
+                    Renewal vs Comp 1 {benchmarkingSort.field === 'renewalVsComp1' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('renewalVsComp2')} className="sortable"
+                      title="Renewal rate vs Competitor 2">
+                    Renewal vs Comp 2 {benchmarkingSort.field === 'renewalVsComp2' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('claimsRatio')} className="sortable"
+                      title="Our claims ratio">
+                    Claims Ratio {benchmarkingSort.field === 'claimsRatio' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleBenchmarkingSort('addOnRate')} className="sortable"
+                      title="Our add-on rate">
+                    Add-On Rate {benchmarkingSort.field === 'addOnRate' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedBenchmarking.map((product, index) => (
+                  <tr key={index} className="benchmarking-row">
+                    <td className="product-name-cell">
+                      <div className="product-name-with-label">
+                        <span className="product-name">{product.productName}</span>
+                        <span className={`performance-badge ${service.getPerformanceBadgeClass(product.performanceLabel)}`}>
+                          {product.performanceLabel}
+                        </span>
+                      </div>
+                    </td>
+                    <td className={`performance-cell performance-${product.performanceLabel.toLowerCase()}`}>
+                      {product.performanceLabel}
+                    </td>
+                    <td className={`comparison-cell ${parseFloat(product.premiumVsComp1.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
+                        title={`Premium ${parseFloat(product.premiumVsComp1.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 1`}>
+                      {service.getPerformanceIndicator(product.premiumVsComp1).indicator} {product.premiumVsComp1}
+                    </td>
+                    <td className={`comparison-cell ${parseFloat(product.premiumVsComp2.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
+                        title={`Premium ${parseFloat(product.premiumVsComp2.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 2`}>
+                      {service.getPerformanceIndicator(product.premiumVsComp2).indicator} {product.premiumVsComp2}
+                    </td>
+                    <td className={`comparison-cell ${parseFloat(product.renewalVsComp1.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
+                        title={`Renewal rate ${parseFloat(product.renewalVsComp1.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 1`}>
+                      {service.getPerformanceIndicator(product.renewalVsComp1).indicator} {product.renewalVsComp1}
+                    </td>
+                    <td className={`comparison-cell ${parseFloat(product.renewalVsComp2.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
+                        title={`Renewal rate ${parseFloat(product.renewalVsComp2.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 2`}>
+                      {service.getPerformanceIndicator(product.renewalVsComp2).indicator} {product.renewalVsComp2}
+                    </td>
+                    <td className="metric-cell" title={`Claims ratio: ${product.claimsRatio}`}>
+                      {product.claimsRatio}
+                    </td>
+                    <td className="metric-cell" title={`Add-on rate: ${product.addOnRate}`}>
+                      {product.addOnRate}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="benchmarking-footer">
+            <div className="benchmarking-legend">
+              <div className="legend-group">
+                <span className="legend-title">Performance Labels:</span>
+                <span className="legend-item">
+                  <span className="performance-badge performance-strong">Strong</span>
+                  <span className="legend-text">Market leader</span>
+                </span>
+                <span className="legend-item">
+                  <span className="performance-badge performance-competitive">Competitive</span>
+                  <span className="legend-text">Market participant</span>
+                </span>
+                <span className="legend-item">
+                  <span className="performance-badge performance-challenged">Challenged</span>
+                  <span className="legend-text">Needs improvement</span>
+                </span>
+              </div>
+              <div className="legend-group">
+                <span className="legend-title">Indicators:</span>
+                <span className="legend-item">
+                  <span className="legend-indicator">🟢</span>
+                  <span className="legend-text">Strong advantage (10%+)</span>
+                </span>
+                <span className="legend-item">
+                  <span className="legend-indicator">🟡</span>
+                  <span className="legend-text">Moderate advantage (0-10%)</span>
+                </span>
+                <span className="legend-item">
+                  <span className="legend-indicator">🔴</span>
+                  <span className="legend-text">Disadvantage (&lt;0%)</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section M: Strategic Quadrant Highlights */}
         <section className="dashboard-section quadrant-section">
           <h2>Strategic Quadrant Highlights</h2>
           <div className="strategic-quadrant">

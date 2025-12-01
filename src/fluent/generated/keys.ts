@@ -13,6 +13,10 @@ declare global {
                         table: 'sys_ui_page'
                         id: '2618f7d2f4604c8f8339a9ba5aef710b'
                     }
+                    'clv-maximizer/components/Dashboard.css': {
+                        table: 'sys_ux_theme_asset'
+                        id: 'a3be0843c95c4a089d2b53fcc9a4363f'
+                    }
                     'clv-maximizer/components/DataIngestionTab.css': {
                         table: 'sys_ux_theme_asset'
                         id: 'acd68719fe6d4743956716f731a6bb7d'

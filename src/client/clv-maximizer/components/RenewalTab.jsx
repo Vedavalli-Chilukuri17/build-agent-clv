@@ -140,13 +140,6 @@ export default function RenewalTab() {
       {/* Header */}
       <div className="renewal-header">
         <h1 className="renewal-title">Renewal Review & Next Best Action</h1>
-        <div className="user-identity">
-          <div className="user-avatar">ET</div>
-          <div className="user-info">
-            <h4>Emma Thompson</h4>
-            <p>Senior Marketing Analyst</p>
-          </div>
-        </div>
       </div>
 
       {/* Section 1: Renewal Snapshot Summary */}
