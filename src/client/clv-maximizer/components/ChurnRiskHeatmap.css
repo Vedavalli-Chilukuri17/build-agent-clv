@@ -1,4 +1,4 @@
-/* Enhanced Churn Risk Heatmap Styles */
+/* Enhanced Churn Risk Heatmap Styles - Precise Alignment Edition */
 .churn-risk-heatmap {
   background: white;
   border-radius: 12px;
@@ -7,19 +7,20 @@
   border: 1px solid #e5e7eb;
   position: relative;
   transition: all 0.2s ease;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .churn-risk-heatmap:hover {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
 }
 
-/* Header Section */
+/* Header Section with User Identity Support */
 .heatmap-header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 12px;
+  align-items: flex-start;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -28,7 +29,14 @@
   font-weight: 600;
   color: #1f2937;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  line-height: 1.25;
+}
+
+.heatmap-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
 }
 
 .heatmap-refresh-indicator {
@@ -46,6 +54,12 @@
   background: #10b981;
   border-radius: 50%;
   animation: pulse 2s infinite;
+}
+
+.heatmap-timestamp {
+  font-size: 11px;
+  color: #6b7280;
+  font-weight: 500;
 }
 
 @keyframes pulse {
@@ -73,11 +87,16 @@
   margin-bottom: 12px;
 }
 
-/* Enhanced Risk Bars */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* CRITICAL: Horizontal Bar Chart with Precise Alignment */
 .heatmap-bars {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   margin-bottom: 20px;
 }
 
@@ -85,18 +104,17 @@
   position: relative;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  padding: 0;
-  border-radius: 12px;
-  border: 2px solid transparent;
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #f3f4f6, #e5e7eb) border-box;
-  overflow: hidden;
+  border-radius: 8px;
+  background: #f9fafb;
+  border: 2px solid #e5e7eb;
+  height: 56px; /* Fixed height for consistent appearance */
+  overflow: visible;
 }
 
 .risk-bar:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: #d1d5db;
 }
 
 .risk-bar:focus {
@@ -108,128 +126,103 @@
   transform: translateY(0);
 }
 
-/* Risk Bar Color Variants */
-.risk-bar--high {
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #fecaca, #ef4444) border-box;
-}
-
-.risk-bar--high:hover {
-  background: linear-gradient(#fff5f5, white) padding-box,
-              linear-gradient(45deg, #ef4444, #dc2626) border-box;
-}
-
-.risk-bar--medium {
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #fef3c7, #f59e0b) border-box;
-}
-
-.risk-bar--medium:hover {
-  background: linear-gradient(#fffbeb, white) padding-box,
-              linear-gradient(45deg, #f59e0b, #d97706) border-box;
-}
-
-.risk-bar--low {
-  background: linear-gradient(white, white) padding-box,
-              linear-gradient(45deg, #d1fae5, #10b981) border-box;
-}
-
-.risk-bar--low:hover {
-  background: linear-gradient(#f0fdf4, white) padding-box,
-              linear-gradient(45deg, #10b981, #059669) border-box;
-}
-
-/* Risk Bar Content Layout */
-.risk-bar__content {
-  padding: 20px;
+/* Bar Container - Full Width */
+.risk-bar__container {
+  width: 100%;
+  height: 100%;
   position: relative;
-}
-
-.risk-bar__info {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-  min-height: 24px;
-}
-
-.risk-bar__labels {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-}
-
-.risk-bar__label {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1f2937;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-  letter-spacing: -0.025em;
-}
-
-.risk-bar__metrics {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.risk-bar__count {
-  font-size: 20px;
-  font-weight: 700;
-  color: #374151;
-}
-
-.risk-bar__percentage {
-  font-size: 16px;
-  font-weight: 600;
-  color: #6b7280;
-}
-
-/* Visual Progress Bar */
-.risk-bar__visual {
-  width: 100%;
-  height: 12px;
-  background: #f3f4f6;
   border-radius: 6px;
   overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Horizontal Bar Fill - Color Coded */
 .risk-bar__fill {
   height: 100%;
-  border-radius: 6px;
   position: relative;
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-width: 200px; /* Ensure text is always readable */
+  border-radius: 6px;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-.risk-bar__fill-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    45deg,
-    rgba(255, 255, 255, 0.3) 25%,
-    transparent 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.3) 50%,
-    rgba(255, 255, 255, 0.3) 75%,
-    transparent 75%
-  );
-  background-size: 20px 20px;
-  animation: shimmer 2s linear infinite;
+/* High Risk - Red */
+.risk-bar--high .risk-bar__fill {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
 }
 
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+.risk-bar--high:hover .risk-bar__fill {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
 }
 
-/* Enhanced Tooltips */
+/* Medium Risk - Orange */
+.risk-bar--medium .risk-bar__fill {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.risk-bar--medium:hover .risk-bar__fill {
+  background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+}
+
+/* Low Risk - Green */
+.risk-bar--low .risk-bar__fill {
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.risk-bar--low:hover .risk-bar__fill {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+}
+
+/* CRITICAL: Text Content - Left-aligned and Vertically Centered */
+.risk-bar__content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.risk-bar__text-group {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+}
+
+/* Label - Left Aligned */
+.risk-bar__label {
+  font-size: 16px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  min-width: 80px;
+}
+
+/* Count - Next to Label */
+.risk-bar__count {
+  font-size: 18px;
+  font-weight: 800;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  min-width: 30px;
+}
+
+/* Percentage - Final Element */
+.risk-bar__percentage {
+  font-size: 16px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  white-space: nowrap;
+  min-width: 50px;
+}
+
+/* Enhanced Tooltips for Definitions and Drill-down */
 .risk-bar__tooltip {
   position: absolute;
   bottom: calc(100% + 12px);
@@ -237,16 +230,17 @@
   transform: translateX(-50%);
   background: #1f2937;
   color: white;
-  padding: 12px 16px;
+  padding: 14px 18px;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   font-size: 13px;
   opacity: 0;
   visibility: hidden;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   z-index: 1000;
-  min-width: 200px;
+  min-width: 280px;
   pointer-events: none;
+  max-width: 320px;
 }
 
 .risk-bar__tooltip::after {
@@ -266,54 +260,61 @@
 }
 
 .tooltip-header {
-  margin-bottom: 8px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #374151;
-  padding-bottom: 6px;
+  padding-bottom: 8px;
 }
 
 .tooltip-header strong {
   font-size: 14px;
   font-weight: 600;
+  color: #f9fafb;
 }
 
 .tooltip-content {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .tooltip-metric {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .tooltip-label {
   color: #d1d5db;
   font-weight: 500;
+  font-size: 12px;
 }
 
 .tooltip-value {
   font-weight: 600;
   color: white;
+  font-size: 12px;
+  text-align: right;
+  flex-shrink: 0;
 }
 
 .tooltip-action {
-  margin-top: 6px;
-  padding-top: 6px;
+  margin-top: 8px;
+  padding-top: 8px;
   border-top: 1px solid #374151;
-  color: #3b82f6;
+  color: #60a5fa;
   font-size: 12px;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
+  font-style: italic;
 }
 
-/* Footer Section */
+/* Footer Section with Legend and Summary */
 .heatmap-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 16px;
+  margin-top: 20px;
   padding-top: 16px;
   border-top: 1px solid #e5e7eb;
   font-size: 12px;
@@ -321,7 +322,7 @@
 
 .heatmap-legend {
   display: flex;
-  gap: 16px;
+  gap: 18px;
   align-items: center;
 }
 
@@ -331,6 +332,7 @@
   gap: 6px;
   color: #6b7280;
   font-weight: 500;
+  font-size: 12px;
 }
 
 .legend-color {
@@ -338,6 +340,7 @@
   height: 12px;
   border-radius: 3px;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .legend-color--high {
@@ -355,42 +358,53 @@
 .heatmap-summary {
   color: #374151;
   font-weight: 600;
+  font-size: 12px;
 }
 
-/* Responsive Design */
+/* Responsive Design for Desktop and Tablet */
 @media (max-width: 1024px) {
   .churn-risk-heatmap {
     padding: 20px;
   }
   
+  .heatmap-header {
+    margin-bottom: 20px;
+  }
+  
+  .risk-bar {
+    height: 52px;
+  }
+  
   .risk-bar__content {
-    padding: 16px;
+    padding: 0 14px;
+  }
+  
+  .risk-bar__text-group {
+    gap: 14px;
   }
   
   .risk-bar__label {
-    font-size: 16px;
+    font-size: 15px;
+    min-width: 75px;
   }
   
   .risk-bar__count {
-    font-size: 18px;
+    font-size: 16px;
   }
   
   .risk-bar__percentage {
-    font-size: 14px;
+    font-size: 15px;
   }
   
   .heatmap-footer {
     flex-direction: column;
     gap: 12px;
-    align-items: stretch;
+    align-items: center;
   }
   
   .heatmap-legend {
     justify-content: center;
-  }
-  
-  .heatmap-summary {
-    text-align: center;
+    gap: 16px;
   }
 }
 
@@ -401,46 +415,41 @@
   
   .heatmap-header {
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .heatmap-meta {
     align-items: flex-start;
   }
   
   .heatmap-bars {
-    gap: 16px;
+    gap: 14px;
+  }
+  
+  .risk-bar {
+    height: 48px;
   }
   
   .risk-bar__content {
-    padding: 14px;
+    padding: 0 12px;
   }
   
-  .risk-bar__info {
-    margin-bottom: 12px;
-  }
-  
-  .risk-bar__labels {
-    flex-direction: column;
-    gap: 8px;
-    align-items: flex-start;
-  }
-  
-  .risk-bar__metrics {
-    align-self: flex-end;
+  .risk-bar__text-group {
+    gap: 12px;
   }
   
   .risk-bar__label {
-    font-size: 15px;
+    font-size: 14px;
+    min-width: 70px;
   }
   
   .risk-bar__count {
-    font-size: 16px;
+    font-size: 15px;
   }
   
   .risk-bar__percentage {
-    font-size: 13px;
-  }
-  
-  .risk-bar__visual {
-    height: 10px;
+    font-size: 14px;
   }
   
   .heatmap-legend {
@@ -467,27 +476,36 @@
     font-size: 18px;
   }
   
+  .risk-bar {
+    height: 44px;
+  }
+  
   .risk-bar__content {
-    padding: 12px;
+    padding: 0 10px;
   }
   
-  .risk-bar__labels {
-    gap: 6px;
+  .risk-bar__text-group {
+    gap: 10px;
   }
   
-  .risk-bar__metrics {
-    gap: 8px;
+  .risk-bar__label {
+    font-size: 13px;
+    min-width: 65px;
   }
   
-  .risk-bar__visual {
-    height: 8px;
+  .risk-bar__count {
+    font-size: 14px;
+  }
+  
+  .risk-bar__percentage {
+    font-size: 13px;
   }
   
   .heatmap-footer {
     font-size: 11px;
   }
   
-  /* Disable tooltips on mobile for better touch experience */
+  /* Disable complex tooltips on mobile for better performance */
   .risk-bar__tooltip {
     display: none;
   }
@@ -505,6 +523,13 @@
   
   .legend-color {
     border-width: 2px;
+    border-color: #000;
+  }
+  
+  .risk-bar__label,
+  .risk-bar__count,
+  .risk-bar__percentage {
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
   }
 }
 
@@ -513,14 +538,17 @@
   .risk-bar,
   .risk-bar__fill,
   .risk-bar__tooltip,
-  .refresh-dot,
-  .risk-bar__fill-inner {
+  .refresh-dot {
     animation: none;
     transition: none;
   }
   
   .risk-bar:hover {
     transform: none;
+  }
+  
+  .risk-bar:hover .risk-bar__tooltip {
+    transform: translateX(-50%);
   }
 }
 
@@ -530,6 +558,7 @@
     break-inside: avoid;
     box-shadow: none;
     border: 2px solid #000;
+    background: white !important;
   }
   
   .risk-bar__tooltip {
@@ -539,4 +568,35 @@
   .heatmap-refresh-indicator {
     display: none;
   }
+  
+  .risk-bar__fill {
+    background: #ccc !important;
+    color: #000 !important;
+  }
+  
+  .risk-bar__label,
+  .risk-bar__count,
+  .risk-bar__percentage {
+    color: #000 !important;
+    text-shadow: none !important;
+  }
+}
+
+/* Focus styles for accessibility */
+.risk-bar:focus-visible {
+  outline: 3px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Screen reader support */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

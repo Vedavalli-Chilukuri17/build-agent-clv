@@ -13,6 +13,11 @@ declare global {
                         table: 'sys_ui_page'
                         id: '2618f7d2f4604c8f8339a9ba5aef710b'
                     }
+                    'clv-maximizer/components/CustomerIntelligenceTab.css': {
+                        table: 'sys_ux_theme_asset'
+                        id: 'ec3567d8461841afaba01a62a985c5cb'
+                        deleted: false
+                    }
                     'clv-maximizer/components/Dashboard.css': {
                         table: 'sys_ux_theme_asset'
                         id: 'a3be0843c95c4a089d2b53fcc9a4363f'
@@ -24,6 +29,7 @@ declare global {
                     'incident-manager-page': {
                         table: 'sys_ui_page'
                         id: 'c932d7417f084df49b5fe0f1ee2a44c0'
+                        deleted: true
                     }
                     package_json: {
                         table: 'sys_module'
@@ -36,10 +42,12 @@ declare global {
                     'x_hete_clv_maximiz/____insertStyle-BxBLo9PM': {
                         table: 'sys_ux_lib_asset'
                         id: 'ad79ebff7d054776b87ae386ac0e26aa'
+                        deleted: true
                     }
                     'x_hete_clv_maximiz/____insertStyle-BxBLo9PM.js.map': {
                         table: 'sys_ux_lib_asset'
                         id: 'd9faba1053634996bce8c5dc6e1ac050'
+                        deleted: true
                     }
                     'x_hete_clv_maximiz/clv-maximizer/main': {
                         table: 'sys_ux_lib_asset'
@@ -52,10 +60,12 @@ declare global {
                     'x_hete_clv_maximiz/main': {
                         table: 'sys_ux_lib_asset'
                         id: '7aecccc1746b4efda5adea5effbb6379'
+                        deleted: true
                     }
                     'x_hete_clv_maximiz/main.js.map': {
                         table: 'sys_ux_lib_asset'
                         id: '4a47707b65a847f4bbb8af4801c0da67'
+                        deleted: true
                     }
                 }
                 composite: [
