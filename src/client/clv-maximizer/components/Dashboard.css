@@ -251,9 +251,200 @@
   color: #065f46;
 }
 
-/* Product Section */
+/* NEW: Product Benchmarking Horizontal Layout */
+.product-section {
+  grid-column: 1 / -1; /* Full width section */
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin: 0;
+  border: none;
+  padding: 0;
+}
+
+.section-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.refresh-indicator {
+  animation: spin 2s linear infinite;
+}
+
+.last-updated-small {
+  font-size: 11px;
+}
+
+.product-horizontal-container {
+  overflow-x: auto;
+  padding: 4px 0;
+  margin-bottom: 20px;
+}
+
+.product-blocks-row {
+  display: flex;
+  gap: 20px;
+  min-width: max-content;
+  padding-bottom: 8px;
+}
+
+.product-block {
+  min-width: 280px;
+  max-width: 320px;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
+.product-block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.product-block:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.product-block-header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.product-metrics-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.product-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 6px;
+  border: 1px solid rgba(226, 232, 240, 0.5);
+}
+
+.metric-label {
+  font-size: 13px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.metric-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.revenue-change.positive {
+  color: #059669;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.revenue-change.negative {
+  color: #dc2626;
+  background: rgba(220, 38, 38, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.product-block-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 12px;
+}
+
+.performance-indicator {
+  font-size: 16px;
+}
+
+.drill-down-hint {
+  color: #6b7280;
+  font-style: italic;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.product-block:hover .drill-down-hint {
+  opacity: 1;
+  color: #3b82f6;
+}
+
+.product-section-footer {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.performance-legend {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.legend-indicator {
+  font-size: 14px;
+}
+
+.legend-text {
+  font-weight: 500;
+}
+
+/* OLD Product Table (keeping as fallback) */
 .product-table {
-  display: grid;
+  display: none; /* Hidden by default, using new horizontal layout */
   grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
   gap: 8px;
   font-size: 14px;
@@ -655,5 +846,46 @@
   
   .tier-chart {
     grid-template-columns: 1fr;
+  }
+  
+  /* Mobile Product Blocks */
+  .product-blocks-row {
+    gap: 12px;
+  }
+  
+  .product-block {
+    min-width: 240px;
+    padding: 16px;
+  }
+  
+  .performance-legend {
+    gap: 16px;
+  }
+  
+  .legend-item {
+    flex-direction: column;
+    text-align: center;
+    gap: 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .product-horizontal-container {
+    margin: 0 -24px;
+    padding: 0 24px;
+  }
+  
+  .product-block {
+    min-width: 200px;
+    padding: 12px;
+  }
+  
+  .product-name {
+    font-size: 14px;
+  }
+  
+  .metric-label,
+  .metric-value {
+    font-size: 12px;
   }
 }

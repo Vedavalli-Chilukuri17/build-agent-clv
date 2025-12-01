@@ -69,6 +69,12 @@ export default function Dashboard() {
     return service.getUpcomingRenewals(dashboardData.customers);
   }, [service, dashboardData.customers]);
 
+  // Handle product block clicks for drill-down
+  const handleProductClick = (product) => {
+    console.log('Drilling down into product:', product.name);
+    // Future: Navigate to detailed product analytics
+  };
+
   if (loading) {
     return (
       <div className="dashboard-loading">
@@ -196,28 +202,85 @@ export default function Dashboard() {
           </div>
         </section>
 
-        {/* Section E: Product Benchmarking Analysis */}
+        {/* Section E: Product Benchmarking Analysis - UPDATED HORIZONTAL LAYOUT */}
         <section className="dashboard-section product-section">
-          <h2>Product Benchmarking Analysis</h2>
-          <div className="product-table">
-            <div className="product-header">
-              <span>Product</span>
-              <span>Purchase Freq.</span>
-              <span>Premium vs Comp.</span>
-              <span>Revenue/Customer</span>
-              <span>Campaign Uplift</span>
+          <div className="section-header">
+            <h2>Product Benchmarking Analysis</h2>
+            <div className="section-meta">
+              <span className="refresh-indicator">🔄</span>
+              <span className="last-updated-small">Updated: {lastUpdated.toLocaleTimeString()}</span>
             </div>
-            {productPerformance.map((product, index) => (
-              <div key={index} className="product-row">
-                <span className="product-name">{product.name}</span>
-                <span className="product-freq">{product.purchaseFrequency}</span>
-                <span className={`product-premium ${parseFloat(product.premiumVsCompetitor) >= 0 ? 'positive' : 'negative'}`}>
-                  {product.premiumVsCompetitor}%
-                </span>
-                <span className="product-revenue">${product.revenuePerCustomer.toLocaleString()}</span>
-                <span className="product-uplift">{product.campaignUplift}%</span>
-              </div>
-            ))}
+          </div>
+          
+          <div className="product-horizontal-container">
+            <div className="product-blocks-row">
+              {productPerformance.map((product, index) => (
+                <div 
+                  key={index} 
+                  className="product-block"
+                  onClick={() => handleProductClick(product)}
+                  role="button"
+                  tabIndex={0}
+                  title={`Click for detailed ${product.name} analytics`}
+                >
+                  <div className="product-block-header">
+                    <h3 className="product-name">{product.name}</h3>
+                  </div>
+                  
+                  <div className="product-metrics-stack">
+                    <div className="product-metric-row">
+                      <span className="metric-label">Purchase Frequency</span>
+                      <span className="metric-value">{product.purchaseFrequency}</span>
+                    </div>
+                    
+                    <div className="product-metric-row">
+                      <span className="metric-label">Premium per Customer</span>
+                      <span className="metric-value">${(product.revenuePerCustomer * 0.15).toFixed(0)}</span>
+                    </div>
+                    
+                    <div className="product-metric-row">
+                      <span className="metric-label">Revenue per Customer</span>
+                      <span className="metric-value">${product.revenuePerCustomer.toLocaleString()}</span>
+                    </div>
+                    
+                    <div className="product-metric-row">
+                      <span className="metric-label">% Change in Revenue</span>
+                      <span 
+                        className={`metric-value revenue-change ${parseFloat(product.premiumVsCompetitor) >= 0 ? 'positive' : 'negative'}`}
+                        title={parseFloat(product.premiumVsCompetitor) >= 0 ? 'Revenue increased' : 'Revenue decreased'}
+                      >
+                        {parseFloat(product.premiumVsCompetitor) >= 0 ? '+' : ''}{product.premiumVsCompetitor}%
+                      </span>
+                    </div>
+                  </div>
+                  
+                  <div className="product-block-footer">
+                    <span className="performance-indicator">
+                      {parseFloat(product.premiumVsCompetitor) >= 10 ? '🟢' : 
+                       parseFloat(product.premiumVsCompetitor) >= 0 ? '🟡' : '🔴'}
+                    </span>
+                    <span className="drill-down-hint">Click for details</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="product-section-footer">
+            <div className="performance-legend">
+              <span className="legend-item">
+                <span className="legend-indicator">🟢</span>
+                <span className="legend-text">High Performance (10%+)</span>
+              </span>
+              <span className="legend-item">
+                <span className="legend-indicator">🟡</span>
+                <span className="legend-text">Moderate Performance (0-10%)</span>
+              </span>
+              <span className="legend-item">
+                <span className="legend-indicator">🔴</span>
+                <span className="legend-text">Underperforming (&lt;0%)</span>
+              </span>
+            </div>
           </div>
         </section>
 
