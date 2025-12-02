@@ -11,13 +11,7 @@ export default function RenewalTab() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [renewalSummary, setRenewalSummary] = useState(null);
-  const [renewalPipeline, setRenewalPipeline] = useState([]);
-  const [nextBestActions, setNextBestActions] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(new Date());
-  
-  // Filter and search state
-  const [searchTerm, setSearchTerm] = useState('');
-  const [statusFilter, setStatusFilter] = useState('');
   
   // Load data on component mount
   useEffect(() => {
@@ -29,15 +23,9 @@ export default function RenewalTab() {
       setLoading(true);
       setError(null);
       
-      const [summary, pipeline, actions] = await Promise.all([
-        renewalService.getRenewalSummary(),
-        renewalService.getRenewalPipeline(),
-        renewalService.getNextBestActions()
-      ]);
+      const summary = await renewalService.getRenewalSummary();
       
       setRenewalSummary(summary);
-      setRenewalPipeline(pipeline);
-      setNextBestActions(actions);
       setLastUpdated(new Date());
     } catch (err) {
       setError('Failed to load renewal data. Please try again.');
@@ -47,66 +35,24 @@ export default function RenewalTab() {
     }
   };
 
-  // Filter pipeline data
-  const filteredPipeline = useMemo(() => {
-    return renewalPipeline.filter(item => {
-      const matchesSearch = !searchTerm || 
-        item.customerName.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesStatus = !statusFilter || item.renewalStatus === statusFilter;
-      return matchesSearch && matchesStatus;
-    });
-  }, [renewalPipeline, searchTerm, statusFilter]);
-
-  // Event handlers
-  const handleViewProfile = (customerId) => {
-    console.log('Viewing profile for customer:', customerId);
-    // In real implementation, this would navigate to customer detail view
-  };
-
-  const handleSendReminder = async (customerId) => {
-    try {
-      await renewalService.sendReminder(customerId, 'email');
-      alert('Reminder sent successfully!');
-    } catch (err) {
-      alert('Failed to send reminder. Please try again.');
+  const getActionTypeColor = (actionType) => {
+    switch (actionType) {
+      case 'Cross-sell': return '#3b82f6';
+      case 'Upsell': return '#059669';
+      case 'Coverage Check': return '#f59e0b';
+      case 'Retention': return '#dc2626';
+      case 'Risk Mitigation': return '#7c3aed';
+      case 'Engagement': return '#06b6d4';
+      default: return '#6b7280';
     }
   };
 
-  const handleLaunchCampaign = async (customerId) => {
-    try {
-      await renewalService.launchCampaign(customerId, 'renewal');
-      alert('Campaign launched successfully!');
-    } catch (err) {
-      alert('Failed to launch campaign. Please try again.');
-    }
-  };
-
-  const handleExecuteScript = async () => {
-    try {
-      await renewalService.executeScript(nextBestActions?.campaignScript);
-      alert('Script executed successfully!');
-    } catch (err) {
-      alert('Failed to execute script. Please try again.');
-    }
-  };
-
-  const handleScheduleFollowUp = async () => {
-    try {
-      await renewalService.scheduleFollowUp({
-        type: 'renewal_followup',
-        date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
-      });
-      alert('Follow-up scheduled successfully!');
-    } catch (err) {
-      alert('Failed to schedule follow-up. Please try again.');
-    }
-  };
-
-  const handleExportData = async () => {
-    try {
-      await renewalService.exportData(filteredPipeline, 'json');
-    } catch (err) {
-      alert('Failed to export data. Please try again.');
+  const getPriorityColor = (priority) => {
+    switch (priority) {
+      case 'High': return '#dc2626';
+      case 'Medium': return '#f59e0b';
+      case 'Low': return '#10b981';
+      default: return '#6b7280';
     }
   };
 
@@ -115,7 +61,8 @@ export default function RenewalTab() {
     return (
       <div className="renewal-tab">
         <div className="loading">
-          <div>Loading renewal data...</div>
+          <div className="loading-spinner"></div>
+          <div>Loading renewal data from x_hete_clv_maximiz_policy_holders table...</div>
         </div>
       </div>
     );
@@ -140,331 +87,257 @@ export default function RenewalTab() {
       {/* Header */}
       <div className="renewal-header">
         <h1 className="renewal-title">Renewal Review & Next Best Action</h1>
+        <p className="renewal-subtitle">Data sourced from x_hete_clv_maximiz_policy_holders table</p>
       </div>
 
       {/* Section 1: Renewal Snapshot Summary */}
       <section className="renewal-summary">
         <h2 className="section-title">Renewal Snapshot Summary</h2>
-        <div className="summary-panels">
-          {/* High-Risk Customers Panel */}
-          <div className="summary-panel high-risk">
-            <div className="panel-header">
-              <h3 className="panel-title">High-Risk Customers</h3>
-              <span className="panel-count">{renewalSummary?.highRiskCustomers?.count || 0}</span>
-            </div>
-            {renewalSummary?.highRiskCustomers?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
-                </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
-                </div>
+        <div className="summary-metrics-grid">
+          {/* High Risk Customers Metric Card */}
+          <div className="metric-card high-risk-card">
+            <div className="metric-header">
+              <div className="metric-icon">⚠️</div>
+              <div className="metric-info">
+                <h3 className="metric-title">High Risk Customers</h3>
+                <div className="metric-value">{renewalSummary?.highRiskCustomers?.count || 0}</div>
+                <div className="metric-description">Customers at high churn risk level</div>
               </div>
-            ))}
+            </div>
+            <div className="metric-details">
+              <div className="detail-item">
+                <span className="detail-label">Risk Level:</span>
+                <span className="detail-value">≥70% churn probability</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Data Source:</span>
+                <span className="detail-value">Policy holders churn_risk field</span>
+              </div>
+            </div>
           </div>
 
-          {/* Total CVR at Risk Panel */}
-          <div className="summary-panel cvr-risk">
-            <div className="panel-header">
-              <h3 className="panel-title">Total CVR at Risk</h3>
-              <span className="panel-count">{renewalSummary?.totalCVRAtRisk?.count || 0}</span>
-            </div>
-            {renewalSummary?.totalCVRAtRisk?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
+          {/* Total CLV at Risk Metric Card */}
+          <div className="metric-card clv-risk-card">
+            <div className="metric-header">
+              <div className="metric-icon">💰</div>
+              <div className="metric-info">
+                <h3 className="metric-title">Total CLV at Risk</h3>
+                <div className="metric-value">
+                  {renewalSummary?.totalCLVAtRisk?.displayValue || '$0'}
                 </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
-                </div>
+                <div className="metric-description">Sum of CLV for high risk customers</div>
               </div>
-            ))}
+            </div>
+            <div className="metric-details">
+              <div className="detail-item">
+                <span className="detail-label">Customers:</span>
+                <span className="detail-value">{renewalSummary?.highRiskCustomers?.count || 0} high-risk</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Data Source:</span>
+                <span className="detail-value">Policy holders lifetime_value field</span>
+              </div>
+            </div>
           </div>
 
-          {/* Missing Coverages Panel */}
-          <div className="summary-panel missing-coverage">
-            <div className="panel-header">
-              <h3 className="panel-title">Missing Coverages</h3>
-              <span className="panel-count">{renewalSummary?.missingCoverages?.count || 0}</span>
-            </div>
-            {renewalSummary?.missingCoverages?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
-                </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
-                </div>
+          {/* Missing Coverages Metric Card */}
+          <div className="metric-card coverage-card">
+            <div className="metric-header">
+              <div className="metric-icon">🔍</div>
+              <div className="metric-info">
+                <h3 className="metric-title">Missing Coverages</h3>
+                <div className="metric-value">{renewalSummary?.missingCoverages?.count || 0}</div>
+                <div className="metric-description">Total coverage gaps across all customers</div>
               </div>
-            ))}
+            </div>
+            <div className="metric-details">
+              <div className="detail-item">
+                <span className="detail-label">Customers Affected:</span>
+                <span className="detail-value">{renewalSummary?.missingCoverages?.customersAffected || 0}</span>
+              </div>
+              <div className="detail-item">
+                <span className="detail-label">Data Source:</span>
+                <span className="detail-value">Policy holders missing_coverage field</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Section 2: Renewal Pipeline Table */}
-      <section className="renewal-pipeline">
-        <h2 className="section-title">Renewal Pipeline</h2>
-        <div className="pipeline-controls">
-          <div className="controls-left">
-            <input
-              type="text"
-              className="search-input"
-              placeholder="Search customers..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <select
-              className="filter-select"
-              value={statusFilter}
-              onChange={(e) => setStatusFilter(e.target.value)}
-            >
-              <option value="">All Statuses</option>
-              <option value="High">High Risk</option>
-              <option value="Medium">Medium Risk</option>
-              <option value="Low">Low Risk</option>
-            </select>
-          </div>
-          <button className="export-btn" onClick={handleExportData}>
-            Export Data
-          </button>
-        </div>
-        <div className="pipeline-table">
-          <table className="table">
-            <thead>
-              <tr>
-                <th>Customer Name</th>
-                <th>Renewal Date</th>
-                <th>Renewal Status</th>
-                <th>Opportunity Score</th>
-                <th>Renewal Amount</th>
-                <th>CLV Score</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filteredPipeline.map((renewal) => (
-                <tr key={renewal.customerId}>
-                  <td>{renewal.customerName}</td>
-                  <td>{renewal.renewalDate}</td>
-                  <td>
-                    <span className={`status-badge ${renewal.renewalStatus.toLowerCase()}`}>
-                      {renewal.renewalStatus}
-                    </span>
-                  </td>
-                  <td>{renewal.opportunityScore}</td>
-                  <td>${renewal.renewalAmount?.toLocaleString()}</td>
-                  <td>{renewal.clvScore}</td>
-                  <td>
-                    <div className="action-buttons">
-                      <button 
-                        className="action-btn view"
-                        onClick={() => handleViewProfile(renewal.customerId)}
-                      >
-                        View Profile
-                      </button>
-                      <button 
-                        className="action-btn remind"
-                        onClick={() => handleSendReminder(renewal.customerId)}
-                      >
-                        Send Reminder
-                      </button>
-                      <button 
-                        className="action-btn campaign"
-                        onClick={() => handleLaunchCampaign(renewal.customerId)}
-                      >
-                        Launch Campaign
-                      </button>
+      {/* Section 2: High Risk Customer Profiles */}
+      {renewalSummary?.highRiskCustomers?.sampleCustomers?.length > 0 && (
+        <section className="high-risk-profiles">
+          <h2 className="section-title">High Risk Customer Profiles</h2>
+          <div className="customer-profiles-grid">
+            {renewalSummary.highRiskCustomers.sampleCustomers.map((customer, index) => (
+              <div key={index} className="customer-profile-card">
+                {/* Customer Header */}
+                <div className="profile-header">
+                  <div className="customer-avatar">
+                    {customer.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                  </div>
+                  <div className="customer-info">
+                    <h3 className="customer-name">{customer.name}</h3>
+                    <div className="customer-badges">
+                      <span className={`tier-badge tier-${customer.tier.toLowerCase()}`}>
+                        {customer.tier}
+                      </span>
+                      <span className="risk-badge risk-high">
+                        {customer.churnRisk} Risk ({customer.churnRiskPercent}%)
+                      </span>
                     </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
+                    <div className="customer-metrics">
+                      <div className="metric">
+                        <span className="metric-label">CLV:</span>
+                        <span className="metric-value">${customer.clv?.toLocaleString()}</span>
+                      </div>
+                      <div className="metric">
+                        <span className="metric-label">Credit Score:</span>
+                        <span className="metric-value">{customer.creditScore}</span>
+                      </div>
+                      <div className="metric">
+                        <span className="metric-label">Tenure:</span>
+                        <span className="metric-value">{Math.floor(customer.tenure)} months</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-      {/* Section 3: Next Best Action Panel */}
-      <section className="next-best-actions">
-        <h2 className="section-title">Next Best Action Panel</h2>
-        <div className="actions-grid">
-          {/* Customer-Specific Campaign Script */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">📧</span>
-              Campaign Script
-            </h3>
-            <div className="campaign-script">
-              {nextBestActions?.campaignScript?.message}
-            </div>
-            <div className="dynamic-fields">
-              <strong>Dynamic Fields:</strong>
-              {nextBestActions?.campaignScript?.dynamicFields && 
-                Object.entries(nextBestActions.campaignScript.dynamicFields).map(([key, value]) => (
-                  <span key={key} className="field-tag">
-                    {key}: {value}
-                  </span>
-                ))}
-            </div>
-            <div className="card-actions">
-              <button className="primary-btn" onClick={handleExecuteScript}>
-                Execute Script
-              </button>
-              <button className="secondary-btn">Review</button>
-            </div>
-          </div>
+                {/* Current Policies Section */}
+                <div className="profile-section">
+                  <h4 className="section-header">
+                    <span className="section-icon">📋</span>
+                    Current Policies
+                  </h4>
+                  <div className="policies-grid">
+                    {customer.currentPolicies?.map((policy, pIndex) => (
+                      <div key={pIndex} className="policy-item">
+                        <div className="policy-name">{policy.type}</div>
+                        <div className="policy-details">
+                          <span className="policy-status">Active</span>
+                          <span className="policy-premium">${policy.premium}/year</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Churn Mitigation Actions */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">🛡️</span>
-              Churn Mitigation
-            </h3>
-            <ul className="action-list">
-              {nextBestActions?.churnMitigation?.map((action, index) => (
-                <li key={index}>{action}</li>
-              ))}
-            </ul>
-            <div className="card-actions">
-              <button className="primary-btn">Apply Actions</button>
-              <button className="secondary-btn" onClick={handleScheduleFollowUp}>
-                Schedule Follow-Up
-              </button>
-            </div>
-          </div>
+                {/* Coverage Opportunities Section */}
+                <div className="profile-section">
+                  <h4 className="section-header">
+                    <span className="section-icon">🎯</span>
+                    Coverage Opportunities
+                  </h4>
+                  <div className="opportunities-list">
+                    {customer.coverageOpportunities?.map((opportunity, oIndex) => (
+                      <div key={oIndex} className="opportunity-item">
+                        <div className="opportunity-header">
+                          <span className="opportunity-name">{opportunity.type}</span>
+                          <span className={`priority-tag priority-${opportunity.priority?.toLowerCase()}`}>
+                            {opportunity.priority}
+                          </span>
+                        </div>
+                        <div className="opportunity-details">
+                          <span className="opportunity-premium">
+                            Est. ${opportunity.estimatedPremium}/year
+                          </span>
+                          <span className="opportunity-potential">
+                            {opportunity.crossSellPotential}% likelihood
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Cross-Sell / Up-Sell Suggestions */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">💰</span>
-              Cross-Sell Opportunities
-            </h3>
-            <ul className="action-list">
-              {nextBestActions?.crossSellUpSell?.map((opportunity, index) => (
-                <li key={index}>{opportunity}</li>
-              ))}
-            </ul>
-            <div className="card-actions">
-              <button className="primary-btn">Generate Offers</button>
-              <button className="secondary-btn">View Details</button>
-            </div>
-          </div>
-        </div>
+                {/* Next Best Actions Section */}
+                <div className="profile-section">
+                  <h4 className="section-header">
+                    <span className="section-icon">🚀</span>
+                    Next Best Actions
+                  </h4>
+                  <div className="actions-list">
+                    {customer.nextBestActions?.map((action, aIndex) => (
+                      <div key={aIndex} className="action-item">
+                        <div className="action-header">
+                          <div className="action-type-badge" 
+                               style={{ backgroundColor: getActionTypeColor(action.type) }}>
+                            {action.type}
+                          </div>
+                          <div className="action-priority" 
+                               style={{ color: getPriorityColor(action.priority) }}>
+                            {action.priority} Priority
+                          </div>
+                          <div className="action-confidence">
+                            {action.confidence}% confidence
+                          </div>
+                        </div>
+                        <div className="action-title">{action.action}</div>
+                        <div className="action-description">{action.description}</div>
+                        <div className="action-details">
+                          <div className="action-detail">
+                            <span className="detail-label">Expected Revenue:</span>
+                            <span className="detail-value">{action.expectedRevenue}</span>
+                          </div>
+                          <div className="action-detail">
+                            <span className="detail-label">Timeline:</span>
+                            <span className="detail-value">{action.timeline}</span>
+                          </div>
+                          <div className="action-detail">
+                            <span className="detail-label">Channel:</span>
+                            <span className="detail-value">{action.channel}</span>
+                          </div>
+                        </div>
+                        <div className="action-tags">
+                          {action.tags?.map((tag, tIndex) => (
+                            <span key={tIndex} className="action-tag">
+                              {tag.replace(/_/g, ' ')}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-        {/* Outreach Channels */}
-        <div className="action-card" style={{ marginTop: '20px' }}>
-          <h3 className="card-title">
-            <span className="card-icon">📡</span>
-            Outreach Channels
-          </h3>
-          {nextBestActions?.outreachChannels && 
-            Object.entries(nextBestActions.outreachChannels).map(([channel, data]) => (
-              <div key={channel} className="channel-grid">
-                <span className="channel-name">{channel.charAt(0).toUpperCase() + channel.slice(1)}</span>
-                <span className={`priority-badge priority-${data.priority.toLowerCase()}`}>
-                  {data.priority} Priority
-                </span>
-                <span className="effectiveness-score">{data.effectiveness}% Effective</span>
+                {/* Additional Insights */}
+                <div className="profile-section insights-section">
+                  <h4 className="section-header">
+                    <span className="section-icon">💡</span>
+                    Business Intelligence
+                  </h4>
+                  <div className="insights-grid">
+                    <div className="insight-item">
+                      <div className="insight-label">Life Events</div>
+                      <div className="insight-value">
+                        {customer.lifeEvents?.join(', ') || 'None detected'}
+                      </div>
+                    </div>
+                    <div className="insight-item">
+                      <div className="insight-label">Risk Factors</div>
+                      <div className="insight-value">
+                        {customer.riskFactors?.slice(0, 2).join(', ') || 'Stable profile'}
+                      </div>
+                    </div>
+                    <div className="insight-item">
+                      <div className="insight-label">Behavioral Insights</div>
+                      <div className="insight-value">
+                        {customer.behavioralInsights?.digitalEngagementTrend || 'Stable'} engagement trend
+                      </div>
+                    </div>
+                    <div className="insight-item">
+                      <div className="insight-label">Property Risk</div>
+                      <div className="insight-value">
+                        {customer.propertyIntelligence?.hazardScore || 'N/A'}/100 hazard score
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             ))}
-          <div className="recommended-channel">
-            <strong>Recommended Channel: {nextBestActions?.recommendedChannel}</strong>
           </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <div className="last-updated">
-        Last updated: {lastUpdated.toLocaleString()}
-        <button 
-          onClick={loadAllData} 
-          style={{ 
-            marginLeft: '16px', 
-            background: 'none', 
-            border: 'none', 
-            color: '#007bff', 
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
-        >
-          Refresh
-        </button>
-      </div>
+        </section>
+      )}
     </div>
   );
 }
