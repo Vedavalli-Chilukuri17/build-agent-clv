@@ -1,0 +1,348 @@
+/* Enhanced Dashboard Styles - New Modular Components */
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.section-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.section-info {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.data-source {
+  padding: 4px 8px;
+  background: #f3f4f6;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.refresh-time {
+  color: #9ca3af;
+}
+
+/* Form Controls */
+.filter-select,
+.search-input {
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 14px;
+  background: white;
+  transition: border-color 0.2s;
+}
+
+.filter-select:focus,
+.search-input:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.search-input {
+  min-width: 200px;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: white;
+}
+
+.renewal-table,
+.benchmark-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.renewal-table th,
+.benchmark-table th {
+  background: #f9fafb;
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 600;
+  color: #374151;
+  border-bottom: 2px solid #e5e7eb;
+  white-space: nowrap;
+}
+
+.renewal-table td,
+.benchmark-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid #f3f4f6;
+  vertical-align: middle;
+}
+
+.renewal-table tbody tr:hover,
+.benchmark-table tbody tr:hover {
+  background: #fafbfc;
+}
+
+/* Sortable Headers */
+.sortable {
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.2s;
+}
+
+.sortable:hover {
+  background: #f3f4f6;
+}
+
+.sortable.sorted {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+/* Customer Info Cells */
+.customer-name-cell,
+.product-name-cell {
+  min-width: 200px;
+}
+
+.customer-info,
+.product-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.customer-info .name,
+.product-info .name {
+  font-weight: 500;
+  color: #1f2937;
+}
+
+/* Badges */
+.tier-badge,
+.status-badge,
+.performance-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tier-badge {
+  background: #e0f2fe;
+  color: #0277bd;
+}
+
+.tier-badge[data-tier="platinum"] {
+  background: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.tier-badge[data-tier="gold"] {
+  background: #fff8e1;
+  color: #f57f17;
+}
+
+.tier-badge[data-tier="silver"] {
+  background: #f5f5f5;
+  color: #424242;
+}
+
+.tier-badge[data-tier="bronze"] {
+  background: #efebe9;
+  color: #5d4037;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 14px;
+  font-size: 12px;
+}
+
+.performance-badge {
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+}
+
+/* Score and Amount Cells */
+.score-cell,
+.amount-cell,
+.ratio-cell {
+  font-weight: 600;
+  text-align: right;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.amount-cell {
+  color: #059669;
+}
+
+.delta-cell {
+  text-align: right;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+}
+
+.delta-value {
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+/* Pagination */
+.table-pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: #f9fafb;
+  border-top: 1px solid #e5e7eb;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pagination-btn {
+  padding: 6px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  background: white;
+  color: #374151;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pagination-btn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+}
+
+.pagination-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 14px;
+  color: #374151;
+  font-weight: 500;
+}
+
+/* No Data State */
+.no-data {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+  font-style: italic;
+}
+
+/* Section Spacing - Ensure modular spacing */
+.renewal-pipeline-section,
+.product-benchmark-section {
+  margin-top: 32px;
+}
+
+/* Tooltips Enhancement */
+[title] {
+  cursor: help;
+}
+
+/* Responsive Design for New Components */
+@media (max-width: 1024px) {
+  .section-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .section-actions {
+    justify-content: flex-start;
+  }
+  
+  .search-input {
+    min-width: 150px;
+    flex: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .table-container {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .renewal-table th,
+  .benchmark-table th,
+  .renewal-table td,
+  .benchmark-table td {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .table-pagination {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+  }
+  
+  .pagination-controls {
+    justify-content: center;
+  }
+  
+  .section-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (max-width: 640px) {
+  .customer-name-cell,
+  .product-name-cell {
+    min-width: 160px;
+  }
+  
+  .section-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .filter-select,
+  .search-input {
+    width: 100%;
+  }
+  
+  .tier-badge,
+  .status-badge,
+  .performance-badge {
+    font-size: 10px;
+    padding: 1px 6px;
+  }
+}
