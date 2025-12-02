@@ -7,8 +7,7 @@ export default function Navigation({ currentTab, onTabChange }) {
     { id: 'renewal', label: 'Renewal' },
     { id: 'intelligence', label: 'Customer Intelligence' },
     { id: 'campaign', label: 'Campaign' },
-    { id: 'ingestion', label: 'Data Ingestion' },
-    { id: 'execution', label: 'Model Execution' }
+    { id: 'ingestion', label: 'Data Ingestion' }
   ];
 
   return (

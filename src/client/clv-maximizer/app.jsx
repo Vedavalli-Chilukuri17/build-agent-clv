@@ -5,7 +5,6 @@ import RenewalTab from './components/RenewalTab.jsx';
 import CustomerIntelligenceTab from './components/CustomerIntelligenceTab.jsx';
 import CampaignTab from './components/CampaignTab.jsx';
 import DataIngestionTab from './components/DataIngestionTab.jsx';
-import ModelExecutionTab from './components/ModelExecutionTab.jsx';
 import './app.css';
 
 export default function CLVMaximizerApp() {
@@ -15,7 +14,13 @@ export default function CLVMaximizerApp() {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.slice(1) || 'dashboard';
-      setCurrentTab(hash);
+      // Redirect only the execution tab to dashboard (keep ingestion)
+      if (hash === 'execution') {
+        setCurrentTab('dashboard');
+        window.location.hash = 'dashboard';
+      } else {
+        setCurrentTab(hash);
+      }
     };
     
     window.addEventListener('hashchange', handleHashChange);
@@ -41,8 +46,6 @@ export default function CLVMaximizerApp() {
         return <CampaignTab />;
       case 'ingestion':
         return <DataIngestionTab />;
-      case 'execution':
-        return <ModelExecutionTab />;
       default:
         return <Dashboard />;
     }
