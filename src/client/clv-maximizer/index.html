@@ -6,6 +6,160 @@
     <title>CLV Maximizer – Customer Success Platform</title>
     <sdk:now-ux-globals></sdk:now-ux-globals>
     <script src="main.jsx" type="module"></script>
+    <script>
+        // Message suppression script for CLV Maximizer
+        (function() {
+            // Wait for the page to load
+            document.addEventListener('DOMContentLoaded', function() {
+                // Function to suppress ServiceNow info messages
+                function suppressInfoMessages() {
+                    // Check if we're in ServiceNow environment
+                    if (window.parent && (window.parent.g_form || window.parent.addInfoMessage)) {
+                        var parentWindow = window.parent;
+                        
+                        // Override parent window's addInfoMessage if it exists
+                        if (parentWindow.addInfoMessage && typeof parentWindow.addInfoMessage === 'function') {
+                            var originalAddInfoMessage = parentWindow.addInfoMessage;
+                            parentWindow.addInfoMessage = function(message) {
+                                // Patterns to suppress
+                                var suppressPatterns = [
+                                    /successfully created record/i,
+                                    /record created successfully/i,
+                                    /successfully created/i,
+                                    /record inserted/i,
+                                    /saved successfully/i,
+                                    /insert successful/i,
+                                    /creation successful/i
+                                ];
+                                
+                                var shouldSuppress = suppressPatterns.some(function(pattern) {
+                                    return pattern.test(String(message));
+                                });
+                                
+                                // Only show message if it doesn't match suppression patterns
+                                if (!shouldSuppress) {
+                                    return originalAddInfoMessage.apply(this, arguments);
+                                }
+                                // Silently ignore suppressed messages
+                                return false;
+                            };
+                        }
+                        
+                        // Also check for g_form in parent
+                        if (parentWindow.g_form && parentWindow.g_form.addInfoMessage) {
+                            var originalGFormAddInfo = parentWindow.g_form.addInfoMessage;
+                            parentWindow.g_form.addInfoMessage = function(message) {
+                                var suppressPatterns = [
+                                    /successfully created record/i,
+                                    /record created successfully/i,
+                                    /successfully created/i,
+                                    /record inserted/i,
+                                    /saved successfully/i,
+                                    /insert successful/i,
+                                    /creation successful/i
+                                ];
+                                
+                                var shouldSuppress = suppressPatterns.some(function(pattern) {
+                                    return pattern.test(String(message));
+                                });
+                                
+                                if (!shouldSuppress) {
+                                    return originalGFormAddInfo.apply(this, arguments);
+                                }
+                                return false;
+                            };
+                        }
+                    }
+                    
+                    // Also suppress in current window if needed
+                    if (window.addInfoMessage && typeof window.addInfoMessage === 'function') {
+                        var originalCurrentAddInfo = window.addInfoMessage;
+                        window.addInfoMessage = function(message) {
+                            var suppressPatterns = [
+                                /successfully created record/i,
+                                /record created successfully/i,
+                                /successfully created/i,
+                                /record inserted/i,
+                                /saved successfully/i,
+                                /insert successful/i,
+                                /creation successful/i
+                            ];
+                            
+                            var shouldSuppress = suppressPatterns.some(function(pattern) {
+                                return pattern.test(String(message));
+                            });
+                            
+                            if (!shouldSuppress) {
+                                return originalCurrentAddInfo.apply(this, arguments);
+                            }
+                            return false;
+                        };
+                    }
+                    
+                    // Hide any existing info messages on the page
+                    setTimeout(function() {
+                        hideExistingInfoMessages();
+                    }, 500);
+                }
+                
+                // Function to hide existing info messages
+                function hideExistingInfoMessages() {
+                    var selectors = [
+                        '.outputmsg',
+                        '.outputmsg_info',
+                        '.notification-info',
+                        '.sn-notification',
+                        '[data-type="info"]',
+                        '.alert-info'
+                    ];
+                    
+                    selectors.forEach(function(selector) {
+                        var elements = document.querySelectorAll(selector);
+                        elements.forEach(function(el) {
+                            var text = el.textContent || el.innerText;
+                            if (text && (
+                                /successfully created/i.test(text) ||
+                                /record created/i.test(text) ||
+                                /insert successful/i.test(text) ||
+                                /saved successfully/i.test(text)
+                            )) {
+                                el.style.display = 'none';
+                            }
+                        });
+                    });
+                    
+                    // Also check parent window for messages
+                    if (window.parent && window.parent.document) {
+                        try {
+                            selectors.forEach(function(selector) {
+                                var parentElements = window.parent.document.querySelectorAll(selector);
+                                parentElements.forEach(function(el) {
+                                    var text = el.textContent || el.innerText;
+                                    if (text && (
+                                        /successfully created/i.test(text) ||
+                                        /record created/i.test(text) ||
+                                        /insert successful/i.test(text) ||
+                                        /saved successfully/i.test(text)
+                                    )) {
+                                        el.style.display = 'none';
+                                    }
+                                });
+                            });
+                        } catch (e) {
+                            // Cross-origin restrictions might prevent access
+                            console.log('Cannot access parent window messages due to cross-origin policy');
+                        }
+                    }
+                }
+                
+                // Initialize suppression
+                suppressInfoMessages();
+                
+                // Re-apply suppression periodically to catch any new messages
+                setInterval(hideExistingInfoMessages, 1000);
+            });
+        })();
+    </script>
     <style>
         /* Reset and base styles */
         * {
@@ -26,6 +180,15 @@
         
         /* ServiceNow UI compatibility */
         .sn-widget-textblock {
+            display: none !important;
+        }
+        
+        /* Hide ServiceNow info messages */
+        .outputmsg,
+        .outputmsg_info,
+        .notification-info,
+        .sn-notification[data-type="info"],
+        .alert-info {
             display: none !important;
         }
         
