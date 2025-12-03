@@ -2165,6 +2165,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '72b722919feb40f49d1e328f0e7404e0'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'u_currency_2'
@@ -2387,6 +2388,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '88d323268a664805b686673fe10d86f4'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'u_currency_2'

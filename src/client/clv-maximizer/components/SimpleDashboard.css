@@ -1,4 +1,4 @@
-.simple-dashboard {
+.comprehensive-dashboard {
   padding: 20px;
   background: #f8f9fa;
   min-height: 100vh;
@@ -46,6 +46,21 @@
   100% { transform: rotate(360deg); }
 }
 
+/* Dashboard Sections */
+.dashboard-section {
+  margin-bottom: 48px;
+}
+
+.dashboard-section h2 {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 24px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #e9ecef;
+  font-weight: 600;
+}
+
+/* Basic KPIs */
 .simple-kpi-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -86,16 +101,6 @@
   background: linear-gradient(135deg, #fff 0%, #fdeaea 100%);
 }
 
-.simple-kpi-card.renewals {
-  border-left-color: #3498db;
-  background: linear-gradient(135deg, #fff 0%, #ebf3fd 100%);
-}
-
-.simple-kpi-card.campaigns {
-  border-left-color: #9b59b6;
-  background: linear-gradient(135deg, #fff 0%, #f4f1f8 100%);
-}
-
 .kpi-icon {
   font-size: 2.5rem;
   opacity: 0.8;
@@ -126,9 +131,422 @@
   font-style: italic;
 }
 
-/* Responsive design */
+/* Dynamic Performance Metrics - 2x2 Grid Layout */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+  max-width: 1200px;
+  margin: 0 auto 32px auto;
+}
+
+.metric-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Renewal Pipeline */
+.pipeline-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.pipeline-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.pipeline-period {
+  font-weight: 500;
+  color: #5a6c7d;
+}
+
+.pipeline-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Risk Breakdown */
+.tier-risk-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  flex: 1;
+}
+
+.tier-risk-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.tier-risk-item.platinum {
+  background: linear-gradient(135deg, #f8f9fa 0%, #e8f4f8 100%);
+  border-left: 4px solid #34495e;
+}
+
+.tier-risk-item.gold {
+  background: linear-gradient(135deg, #f8f9fa 0%, #fef9e7 100%);
+  border-left: 4px solid #f39c12;
+}
+
+.tier-risk-item.silver {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f4f6f7 100%);
+  border-left: 4px solid #95a5a6;
+}
+
+.tier-risk-item.bronze {
+  background: linear-gradient(135deg, #f8f9fa 0%, #f6e7d3 100%);
+  border-left: 4px solid #d68910;
+}
+
+.risk-count {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #e74c3c;
+}
+
+/* Channel Performance */
+.channel-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.channel-item {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #3498db;
+}
+
+.channel-name {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  font-size: 1.1rem;
+}
+
+.channel-stats {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #5a6c7d;
+}
+
+/* Cross-Sell/Upsell */
+.cross-sell-metrics {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  flex: 1;
+}
+
+.cross-sell-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #9b59b6;
+}
+
+.metric-label {
+  font-weight: 500;
+  color: #5a6c7d;
+}
+
+.metric-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+/* Market Intelligence */
+.intelligence-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 24px;
+}
+
+.intelligence-card {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.intelligence-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.intelligence-card h3 {
+  font-size: 1.3rem;
+  color: #2c3e50;
+  margin-bottom: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Tier Distribution */
+.distribution-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tier-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tier-label {
+  width: 80px;
+  font-weight: 500;
+  color: #5a6c7d;
+  font-size: 0.9rem;
+}
+
+.tier-bar-container {
+  flex: 1;
+  height: 32px;
+  background: #f8f9fa;
+  border-radius: 16px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.tier-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  border-radius: 16px;
+  transition: width 0.3s ease;
+  min-width: 2px;
+}
+
+.tier-bar-fill.platinum {
+  background: linear-gradient(90deg, #34495e, #5d6d7e);
+}
+
+.tier-bar-fill.gold {
+  background: linear-gradient(90deg, #f39c12, #f7dc6f);
+}
+
+.tier-bar-fill.silver {
+  background: linear-gradient(90deg, #95a5a6, #d5dbdb);
+}
+
+.tier-bar-fill.bronze {
+  background: linear-gradient(90deg, #d68910, #f4d03f);
+}
+
+.tier-count {
+  position: relative;
+  z-index: 2;
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+/* CLV Bands */
+.clv-band-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.clv-band {
+  padding: 16px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.clv-band.high-clv {
+  background: linear-gradient(135deg, #eafaf1, #d5f4e6);
+  border-left: 4px solid #27ae60;
+}
+
+.clv-band.medium-clv {
+  background: linear-gradient(135deg, #fef9e7, #fcf3cf);
+  border-left: 4px solid #f39c12;
+}
+
+.clv-band.low-clv {
+  background: linear-gradient(135deg, #fdeaea, #fadbd8);
+  border-left: 4px solid #e74c3c;
+}
+
+.band-label {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.band-value {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.band-percentage {
+  font-size: 0.9rem;
+  color: #5a6c7d;
+  font-style: italic;
+}
+
+/* Risk Analysis */
+.risk-factors {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.risk-factor {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #e74c3c;
+}
+
+.risk-type {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 4px;
+}
+
+.risk-count {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #e74c3c;
+  margin-bottom: 4px;
+}
+
+.risk-description {
+  font-size: 0.85rem;
+  color: #5a6c7d;
+  font-style: italic;
+}
+
+/* Competitor Benchmark */
+.competitor-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.competitor-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.9rem;
+}
+
+.competitor-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease;
+}
+
+.competitor-row:hover {
+  background: #f8f9fa;
+}
+
+.competitor-name {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.market-share,
+.avg-premium,
+.renewal-rate {
+  color: #5a6c7d;
+  text-align: center;
+}
+
+.no-competitor-data {
+  text-align: center;
+  color: #5a6c7d;
+  padding: 32px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.no-competitor-data p {
+  margin: 8px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .intelligence-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
 @media (max-width: 768px) {
-  .simple-dashboard {
+  .comprehensive-dashboard {
     padding: 16px;
   }
   
@@ -151,5 +569,82 @@
   
   .kpi-value {
     font-size: 1.8rem;
+  }
+  
+  .metrics-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .tier-risk-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .competitor-header,
+  .competitor-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: left;
+  }
+  
+  .competitor-header {
+    display: none;
+  }
+  
+  .competitor-row {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .competitor-row span:before {
+    font-weight: 600;
+    color: #5a6c7d;
+    margin-right: 8px;
+  }
+  
+  .competitor-name:before {
+    content: "Competitor: ";
+  }
+  
+  .market-share:before {
+    content: "Market Share: ";
+  }
+  
+  .avg-premium:before {
+    content: "Avg Premium: ";
+  }
+  
+  .renewal-rate:before {
+    content: "Renewal Rate: ";
+  }
+}
+
+@media (max-width: 480px) {
+  .channel-stats {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
+  
+  .cross-sell-item,
+  .pipeline-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .tier-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .tier-label {
+    width: auto;
+  }
+  
+  .metric-card {
+    min-height: auto;
   }
 }
