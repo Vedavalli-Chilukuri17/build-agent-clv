@@ -1,0 +1,311 @@
+/* KPI Row Styles */
+.kpi-row h2 {
+  margin-bottom: 24px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.kpi-row h2::before {
+  content: "📊";
+  font-size: 24px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.kpi-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--kpi-color, #3b82f6);
+  transition: all 0.2s ease;
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  border-color: var(--kpi-color, #3b82f6);
+}
+
+.kpi-card.primary {
+  --kpi-color: #3b82f6;
+}
+
+.kpi-card.warning {
+  --kpi-color: #f59e0b;
+}
+
+.kpi-card.success {
+  --kpi-color: #10b981;
+}
+
+.kpi-card.platinum {
+  --kpi-color: #6b7280;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.kpi-card.gold {
+  --kpi-color: #f59e0b;
+  background: linear-gradient(135deg, #fefbf3, #fef3c7);
+}
+
+.kpi-card.silver {
+  --kpi-color: #64748b;
+  background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+}
+
+.kpi-card.bronze {
+  --kpi-color: #92400e;
+  background: linear-gradient(135deg, #fef7ed, #fed7aa);
+}
+
+.kpi-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.kpi-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.kpi-trend {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.kpi-trend.positive {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.kpi-trend.negative {
+  background: #fecaca;
+  color: #dc2626;
+}
+
+.kpi-trend.neutral {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+.kpi-value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.kpi-value .value {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.kpi-value .unit {
+  font-size: 18px;
+  font-weight: 500;
+  color: #64748b;
+}
+
+.kpi-target {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.kpi-progress {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: var(--kpi-color, #3b82f6);
+  border-radius: 3px;
+  transition: width 0.5s ease;
+}
+
+/* CLV by Tier Section */
+.clv-tier-section {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.clv-tier-section h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.clv-tier-section h3::before {
+  content: "💎";
+  font-size: 20px;
+}
+
+.clv-tier-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+}
+
+/* Projected Renewals Section */
+.projected-renewals-section {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.projected-renewals-section h3 {
+  margin: 0 0 20px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.projected-renewals-section h3::before {
+  content: "🔮";
+  font-size: 20px;
+}
+
+.projected-renewals {
+  --kpi-color: #8b5cf6;
+  background: linear-gradient(135deg, #faf5ff, #e9d5ff);
+}
+
+.projected-renewals-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+}
+
+.renewal-count,
+.renewal-value {
+  text-align: center;
+}
+
+.renewal-count .value,
+.renewal-value .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1e293b;
+  display: block;
+}
+
+.renewal-count .unit,
+.renewal-value .unit {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.confidence-score {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8b5cf6;
+  background: rgba(139, 92, 246, 0.1);
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.confidence-breakdown {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding-top: 12px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.confident-renewals {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.confident-count {
+  font-size: 20px;
+  font-weight: 700;
+  color: #10b981;
+}
+
+.confident-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Loading State */
+.kpi-loading {
+  text-align: center;
+  padding: 40px;
+  color: #64748b;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .clv-tier-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .projected-renewals-content {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .kpi-value .value {
+    font-size: 28px;
+  }
+}
