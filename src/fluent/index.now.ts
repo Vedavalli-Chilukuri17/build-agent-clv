@@ -4,6 +4,7 @@ export * from './records/essential-policy-holders.now.ts';
 export * from './records/policy-holders-demo-data-new.now.ts';
 export * from './records/policy-holders-additional-batch.now.ts';
 export * from './records/all-existing-policy-holders-updates.now.ts';
+export * from './records/current-existing-records-update.now.ts';
 export * from './records/policy-holders-enhanced-data.now.ts';
 export * from './tables/campaigns.now.ts';
 export * from './client-scripts/suppress-campaign-messages.now.ts';
