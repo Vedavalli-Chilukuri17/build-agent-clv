@@ -6,23 +6,27 @@ import './Dashboard.css';
 export default function Dashboard() {
   const [dashboardData, setDashboardData] = useState({
     customers: [],
+    customerProfiles: [],
     incidents: [],
-    activities: [],
-    catalogItems: [],
-    roles: []
+    activities: []
   });
   const [loading, setLoading] = useState(true);
   const [lastUpdated, setLastUpdated] = useState(new Date());
   
-  // Renewal pipeline pagination state
-  const [renewalPage, setRenewalPage] = useState(1);
-  const [renewalPageSize] = useState(10);
-  const [renewalSort, setRenewalSort] = useState({ field: 'renewalDate', direction: 'asc' });
-  const [renewalFilter, setRenewalFilter] = useState('');
-  
-  // Product benchmarking state
-  const [productBenchmarking, setProductBenchmarking] = useState(null);
-  const [benchmarkingSort, setBenchmarkingSort] = useState({ field: 'productName', direction: 'asc' });
+  // Profile List state
+  const [profilePage, setProfilePage] = useState(1);
+  const [profilePageSize] = useState(25);
+  const [profileSort, setProfileSort] = useState({ field: 'name', direction: 'asc' });
+  const [profileFilter, setProfileFilter] = useState({
+    search: '',
+    tier: '',
+    churnRisk: '',
+    renewal: ''
+  });
+
+  // Selected drill-down states
+  const [selectedChurnRisk, setSelectedChurnRisk] = useState(null);
+  const [selectedRenewalPeriod, setSelectedRenewalPeriod] = useState(null);
 
   const service = useMemo(() => new CLVDataService(), []);
 
@@ -37,17 +41,14 @@ export default function Dashboard() {
   const loadDashboardData = async () => {
     setLoading(true);
     try {
-      const [customers, incidents, activities, catalogItems, roles, benchmarking] = await Promise.all([
+      const [customers, customerProfiles, incidents, activities] = await Promise.all([
         service.getCustomerData(),
+        service.getCustomerProfiles(), // New method for csm_consumer table
         service.getIncidentData(),
-        service.getUserActivity(),
-        service.getServiceCatalogData(),
-        service.getRoleData(),
-        service.getProductBenchmarkingData()
+        service.getUserActivity()
       ]);
 
-      setDashboardData({ customers, incidents, activities, catalogItems, roles });
-      setProductBenchmarking(benchmarking);
+      setDashboardData({ customers, customerProfiles, incidents, activities });
       setLastUpdated(new Date());
     } catch (error) {
       console.error('Error loading dashboard data:', error);
@@ -56,104 +57,165 @@ export default function Dashboard() {
     }
   };
 
-  // Calculate metrics
-  const kpiMetrics = useMemo(() => {
-    return service.calculateCLVMetrics(dashboardData.customers, dashboardData.incidents, dashboardData.activities);
-  }, [service, dashboardData]);
+  // Calculate churn risk distribution
+  const churnRiskData = useMemo(() => {
+    const profiles = dashboardData.customerProfiles;
+    const total = profiles.length;
+    
+    const riskCounts = {
+      'High Risk': profiles.filter(p => p.churnRisk === 'High').length,
+      'Medium Risk': profiles.filter(p => p.churnRisk === 'Medium').length,
+      'Low Risk': profiles.filter(p => p.churnRisk === 'Low').length
+    };
 
-  const channelPerformance = useMemo(() => {
-    return service.calculateChannelPerformance(dashboardData.activities);
-  }, [service, dashboardData.activities]);
+    return Object.entries(riskCounts).map(([risk, count]) => ({
+      risk,
+      count,
+      percentage: total > 0 ? ((count / total) * 100).toFixed(1) : 0,
+      color: risk === 'High Risk' ? '#dc2626' : risk === 'Medium Risk' ? '#f59e0b' : '#059669'
+    }));
+  }, [dashboardData.customerProfiles]);
 
-  const productPerformance = useMemo(() => {
-    return service.calculateProductPerformance(dashboardData.catalogItems);
-  }, [service, dashboardData.catalogItems]);
+  // Calculate renewal timeline distribution
+  const renewalTimelineData = useMemo(() => {
+    const profiles = dashboardData.customerProfiles;
+    const now = new Date();
+    
+    const timelineCounts = {
+      'Next 30 Days': 0,
+      '31–60 Days': 0,
+      '61–90 Days': 0
+    };
 
-  const customerTiers = useMemo(() => {
-    return service.calculateCustomerTiers(dashboardData.customers);
-  }, [service, dashboardData.customers]);
+    profiles.forEach(profile => {
+      if (profile.renewalDate) {
+        const renewalDate = new Date(profile.renewalDate);
+        const daysDiff = Math.ceil((renewalDate - now) / (1000 * 60 * 60 * 24));
+        
+        if (daysDiff <= 30 && daysDiff >= 0) {
+          timelineCounts['Next 30 Days']++;
+        } else if (daysDiff <= 60 && daysDiff > 30) {
+          timelineCounts['31–60 Days']++;
+        } else if (daysDiff <= 90 && daysDiff > 60) {
+          timelineCounts['61–90 Days']++;
+        }
+      }
+    });
 
-  const clvBands = useMemo(() => {
-    return service.calculateCLVBands(dashboardData.customers);
-  }, [service, dashboardData.customers]);
+    return Object.entries(timelineCounts).map(([period, count]) => ({
+      period,
+      count,
+      isUrgent: period === 'Next 30 Days'
+    }));
+  }, [dashboardData.customerProfiles]);
 
-  // Enhanced renewal pipeline with pagination and filtering
-  const renewalPipeline = useMemo(() => {
-    const paginatedData = service.getUpcomingRenewals(dashboardData.customers, renewalPage, renewalPageSize);
-    let filteredData = paginatedData.data;
+  // Filter and sort customer profiles
+  const filteredProfiles = useMemo(() => {
+    let filtered = dashboardData.customerProfiles;
 
-    // Apply filter
-    if (renewalFilter) {
-      filteredData = filteredData.filter(renewal => 
-        renewal.customerName.toLowerCase().includes(renewalFilter.toLowerCase()) ||
-        renewal.renewalStatus.toLowerCase().includes(renewalFilter.toLowerCase())
+    // Apply filters
+    if (profileFilter.search) {
+      filtered = filtered.filter(p => 
+        p.name.toLowerCase().includes(profileFilter.search.toLowerCase())
       );
     }
+    if (profileFilter.tier) {
+      filtered = filtered.filter(p => p.clvTier === profileFilter.tier);
+    }
+    if (profileFilter.churnRisk) {
+      filtered = filtered.filter(p => p.churnRisk === profileFilter.churnRisk);
+    }
+    if (profileFilter.renewal) {
+      const renewalBool = profileFilter.renewal === 'Yes';
+      filtered = filtered.filter(p => p.renewal === renewalBool);
+    }
 
-    // Apply sort
-    filteredData.sort((a, b) => {
-      let aVal = a[renewalSort.field];
-      let bVal = b[renewalSort.field];
+    // Apply drill-down filters
+    if (selectedChurnRisk) {
+      filtered = filtered.filter(p => p.churnRisk === selectedChurnRisk);
+    }
+    if (selectedRenewalPeriod) {
+      const now = new Date();
+      filtered = filtered.filter(p => {
+        if (!p.renewalDate) return false;
+        const renewalDate = new Date(p.renewalDate);
+        const daysDiff = Math.ceil((renewalDate - now) / (1000 * 60 * 60 * 24));
+        
+        switch (selectedRenewalPeriod) {
+          case 'Next 30 Days':
+            return daysDiff <= 30 && daysDiff >= 0;
+          case '31–60 Days':
+            return daysDiff <= 60 && daysDiff > 30;
+          case '61–90 Days':
+            return daysDiff <= 90 && daysDiff > 60;
+          default:
+            return true;
+        }
+      });
+    }
+
+    // Apply sorting
+    filtered.sort((a, b) => {
+      let aVal = a[profileSort.field];
+      let bVal = b[profileSort.field];
       
-      if (renewalSort.field === 'renewalAmount' || renewalSort.field === 'opportunityScore' || renewalSort.field === 'clvScore') {
+      if (profileSort.field === 'clv12M' || profileSort.field === 'engagementScore' || profileSort.field === 'tenure') {
         aVal = typeof aVal === 'number' ? aVal : parseFloat(aVal) || 0;
         bVal = typeof bVal === 'number' ? bVal : parseFloat(bVal) || 0;
       }
 
-      if (renewalSort.direction === 'asc') {
+      if (profileSort.direction === 'asc') {
         return aVal > bVal ? 1 : -1;
       } else {
         return aVal < bVal ? 1 : -1;
       }
     });
 
-    return {
-      data: filteredData,
-      pagination: paginatedData.pagination
-    };
-  }, [service, dashboardData.customers, renewalPage, renewalPageSize, renewalSort, renewalFilter]);
+    return filtered;
+  }, [dashboardData.customerProfiles, profileFilter, profileSort, selectedChurnRisk, selectedRenewalPeriod]);
 
-  // Sorted product benchmarking data
-  const sortedBenchmarking = useMemo(() => {
-    if (!productBenchmarking?.data) return [];
+  // Paginate profiles
+  const paginatedProfiles = useMemo(() => {
+    const startIndex = (profilePage - 1) * profilePageSize;
+    const endIndex = startIndex + profilePageSize;
     
-    return [...productBenchmarking.data].sort((a, b) => {
-      let aVal = a[benchmarkingSort.field];
-      let bVal = b[benchmarkingSort.field];
-      
-      if (benchmarkingSort.field.includes('Vs') || benchmarkingSort.field.includes('Ratio') || benchmarkingSort.field.includes('Rate')) {
-        aVal = parseFloat(aVal.replace('%', '')) || 0;
-        bVal = parseFloat(bVal.replace('%', '')) || 0;
+    return {
+      data: filteredProfiles.slice(startIndex, endIndex),
+      pagination: {
+        currentPage: profilePage,
+        pageSize: profilePageSize,
+        totalRecords: filteredProfiles.length,
+        totalPages: Math.ceil(filteredProfiles.length / profilePageSize)
       }
+    };
+  }, [filteredProfiles, profilePage, profilePageSize]);
 
-      if (benchmarkingSort.direction === 'asc') {
-        return aVal > bVal ? 1 : -1;
-      } else {
-        return aVal < bVal ? 1 : -1;
-      }
-    });
-  }, [productBenchmarking, benchmarkingSort]);
-
-  // Handle product block clicks for drill-down
-  const handleProductClick = (product) => {
-    console.log('Drilling down into product:', product.name);
-    // Future: Navigate to detailed product analytics
+  // Handle churn risk bar click
+  const handleChurnRiskClick = (risk) => {
+    setSelectedChurnRisk(selectedChurnRisk === risk ? null : risk);
+    setSelectedRenewalPeriod(null); // Clear other drill-down
+    setProfilePage(1);
   };
 
-  // Handle renewal table sorting
-  const handleRenewalSort = (field) => {
-    setRenewalSort(prev => ({
+  // Handle renewal timeline bar click
+  const handleRenewalTimelineClick = (period) => {
+    setSelectedRenewalPeriod(selectedRenewalPeriod === period ? null : period);
+    setSelectedChurnRisk(null); // Clear other drill-down
+    setProfilePage(1);
+  };
+
+  // Handle profile table sorting
+  const handleProfileSort = (field) => {
+    setProfileSort(prev => ({
       field,
       direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
   };
 
-  // Handle benchmarking table sorting
-  const handleBenchmarkingSort = (field) => {
-    setBenchmarkingSort(prev => ({
-      field,
-      direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
-    }));
+  // Handle profile actions
+  const handleProfileAction = (profileId, action) => {
+    console.log(`${action} action for profile:`, profileId);
+    // Future implementation: Navigate to profile/snapshot view
   };
 
   if (loading) {
@@ -176,553 +238,225 @@ export default function Dashboard() {
       </div>
 
       <div className="dashboard-grid">
-        {/* Section A: Executive KPI Dashboard */}
-        <section className="dashboard-section kpi-section">
-          <h2>Executive KPI Dashboard</h2>
-          <div className="kpi-grid">
-            <div className="kpi-card">
-              <div className="kpi-value">{kpiMetrics.renewalRate}%</div>
-              <div className="kpi-label">Renewal Conversion Rate</div>
-              <div className="kpi-trend positive">↗ +2.3%</div>
-            </div>
-            <div className="kpi-card">
-              <div className="kpi-value">{kpiMetrics.churnRate}%</div>
-              <div className="kpi-label">Churn Rate</div>
-              <div className="kpi-trend negative">↘ -0.8%</div>
-            </div>
-            <div className="kpi-card">
-              <div className="kpi-value">${kpiMetrics.averageCLV.toLocaleString()}</div>
-              <div className="kpi-label">Average CLV</div>
-              <div className="kpi-trend positive">↗ +5.2%</div>
-            </div>
-            <div className="kpi-card">
-              <div className="kpi-value">${kpiMetrics.customerAcquisitionCost}</div>
-              <div className="kpi-label">Customer Acquisition Cost</div>
-              <div className="kpi-trend positive">↗ +1.1%</div>
-            </div>
-            <div className="kpi-card">
-              <div className="kpi-value">{kpiMetrics.netRevenueRetention}%</div>
-              <div className="kpi-label">Net Revenue Retention</div>
-              <div className="kpi-trend positive">↗ +3.4%</div>
-            </div>
-            <div className="kpi-card">
-              <div className="kpi-value">{kpiMetrics.highRiskCustomers}</div>
-              <div className="kpi-label">High-Risk Customers</div>
-              <div className="kpi-trend warning">⚠ Monitor</div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section B: Coverage Gap Opportunities */}
-        <section className="dashboard-section coverage-section">
-          <h2>Coverage Gap Opportunities</h2>
-          <div className="coverage-grid">
-            <div className="coverage-item">
-              <span className="coverage-product">Term Life</span>
-              <span className="coverage-count">1,247</span>
-            </div>
-            <div className="coverage-item">
-              <span className="coverage-product">Whole Life</span>
-              <span className="coverage-count">892</span>
-            </div>
-            <div className="coverage-item">
-              <span className="coverage-product">Auto Insurance</span>
-              <span className="coverage-count">2,156</span>
-            </div>
-            <div className="coverage-item">
-              <span className="coverage-product">Home Insurance</span>
-              <span className="coverage-count">1,534</span>
-            </div>
-          </div>
-          <div className="coverage-total">
-            Total Opportunities: <strong>5,829</strong>
-          </div>
-        </section>
-
-        {/* Section C: Channel Performance */}
-        <section className="dashboard-section channel-section">
-          <h2>Channel Performance (Last 30 Days)</h2>
-          <div className="channel-chart">
-            {Object.entries(channelPerformance).map(([channel, data]) => (
-              <div key={channel} className="channel-bar">
-                <div className="channel-label">{channel}</div>
-                <div className="channel-metrics">
-                  <div className="channel-volume">{data.volume} interactions</div>
-                  <div className="channel-conversion">{data.conversionRate}% conversion</div>
-                </div>
-                <div className="channel-bar-visual">
-                  <div 
-                    className="channel-bar-fill" 
-                    style={{ width: `${Math.min(data.volume / 100, 1) * 100}%` }}
-                  ></div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Section D: Cross-Sell/Upsell Performance */}
-        <section className="dashboard-section upsell-section">
-          <h2>Cross-Sell/Upsell Performance</h2>
-          <div className="upsell-metrics">
-            <div className="upsell-card">
-              <div className="upsell-value">1,342</div>
-              <div className="upsell-label">Successful Add-Ons</div>
-            </div>
-            <div className="upsell-card">
-              <div className="upsell-value">23.7%</div>
-              <div className="upsell-label">Acceptance Rate</div>
-            </div>
-            <div className="upsell-card">
-              <div className="upsell-value">+12.4%</div>
-              <div className="upsell-label">Month-over-Month</div>
-            </div>
-          </div>
-          <div className="upsell-trend">
-            <div className="trend-line">📈 Trending upward over past 6 months</div>
-          </div>
-        </section>
-
-        {/* Section E: Product Benchmarking Analysis - UPDATED HORIZONTAL LAYOUT */}
-        <section className="dashboard-section product-section">
+        {/* Churn Risk Heatmap */}
+        <section className="dashboard-section churn-heatmap-section">
           <div className="section-header">
-            <h2>Product Benchmarking Analysis</h2>
-            <div className="section-meta">
-              <span className="refresh-indicator">🔄</span>
-              <span className="last-updated-small">Updated: {lastUpdated.toLocaleTimeString()}</span>
-            </div>
+            <h2>Churn Risk Heatmap</h2>
+            {selectedChurnRisk && (
+              <button 
+                className="clear-filter-btn"
+                onClick={() => setSelectedChurnRisk(null)}
+                title="Clear filter"
+              >
+                Clear "{selectedChurnRisk}" filter ✕
+              </button>
+            )}
           </div>
           
-          <div className="product-horizontal-container">
-            <div className="product-blocks-row">
-              {productPerformance.map((product, index) => (
-                <div 
-                  key={index} 
-                  className="product-block"
-                  onClick={() => handleProductClick(product)}
-                  role="button"
-                  tabIndex={0}
-                  title={`Click for detailed ${product.name} analytics`}
-                >
-                  <div className="product-block-header">
-                    <h3 className="product-name">{product.name}</h3>
-                  </div>
-                  
-                  <div className="product-metrics-stack">
-                    <div className="product-metric-row">
-                      <span className="metric-label">Purchase Frequency</span>
-                      <span className="metric-value">{product.purchaseFrequency}</span>
-                    </div>
-                    
-                    <div className="product-metric-row">
-                      <span className="metric-label">Premium per Customer</span>
-                      <span className="metric-value">${(product.revenuePerCustomer * 0.15).toFixed(0)}</span>
-                    </div>
-                    
-                    <div className="product-metric-row">
-                      <span className="metric-label">Revenue per Customer</span>
-                      <span className="metric-value">${product.revenuePerCustomer.toLocaleString()}</span>
-                    </div>
-                    
-                    <div className="product-metric-row">
-                      <span className="metric-label">% Change in Revenue</span>
-                      <span 
-                        className={`metric-value revenue-change ${parseFloat(product.premiumVsCompetitor) >= 0 ? 'positive' : 'negative'}`}
-                        title={parseFloat(product.premiumVsCompetitor) >= 0 ? 'Revenue increased' : 'Revenue decreased'}
-                      >
-                        {parseFloat(product.premiumVsCompetitor) >= 0 ? '+' : ''}{product.premiumVsCompetitor}%
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="product-block-footer">
-                    <span className="performance-indicator">
-                      {parseFloat(product.premiumVsCompetitor) >= 10 ? '🟢' : 
-                       parseFloat(product.premiumVsCompetitor) >= 0 ? '🟡' : '🔴'}
-                    </span>
-                    <span className="drill-down-hint">Click for details</span>
+          <div className="churn-heatmap">
+            {churnRiskData.map(({ risk, count, percentage, color }) => (
+              <div 
+                key={risk} 
+                className={`churn-risk-bar ${selectedChurnRisk === risk ? 'selected' : ''}`}
+                onClick={() => handleChurnRiskClick(risk)}
+                title={`Click to filter customer list by ${risk}`}
+              >
+                <div className="risk-label">{risk}</div>
+                <div className="risk-bar-container">
+                  <div 
+                    className="risk-bar-fill" 
+                    style={{ 
+                      backgroundColor: color,
+                      width: `${Math.max((count / Math.max(...churnRiskData.map(d => d.count))), 0.1) * 100}%`
+                    }}
+                  ></div>
+                  <div className="risk-stats">
+                    <span className="risk-count">{count}</span>
+                    <span className="risk-percentage">({percentage}%)</span>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-          
-          <div className="product-section-footer">
-            <div className="performance-legend">
-              <span className="legend-item">
-                <span className="legend-indicator">🟢</span>
-                <span className="legend-text">High Performance (10%+)</span>
-              </span>
-              <span className="legend-item">
-                <span className="legend-indicator">🟡</span>
-                <span className="legend-text">Moderate Performance (0-10%)</span>
-              </span>
-              <span className="legend-item">
-                <span className="legend-indicator">🔴</span>
-                <span className="legend-text">Underperforming (&lt;0%)</span>
-              </span>
-            </div>
-          </div>
-        </section>
-
-        {/* Section F: Customer Intelligence & Engagement */}
-        <section className="dashboard-section intelligence-section">
-          <h2>Customer Intelligence & Engagement</h2>
-          <div className="intelligence-grid">
-            <div className="intelligence-card benchmark">
-              <h3>Market Benchmark</h3>
-              <div className="benchmark-metrics">
-                <div className="benchmark-item">
-                  <span className="benchmark-label">Outperformance</span>
-                  <span className="benchmark-value positive">+12.3%</span>
-                </div>
-                <div className="benchmark-item">
-                  <span className="benchmark-label">Industry Average</span>
-                  <span className="benchmark-value">78.5%</span>
-                </div>
-                <div className="benchmark-item">
-                  <span className="benchmark-label">Performance Gap</span>
-                  <span className="benchmark-value positive">+9.6%</span>
-                </div>
-              </div>
-            </div>
-            <div className="intelligence-card engagement">
-              <h3>Engagement Analytics</h3>
-              <div className="engagement-scores">
-                <div className="score-item">
-                  <span className="score-label">Overall Engagement</span>
-                  <div className="score-bar">
-                    <div className="score-fill" style={{ width: '84%' }}></div>
-                    <span className="score-value">84</span>
-                  </div>
-                </div>
-                <div className="score-item">
-                  <span className="score-label">Retention Score</span>
-                  <div className="score-bar">
-                    <div className="score-fill" style={{ width: '91%' }}></div>
-                    <span className="score-value">91</span>
-                  </div>
-                </div>
-                <div className="score-item">
-                  <span className="score-label">Loyalty Score</span>
-                  <div className="score-bar">
-                    <div className="score-fill" style={{ width: '77%' }}></div>
-                    <span className="score-value">77</span>
-                  </div>
-                </div>
-                <div className="score-item">
-                  <span className="score-label">Campaign Score</span>
-                  <div className="score-bar">
-                    <div className="score-fill" style={{ width: '88%' }}></div>
-                    <span className="score-value">88</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section G: Risk Factor Analysis */}
-        <section className="dashboard-section risk-section">
-          <h2>Risk Factor Analysis</h2>
-          <div className="risk-chart">
-            <div className="risk-factor">
-              <span className="risk-label">Credit Risk Score &lt;600</span>
-              <div className="risk-bar">
-                <div className="risk-fill" style={{ width: '23%' }}></div>
-                <span className="risk-percentage">23%</span>
-              </div>
-            </div>
-            <div className="risk-factor">
-              <span className="risk-label">High-Risk Property Zones</span>
-              <div className="risk-bar">
-                <div className="risk-fill" style={{ width: '18%' }}></div>
-                <span className="risk-percentage">18%</span>
-              </div>
-            </div>
-            <div className="risk-factor">
-              <span className="risk-label">Low Income</span>
-              <div className="risk-bar">
-                <div className="risk-fill" style={{ width: '31%' }}></div>
-                <span className="risk-percentage">31%</span>
-              </div>
-            </div>
-            <div className="risk-factor">
-              <span className="risk-label">Claim History</span>
-              <div className="risk-bar">
-                <div className="risk-fill" style={{ width: '15%' }}></div>
-                <span className="risk-percentage">15%</span>
-              </div>
-            </div>
-            <div className="risk-factor">
-              <span className="risk-label">Catastrophic Risk Flags</span>
-              <div className="risk-bar">
-                <div className="risk-fill" style={{ width: '8%' }}></div>
-                <span className="risk-percentage">8%</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Section H: Claims Impact Analysis */}
-        <section className="dashboard-section claims-section">
-          <h2>Claims Impact Analysis</h2>
-          <div className="claims-analysis">
-            <div className="claims-metrics">
-              <div className="claims-metric">
-                <span className="claims-label">Avg. Renewal Likelihood</span>
-                <span className="claims-value">73.2%</span>
-              </div>
-              <div className="claims-metric">
-                <span className="claims-label">Predicted CLV Impact</span>
-                <span className="claims-value">-$2,847</span>
-              </div>
-              <div className="claims-metric">
-                <span className="claims-label">Claims Multiplier</span>
-                <span className="claims-value">1.34x</span>
-              </div>
-            </div>
-            <div className="claims-chart-placeholder">
-              📊 Claims vs Renewal Likelihood Scatter Plot
-              <p>Interactive chart showing correlation between claim count and renewal probability</p>
-            </div>
-          </div>
-        </section>
-
-        {/* Section I: Customer Tier Distribution */}
-        <section className="dashboard-section tier-section">
-          <h2>Customer Tier Distribution</h2>
-          <div className="tier-chart">
-            {Object.entries(customerTiers).map(([tier, count]) => (
-              <div key={tier} className={`tier-segment tier-${tier.toLowerCase()}`}>
-                <span className="tier-name">{tier}</span>
-                <span className="tier-count">{count}</span>
-                <span className="tier-percentage">
-                  {((count / dashboardData.customers.length) * 100).toFixed(1)}%
-                </span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Section J: CLV Bands Distribution */}
-        <section className="dashboard-section clv-bands-section">
-          <h2>CLV Bands Distribution</h2>
-          <div className="clv-bands-chart">
-            <div className="clv-band">
-              <span className="band-label">&lt; $5K</span>
-              <div className="band-bar">
-                <div className="band-fill" style={{ width: '40%' }}></div>
-                <span className="band-count">{clvBands.under5k}</span>
+        {/* Renewal Timeline Heatmap */}
+        <section className="dashboard-section renewal-timeline-section">
+          <div className="section-header">
+            <h2>Renewal Timeline Heatmap</h2>
+            {selectedRenewalPeriod && (
+              <button 
+                className="clear-filter-btn"
+                onClick={() => setSelectedRenewalPeriod(null)}
+                title="Clear filter"
+              >
+                Clear "{selectedRenewalPeriod}" filter ✕
+              </button>
+            )}
+          </div>
+          
+          <div className="renewal-timeline-chart">
+            {renewalTimelineData.map(({ period, count, isUrgent }) => (
+              <div 
+                key={period}
+                className={`renewal-timeline-bar ${isUrgent ? 'urgent' : ''} ${selectedRenewalPeriod === period ? 'selected' : ''}`}
+                onClick={() => handleRenewalTimelineClick(period)}
+                title={`${count} customers expiring ${period.toLowerCase()}. Click to filter list.`}
+              >
+                <div className="timeline-label">
+                  {period}
+                  {isUrgent && <span className="urgent-indicator">⚠</span>}
+                </div>
+                <div className="timeline-bar-container">
+                  <div 
+                    className="timeline-bar-fill"
+                    style={{ 
+                      width: `${Math.max((count / Math.max(...renewalTimelineData.map(d => d.count))), 0.1) * 100}%`,
+                      backgroundColor: isUrgent ? '#dc2626' : period === '31–60 Days' ? '#f59e0b' : '#059669'
+                    }}
+                  ></div>
+                  <span className="timeline-count">{count}</span>
+                </div>
               </div>
-            </div>
-            <div className="clv-band">
-              <span className="band-label">$5K–$10K</span>
-              <div className="band-bar">
-                <div className="band-fill" style={{ width: '35%' }}></div>
-                <span className="band-count">{clvBands['5k-10k']}</span>
-              </div>
-            </div>
-            <div className="clv-band">
-              <span className="band-label">$10K–$15K</span>
-              <div className="band-bar">
-                <div className="band-fill" style={{ width: '15%' }}></div>
-                <span className="band-count">{clvBands['10k-15k']}</span>
-              </div>
-            </div>
-            <div className="clv-band">
-              <span className="band-label">&gt; $15K</span>
-              <div className="band-bar">
-                <div className="band-fill" style={{ width: '10%' }}></div>
-                <span className="band-count">{clvBands.over15k}</span>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* FIXED Section K: Renewal Pipeline Management */}
-        <section className="dashboard-section renewal-pipeline-section">
-          <div className="renewal-section-header">
-            <h2>Renewal Pipeline Management</h2>
-            <div className="renewal-controls">
+        {/* Profile List */}
+        <section className="dashboard-section profile-list-section">
+          <div className="section-header">
+            <h2>Profile List</h2>
+            <div className="profile-controls">
               <input
                 type="text"
-                placeholder="Filter by customer or status..."
-                value={renewalFilter}
-                onChange={(e) => setRenewalFilter(e.target.value)}
-                className="renewal-filter-input"
+                placeholder="Search by customer name..."
+                value={profileFilter.search}
+                onChange={(e) => {
+                  setProfileFilter(prev => ({ ...prev, search: e.target.value }));
+                  setProfilePage(1);
+                }}
+                className="profile-search"
               />
-              <span className="renewal-count">
-                {renewalPipeline.data.length} of {renewalPipeline.pagination?.totalRecords || 0} records
-              </span>
+              
+              <select
+                value={profileFilter.tier}
+                onChange={(e) => {
+                  setProfileFilter(prev => ({ ...prev, tier: e.target.value }));
+                  setProfilePage(1);
+                }}
+                className="profile-tier-filter"
+              >
+                <option value="">All Tiers</option>
+                <option value="Platinum">Platinum</option>
+                <option value="Gold">Gold</option>
+                <option value="Silver">Silver</option>
+                <option value="Bronze">Bronze</option>
+              </select>
+              
+              <select
+                value={profileFilter.churnRisk}
+                onChange={(e) => {
+                  setProfileFilter(prev => ({ ...prev, churnRisk: e.target.value }));
+                  setProfilePage(1);
+                }}
+                className="profile-risk-filter"
+              >
+                <option value="">All Risk Levels</option>
+                <option value="High">High Risk</option>
+                <option value="Medium">Medium Risk</option>
+                <option value="Low">Low Risk</option>
+              </select>
+              
+              <select
+                value={profileFilter.renewal}
+                onChange={(e) => {
+                  setProfileFilter(prev => ({ ...prev, renewal: e.target.value }));
+                  setProfilePage(1);
+                }}
+                className="profile-renewal-filter"
+              >
+                <option value="">All Renewals</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
             </div>
           </div>
-
-          <div className="renewal-table-container">
-            <table className="renewal-table-enhanced">
+          
+          <div className="profile-table-container">
+            <table className="profile-table">
               <thead>
                 <tr>
-                  <th onClick={() => handleRenewalSort('customerName')} className="sortable" 
-                      title="Sort by Customer Name">
-                    Customer Name {renewalSort.field === 'customerName' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('name')} className="sortable">
+                    Name {profileSort.field === 'name' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th onClick={() => handleRenewalSort('renewalDate')} className="sortable"
-                      title="Sort by Renewal Date">
-                    Renewal Date {renewalSort.field === 'renewalDate' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('clvTier')} className="sortable">
+                    CLV Tier {profileSort.field === 'clvTier' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th onClick={() => handleRenewalSort('renewalStatus')} className="sortable"
-                      title="Sort by Status">
-                    Status {renewalSort.field === 'renewalStatus' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('clv12M')} className="sortable">
+                    CLV (12M) {profileSort.field === 'clv12M' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th onClick={() => handleRenewalSort('opportunityScore')} className="sortable"
-                      title="Sort by Opportunity Score">
-                    Opportunity Score {renewalSort.field === 'opportunityScore' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('renewal')} className="sortable">
+                    Renewal {profileSort.field === 'renewal' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th onClick={() => handleRenewalSort('renewalAmount')} className="sortable"
-                      title="Sort by Renewal Amount">
-                    Renewal Amount {renewalSort.field === 'renewalAmount' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('churnRisk')} className="sortable">
+                    Churn Risk {profileSort.field === 'churnRisk' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
-                  <th onClick={() => handleRenewalSort('clvScore')} className="sortable"
-                      title="Sort by CLV Score">
-                    CLV Score {renewalSort.field === 'clvScore' && (renewalSort.direction === 'asc' ? '↑' : '↓')}
+                  <th onClick={() => handleProfileSort('engagementScore')} className="sortable">
+                    Engagement Score {profileSort.field === 'engagementScore' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                   </th>
+                  <th onClick={() => handleProfileSort('tenure')} className="sortable">
+                    Tenure {profileSort.field === 'tenure' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th onClick={() => handleProfileSort('location')} className="sortable">
+                    Location {profileSort.field === 'location' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                  </th>
+                  <th className="actions-header">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {renewalPipeline.data.map((renewal, index) => (
-                  <tr key={renewal.id || index} className="renewal-row-enhanced">
-                    <td className="renewal-customer" title={renewal.customerName}>{renewal.customerName}</td>
-                    <td className="renewal-date">{renewal.renewalDate}</td>
-                    <td>
-                      <span className={`renewal-status-enhanced status-${renewal.renewalStatus.toLowerCase().replace(' ', '-')}`}
-                            title={`Status: ${renewal.renewalStatus}`}>
-                        {renewal.renewalStatus}
+                {paginatedProfiles.data.map((profile, index) => (
+                  <tr key={profile.id || index} className="profile-row">
+                    <td className="profile-name" title={profile.name}>{profile.name}</td>
+                    <td className={`profile-tier tier-${profile.clvTier.toLowerCase()}`}>
+                      {profile.clvTier}
+                    </td>
+                    <td className="profile-clv" title={`12-month CLV: $${profile.clv12M.toLocaleString()}`}>
+                      ${profile.clv12M.toLocaleString()}
+                    </td>
+                    <td className="profile-renewal">
+                      <span className={`renewal-badge ${profile.renewal ? 'renewal-yes' : 'renewal-no'}`}>
+                        {profile.renewal ? 'Yes' : 'No'}
                       </span>
                     </td>
-                    <td className="renewal-opportunity" title={`Opportunity Score: ${renewal.opportunityScore}%`}>
-                      {renewal.opportunityScore}%
+                    <td className="profile-churn-risk">
+                      <span className={`churn-risk-badge risk-${profile.churnRisk.toLowerCase().replace(' ', '-')}`}>
+                        {profile.churnRisk}
+                      </span>
                     </td>
-                    <td className="renewal-amount" title={`Renewal Amount: $${renewal.renewalAmount.toLocaleString()}`}>
-                      ${renewal.renewalAmount.toLocaleString()}
+                    <td className="profile-engagement" title={`Engagement Score: ${profile.engagementScore}`}>
+                      {profile.engagementScore}
                     </td>
-                    <td className="renewal-clv" title={`CLV Score: ${renewal.clvScore}`}>
-                      {renewal.clvScore}
+                    <td className="profile-tenure" title={`Tenure: ${profile.tenure} months`}>
+                      {profile.tenure}
                     </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Pagination Controls */}
-          <div className="renewal-pagination">
-            <button 
-              onClick={() => setRenewalPage(prev => Math.max(1, prev - 1))}
-              disabled={renewalPage <= 1}
-              className="pagination-btn"
-            >
-              Previous
-            </button>
-            <span className="pagination-info">
-              Page {renewalPage} of {renewalPipeline.pagination?.totalPages || 1}
-            </span>
-            <button 
-              onClick={() => setRenewalPage(prev => prev + 1)}
-              disabled={renewalPage >= (renewalPipeline.pagination?.totalPages || 1)}
-              className="pagination-btn"
-            >
-              Next
-            </button>
-          </div>
-        </section>
-
-        {/* NEW Section L: Product Benchmarking Analysis Report */}
-        <section className="dashboard-section product-benchmarking-section">
-          <div className="benchmarking-section-header">
-            <h2>Product Benchmarking Analysis</h2>
-            <div className="benchmarking-meta">
-              <span className="data-source" title="Data source information">
-                📊 {productBenchmarking?.dataSource || 'Loading...'}
-              </span>
-              <span className="benchmarking-timestamp">
-                Updated: {productBenchmarking?.lastUpdated ? productBenchmarking.lastUpdated.toLocaleTimeString() : 'N/A'}
-              </span>
-            </div>
-          </div>
-
-          <div className="benchmarking-table-container">
-            <table className="benchmarking-table">
-              <thead>
-                <tr>
-                  <th onClick={() => handleBenchmarkingSort('productName')} className="sortable"
-                      title="Sort by Product Name">
-                    Product Name {benchmarkingSort.field === 'productName' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('performanceLabel')} className="sortable"
-                      title="Sort by Performance Label">
-                    Performance {benchmarkingSort.field === 'performanceLabel' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('premiumVsComp1')} className="sortable"
-                      title="Premium comparison vs Competitor 1">
-                    Premium vs Comp 1 {benchmarkingSort.field === 'premiumVsComp1' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('premiumVsComp2')} className="sortable"
-                      title="Premium comparison vs Competitor 2">
-                    Premium vs Comp 2 {benchmarkingSort.field === 'premiumVsComp2' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('renewalVsComp1')} className="sortable"
-                      title="Renewal rate vs Competitor 1">
-                    Renewal vs Comp 1 {benchmarkingSort.field === 'renewalVsComp1' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('renewalVsComp2')} className="sortable"
-                      title="Renewal rate vs Competitor 2">
-                    Renewal vs Comp 2 {benchmarkingSort.field === 'renewalVsComp2' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('claimsRatio')} className="sortable"
-                      title="Our claims ratio">
-                    Claims Ratio {benchmarkingSort.field === 'claimsRatio' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                  <th onClick={() => handleBenchmarkingSort('addOnRate')} className="sortable"
-                      title="Our add-on rate">
-                    Add-On Rate {benchmarkingSort.field === 'addOnRate' && (benchmarkingSort.direction === 'asc' ? '↑' : '↓')}
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {sortedBenchmarking.map((product, index) => (
-                  <tr key={index} className="benchmarking-row">
-                    <td className="product-name-cell">
-                      <div className="product-name-with-label">
-                        <span className="product-name">{product.productName}</span>
-                        <span className={`performance-badge ${service.getPerformanceBadgeClass(product.performanceLabel)}`}>
-                          {product.performanceLabel}
-                        </span>
-                      </div>
+                    <td className="profile-location" title={profile.location}>
+                      {profile.location}
                     </td>
-                    <td className={`performance-cell performance-${product.performanceLabel.toLowerCase()}`}>
-                      {product.performanceLabel}
-                    </td>
-                    <td className={`comparison-cell ${parseFloat(product.premiumVsComp1.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
-                        title={`Premium ${parseFloat(product.premiumVsComp1.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 1`}>
-                      {service.getPerformanceIndicator(product.premiumVsComp1).indicator} {product.premiumVsComp1}
-                    </td>
-                    <td className={`comparison-cell ${parseFloat(product.premiumVsComp2.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
-                        title={`Premium ${parseFloat(product.premiumVsComp2.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 2`}>
-                      {service.getPerformanceIndicator(product.premiumVsComp2).indicator} {product.premiumVsComp2}
-                    </td>
-                    <td className={`comparison-cell ${parseFloat(product.renewalVsComp1.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
-                        title={`Renewal rate ${parseFloat(product.renewalVsComp1.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 1`}>
-                      {service.getPerformanceIndicator(product.renewalVsComp1).indicator} {product.renewalVsComp1}
-                    </td>
-                    <td className={`comparison-cell ${parseFloat(product.renewalVsComp2.replace('%', '')) >= 0 ? 'positive' : 'negative'}`}
-                        title={`Renewal rate ${parseFloat(product.renewalVsComp2.replace('%', '')) >= 0 ? 'advantage' : 'disadvantage'} vs Competitor 2`}>
-                      {service.getPerformanceIndicator(product.renewalVsComp2).indicator} {product.renewalVsComp2}
-                    </td>
-                    <td className="metric-cell" title={`Claims ratio: ${product.claimsRatio}`}>
-                      {product.claimsRatio}
-                    </td>
-                    <td className="metric-cell" title={`Add-on rate: ${product.addOnRate}`}>
-                      {product.addOnRate}
+                    <td className="profile-actions">
+                      <button 
+                        className="action-btn profile-btn"
+                        onClick={() => handleProfileAction(profile.id, 'Profile')}
+                        title="View full customer profile"
+                      >
+                        Profile
+                      </button>
+                      <button 
+                        className="action-btn snapshot-btn"
+                        onClick={() => handleProfileAction(profile.id, 'Snapshot')}
+                        title="View customer snapshot"
+                      >
+                        Snapshot
+                      </button>
                     </td>
                   </tr>
                 ))}
@@ -730,65 +464,29 @@ export default function Dashboard() {
             </table>
           </div>
 
-          <div className="benchmarking-footer">
-            <div className="benchmarking-legend">
-              <div className="legend-group">
-                <span className="legend-title">Performance Labels:</span>
-                <span className="legend-item">
-                  <span className="performance-badge performance-strong">Strong</span>
-                  <span className="legend-text">Market leader</span>
-                </span>
-                <span className="legend-item">
-                  <span className="performance-badge performance-competitive">Competitive</span>
-                  <span className="legend-text">Market participant</span>
-                </span>
-                <span className="legend-item">
-                  <span className="performance-badge performance-challenged">Challenged</span>
-                  <span className="legend-text">Needs improvement</span>
-                </span>
-              </div>
-              <div className="legend-group">
-                <span className="legend-title">Indicators:</span>
-                <span className="legend-item">
-                  <span className="legend-indicator">🟢</span>
-                  <span className="legend-text">Strong advantage (10%+)</span>
-                </span>
-                <span className="legend-item">
-                  <span className="legend-indicator">🟡</span>
-                  <span className="legend-text">Moderate advantage (0-10%)</span>
-                </span>
-                <span className="legend-item">
-                  <span className="legend-indicator">🔴</span>
-                  <span className="legend-text">Disadvantage (&lt;0%)</span>
-                </span>
-              </div>
+          {/* Profile Table Pagination */}
+          <div className="profile-pagination">
+            <div className="pagination-info">
+              Showing {profilePageSize} of {paginatedProfiles.pagination.totalRecords} customers
             </div>
-          </div>
-        </section>
-
-        {/* Section M: Strategic Quadrant Highlights */}
-        <section className="dashboard-section quadrant-section">
-          <h2>Strategic Quadrant Highlights</h2>
-          <div className="strategic-quadrant">
-            <div className="quadrant customer-excellence">
-              <h3>Customer Excellence</h3>
-              <p>High CLV + High Renewal</p>
-              <div className="quadrant-count">234 customers</div>
-            </div>
-            <div className="quadrant growth-opportunities">
-              <h3>Growth Opportunities</h3>
-              <p>High CLV + Low Renewal</p>
-              <div className="quadrant-count">156 customers</div>
-            </div>
-            <div className="quadrant risk-management">
-              <h3>Risk Management</h3>
-              <p>Low CLV + Low Renewal</p>
-              <div className="quadrant-count">89 customers</div>
-            </div>
-            <div className="quadrant clv-maximizer">
-              <h3>CLV Maximizer</h3>
-              <p>Optimized Performance</p>
-              <div className="quadrant-count">312 customers</div>
+            <div className="pagination-controls">
+              <button 
+                onClick={() => setProfilePage(prev => Math.max(1, prev - 1))}
+                disabled={profilePage <= 1}
+                className="pagination-btn"
+              >
+                Previous
+              </button>
+              <span className="page-info">
+                Page {profilePage} of {paginatedProfiles.pagination.totalPages}
+              </span>
+              <button 
+                onClick={() => setProfilePage(prev => prev + 1)}
+                disabled={profilePage >= paginatedProfiles.pagination.totalPages}
+                className="pagination-btn"
+              >
+                Next
+              </button>
             </div>
           </div>
         </section>
