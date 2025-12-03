@@ -52,6 +52,9 @@ export const x_hete_clv_maximiz_policy_holders = Table({
             label: 'CLV (12 Months)',
             maxLength: 20,
             default: '0',
+            attributes: {
+                omit_sys_original: true,
+            },
         }),
         credit_inquiries_last_6m: IntegerColumn({
             label: 'Credit Inquiries (last 6m)',
@@ -187,14 +190,6 @@ export const x_hete_clv_maximiz_policy_holders = Table({
         }),
         website_visits_30_days: IntegerColumn({
             label: 'Website Visits (30 Days)',
-        }),
-        u_currency_2: GenericColumn({
-            attributes: {
-                omit_sys_original: true,
-            },
-            columnType: 'currency',
-            label: 'CLV(12 Months)',
-            maxLength: 20,
         }),
         u_risk: StringColumn({
             choices: {
