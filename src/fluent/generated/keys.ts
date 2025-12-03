@@ -277,7 +277,7 @@ declare global {
                     'clv-maximizer/components/CustomerIntelligenceTab.css': {
                         table: 'sys_ux_theme_asset'
                         id: 'ec3567d8461841afaba01a62a985c5cb'
-                        deleted: false
+                        deleted: true
                     }
                     'clv-maximizer/components/Dashboard.css': {
                         table: 'sys_ux_theme_asset'

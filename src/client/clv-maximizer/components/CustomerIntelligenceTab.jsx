@@ -367,12 +367,6 @@ export default function CustomerIntelligenceTab() {
     }));
   };
 
-  const handleExportData = () => {
-    // Export functionality for policy holders data
-    console.log('Exporting policy holders data...', filteredCustomers);
-    alert('Export functionality would be implemented here');
-  };
-
   const formatCurrency = (amount) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -386,7 +380,7 @@ export default function CustomerIntelligenceTab() {
     return (
       <div className="customer-intelligence-loading">
         <div className="loading-spinner"></div>
-        <p>Loading Customer Intelligence Hub from Policy Holders...</p>
+        <p>Loading Customer Intelligence Hub...</p>
       </div>
     );
   }
@@ -405,23 +399,11 @@ export default function CustomerIntelligenceTab() {
 
   return (
     <div className="customer-intelligence-hub">
-      {/* Section 1: Header Panel */}
+      {/* Section 1: Header Panel - SIMPLIFIED */}
       <div className="intelligence-header-panel">
         <div className="header-content">
           <div className="header-text">
             <h1>Customer Intelligence Hub</h1>
-            <p className="subtitle">Analytics for policy holders from x_hete_clv_maximiz_policy_holders table</p>
-          </div>
-          <div className="header-actions">
-            <div className="timestamp">
-              Last updated: {lastUpdated.toLocaleTimeString()}
-            </div>
-            <div className="data-source">
-              📊 Source: Policy Holders Table ({policyHolders.length} records)
-            </div>
-            <button className="export-btn" onClick={handleExportData}>
-              📊 Export Data
-            </button>
           </div>
         </div>
       </div>
@@ -433,7 +415,6 @@ export default function CustomerIntelligenceTab() {
           <div className="metric-content">
             <div className="metric-value">{summaryMetrics.totalCustomers.toLocaleString()}</div>
             <div className="metric-label">Total Customers</div>
-            <div className="metric-subtitle">from Policy Holders table</div>
             <div className="metric-trend positive">↗ +2.1%</div>
           </div>
         </div>
@@ -668,12 +649,6 @@ export default function CustomerIntelligenceTab() {
                       onClick={() => setSelectedCustomer(customer)}
                     >
                       Profile
-                    </button>
-                    <button 
-                      className="action-btn snapshot-btn"
-                      onClick={() => console.log('Snapshot for', customer.name)}
-                    >
-                      Snapshot
                     </button>
                   </td>
                 </tr>
