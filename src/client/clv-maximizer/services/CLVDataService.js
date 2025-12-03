@@ -21,6 +21,20 @@ export class CLVDataService {
     }
   }
 
+  // NEW: Fetch campaign data
+  async getCampaignData() {
+    try {
+      const response = await fetch(`${this.baseUrl}/x_hete_clv_maximiz_campaigns?sysparm_display_value=all&sysparm_limit=500`, {
+        headers: this.headers
+      });
+      const data = await response.json();
+      return data.result || [];
+    } catch (error) {
+      console.error('Error fetching campaign data:', error);
+      return [];
+    }
+  }
+
   // NEW: Fetch customer profiles from csm_consumer table
   async getCustomerProfiles() {
     try {

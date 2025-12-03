@@ -33,11 +33,12 @@ export default function SimpleDashboard() {
         return tier === 'Platinum' || tier === 'Gold';
       }).length;
 
-      // Calculate Average CLV using only the clv field from x_hete_clv_maximiz_policy_holders table
+      // Use specifically the u_currency_2 field which has label "CLV(12 Months)" (without spaces)
       const avgCLV = policyHolders.length > 0
         ? policyHolders.reduce((sum, p) => {
-            const clv = parseFloat(display(p.clv)) || 0;
-            return sum + clv;
+            // Use u_currency_2 field for CLV(12 Months) - the field with label "CLV(12 Months)"
+            const clv12Months = parseFloat(display(p.u_currency_2)) || 0;
+            return sum + clv12Months;
           }, 0) / policyHolders.length
         : 0;
 
@@ -134,6 +135,7 @@ export default function SimpleDashboard() {
           <div className="kpi-content">
             <div className="kpi-value">${dashboardData.avgCLV.toLocaleString()}</div>
             <div className="kpi-label">Average CLV</div>
+            <div className="kpi-sublabel">12 Months</div>
           </div>
         </div>
 
