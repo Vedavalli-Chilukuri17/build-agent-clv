@@ -11,17 +11,25 @@ export default function RenewalTab() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [renewalSummary, setRenewalSummary] = useState(null);
+  const [highRiskCustomers, setHighRiskCustomers] = useState([]);
   const [renewalPipeline, setRenewalPipeline] = useState([]);
   const [nextBestActions, setNextBestActions] = useState(null);
   const [lastUpdated, setLastUpdated] = useState(new Date());
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
   
   // Filter and search state
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
+  const [riskFilter, setRiskFilter] = useState('');
+  const [expandedCustomers, setExpandedCustomers] = useState(new Set());
   
   // Load data on component mount
   useEffect(() => {
     loadAllData();
+    
+    // Auto-refresh every 5 minutes
+    const interval = setInterval(loadAllData, 5 * 60 * 1000);
+    return () => clearInterval(interval);
   }, [renewalService]);
 
   const loadAllData = async () => {
@@ -29,15 +37,17 @@ export default function RenewalTab() {
       setLoading(true);
       setError(null);
       
-      const [summary, pipeline, actions] = await Promise.all([
+      const [summary, pipeline, actions, highRisk] = await Promise.all([
         renewalService.getRenewalSummary(),
         renewalService.getRenewalPipeline(),
-        renewalService.getNextBestActions()
+        renewalService.getNextBestActions(),
+        renewalService.getHighRiskCustomersDetailed()
       ]);
       
       setRenewalSummary(summary);
       setRenewalPipeline(pipeline);
       setNextBestActions(actions);
+      setHighRiskCustomers(highRisk);
       setLastUpdated(new Date());
     } catch (err) {
       setError('Failed to load renewal data. Please try again.');
@@ -46,6 +56,210 @@ export default function RenewalTab() {
       setLoading(false);
     }
   };
+
+  // Business logic for determining next best actions
+  const determineNextBestAction = (customer) => {
+    const actions = [];
+    const { policies, clvTier, lifeEvents, propertyRisk, creditScore, behaviorInsights } = customer;
+    
+    // Cross-sell logic
+    if (policies.length === 1) {
+      const currentPolicy = policies[0].type.toLowerCase();
+      if (currentPolicy === 'home' || currentPolicy === 'auto') {
+        actions.push({
+          type: 'cross-sell',
+          priority: 'high',
+          action: 'Bundle Campaign',
+          description: `Recommend ${currentPolicy === 'home' ? 'Auto + Life' : 'Home + Life'} bundle package`,
+          expectedUplift: '25-35%',
+          campaign: 'Multi-Product Bundle'
+        });
+      }
+    }
+
+    // Life events trigger cross-sell
+    if (lifeEvents && lifeEvents.length > 0) {
+      lifeEvents.forEach(event => {
+        switch (event) {
+          case 'new_child':
+            actions.push({
+              type: 'cross-sell',
+              priority: 'high',
+              action: 'Life Insurance Campaign',
+              description: 'New child detected - recommend term life insurance for family protection',
+              expectedUplift: '40-50%',
+              campaign: 'Life Events - Family Protection'
+            });
+            break;
+          case 'new_purchase':
+            actions.push({
+              type: 'cross-sell',
+              priority: 'medium',
+              action: 'Property Protection',
+              description: 'New purchase detected - comprehensive property coverage needed',
+              expectedUplift: '20-30%',
+              campaign: 'New Purchase Protection'
+            });
+            break;
+          case 'address_change':
+            actions.push({
+              type: 'coverage_check',
+              priority: 'high',
+              action: 'Location Risk Assessment',
+              description: 'Address change - review coverage adequacy for new location',
+              expectedUplift: '15-25%',
+              campaign: 'Location Change Review'
+            });
+            break;
+          case 'marriage':
+            actions.push({
+              type: 'cross-sell',
+              priority: 'high',
+              action: 'Joint Coverage Optimization',
+              description: 'Marriage detected - optimize combined coverage and add spouse',
+              expectedUplift: '30-45%',
+              campaign: 'Marriage Milestone'
+            });
+            break;
+          case 'nearing_retirement':
+            actions.push({
+              type: 'upsell',
+              priority: 'medium',
+              action: 'Retirement Planning',
+              description: 'Approaching retirement - review coverage needs and legacy planning',
+              expectedUplift: '20-35%',
+              campaign: 'Retirement Readiness'
+            });
+            break;
+        }
+      });
+    }
+
+    // Upsell logic for high CLV tiers
+    if (clvTier === 'Platinum' || clvTier === 'Gold') {
+      if (customer.isUnderinsured) {
+        actions.push({
+          type: 'upsell',
+          priority: 'high',
+          action: 'Premium Coverage Upgrade',
+          description: 'High-value customer underinsured - recommend comprehensive package',
+          expectedUplift: '35-50%',
+          campaign: 'Premium Customer Excellence'
+        });
+      }
+      
+      actions.push({
+        type: 'upsell',
+        priority: 'medium',
+        action: 'Concierge Services',
+        description: 'Offer white-glove service and premium add-ons',
+        expectedUplift: '15-25%',
+        campaign: 'VIP Experience'
+      });
+    }
+
+    // Property risk exposure
+    if (propertyRisk && propertyRisk.hazardRisk > 70) {
+      const hasMatchingCoverage = policies.some(p => 
+        p.coverages && p.coverages.includes('hazard_protection')
+      );
+      
+      if (!hasMatchingCoverage) {
+        actions.push({
+          type: 'coverage_gap',
+          priority: 'high',
+          action: 'Hazard Risk Mitigation',
+          description: `High ${propertyRisk.type} risk detected without coverage - immediate action needed`,
+          expectedUplift: '20-30%',
+          campaign: 'Risk Mitigation Alert'
+        });
+      }
+    }
+
+    // Coverage checks - missing endorsements
+    policies.forEach(policy => {
+      if (policy.missingEndorsements && policy.missingEndorsements.length > 0) {
+        policy.missingEndorsements.forEach(endorsement => {
+          actions.push({
+            type: 'coverage_gap',
+            priority: 'medium',
+            action: 'Endorsement Addition',
+            description: `Missing ${endorsement} endorsement on ${policy.type} policy`,
+            expectedUplift: '10-15%',
+            campaign: 'Coverage Completion'
+          });
+        });
+      }
+    });
+
+    // Behavioral insights triggers
+    if (behaviorInsights) {
+      if (behaviorInsights.lowAppUsage) {
+        actions.push({
+          type: 'engagement',
+          priority: 'medium',
+          action: 'Digital Engagement Campaign',
+          description: 'Low app usage - drive digital adoption with incentives',
+          expectedUplift: '5-10%',
+          campaign: 'Digital First'
+        });
+      }
+
+      if (behaviorInsights.billingIrregularities) {
+        actions.push({
+          type: 'retention',
+          priority: 'high',
+          action: 'Payment Support',
+          description: 'Billing issues detected - proactive financial counseling needed',
+          expectedUplift: '25-40%',
+          campaign: 'Customer Success Intervention'
+        });
+      }
+
+      if (behaviorInsights.customerServiceComplaints > 2) {
+        actions.push({
+          type: 'retention',
+          priority: 'high',
+          action: 'Service Recovery',
+          description: 'Multiple complaints - executive service recovery program',
+          expectedUplift: '30-50%',
+          campaign: 'Service Excellence Recovery'
+        });
+      }
+    }
+
+    // Credit risk impact
+    if (creditScore && creditScore < customer.previousCreditScore) {
+      const scoreDrop = customer.previousCreditScore - creditScore;
+      if (scoreDrop > 50) {
+        actions.push({
+          type: 'retention',
+          priority: 'high',
+          action: 'Credit Risk Mitigation',
+          description: `Significant credit score decline (${scoreDrop} points) - retention risk increased`,
+          expectedUplift: '20-35%',
+          campaign: 'Financial Stability Support'
+        });
+      }
+    }
+
+    // Sort actions by priority
+    const priorityOrder = { 'high': 3, 'medium': 2, 'low': 1 };
+    return actions.sort((a, b) => priorityOrder[b.priority] - priorityOrder[a.priority]);
+  };
+
+  // Filter high risk customers
+  const filteredHighRiskCustomers = useMemo(() => {
+    return highRiskCustomers.filter(customer => {
+      const matchesSearch = !searchTerm || 
+        customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.email.toLowerCase().includes(searchTerm.toLowerCase());
+      
+      const matchesRisk = !riskFilter || customer.riskTier === riskFilter;
+      
+      return matchesSearch && matchesRisk;
+    });
+  }, [highRiskCustomers, searchTerm, riskFilter]);
 
   // Filter pipeline data
   const filteredPipeline = useMemo(() => {
@@ -58,9 +272,28 @@ export default function RenewalTab() {
   }, [renewalPipeline, searchTerm, statusFilter]);
 
   // Event handlers
-  const handleViewProfile = (customerId) => {
-    console.log('Viewing profile for customer:', customerId);
-    // In real implementation, this would navigate to customer detail view
+  const toggleCustomerExpansion = (customerId) => {
+    const newExpanded = new Set(expandedCustomers);
+    if (newExpanded.has(customerId)) {
+      newExpanded.delete(customerId);
+    } else {
+      newExpanded.add(customerId);
+    }
+    setExpandedCustomers(newExpanded);
+  };
+
+  const handleViewProfile = (customer) => {
+    setSelectedCustomer(customer);
+  };
+
+  const handleExecuteAction = async (customerId, action) => {
+    try {
+      await renewalService.executeAction(customerId, action);
+      alert(`${action.action} executed successfully!`);
+      loadAllData(); // Refresh data
+    } catch (err) {
+      alert(`Failed to execute ${action.action}. Please try again.`);
+    }
   };
 
   const handleSendReminder = async (customerId) => {
@@ -72,42 +305,31 @@ export default function RenewalTab() {
     }
   };
 
-  const handleLaunchCampaign = async (customerId) => {
+  const handleLaunchCampaign = async (customerId, campaignType) => {
     try {
-      await renewalService.launchCampaign(customerId, 'renewal');
+      await renewalService.launchCampaign(customerId, campaignType);
       alert('Campaign launched successfully!');
     } catch (err) {
       alert('Failed to launch campaign. Please try again.');
     }
   };
 
-  const handleExecuteScript = async () => {
-    try {
-      await renewalService.executeScript(nextBestActions?.campaignScript);
-      alert('Script executed successfully!');
-    } catch (err) {
-      alert('Failed to execute script. Please try again.');
-    }
-  };
+  // Calculate summary metrics
+  const calculateSummaryMetrics = () => {
+    const highRiskCount = highRiskCustomers.filter(c => c.riskScore >= 70).length;
+    const totalCLVAtRisk = highRiskCustomers
+      .filter(c => c.riskScore >= 70)
+      .reduce((sum, c) => sum + (c.clv12M || 0), 0);
+    const missingCoverageCount = highRiskCustomers.reduce((count, c) => {
+      return count + (c.policies?.reduce((policyCount, p) => 
+        policyCount + (p.missingEndorsements?.length || 0), 0) || 0);
+    }, 0);
 
-  const handleScheduleFollowUp = async () => {
-    try {
-      await renewalService.scheduleFollowUp({
-        type: 'renewal_followup',
-        date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days from now
-      });
-      alert('Follow-up scheduled successfully!');
-    } catch (err) {
-      alert('Failed to schedule follow-up. Please try again.');
-    }
-  };
-
-  const handleExportData = async () => {
-    try {
-      await renewalService.exportData(filteredPipeline, 'json');
-    } catch (err) {
-      alert('Failed to export data. Please try again.');
-    }
+    return {
+      highRiskCount,
+      totalCLVAtRisk,
+      missingCoverageCount
+    };
   };
 
   // Render loading state
@@ -115,7 +337,8 @@ export default function RenewalTab() {
     return (
       <div className="renewal-tab">
         <div className="loading">
-          <div>Loading renewal data...</div>
+          <div className="loading-spinner"></div>
+          <p>Loading renewal data...</p>
         </div>
       </div>
     );
@@ -126,8 +349,9 @@ export default function RenewalTab() {
     return (
       <div className="renewal-tab">
         <div className="error">
-          {error}
-          <button onClick={loadAllData} style={{ marginLeft: '16px' }}>
+          <h3>⚠️ Error Loading Data</h3>
+          <p>{error}</p>
+          <button className="retry-btn" onClick={loadAllData}>
             Retry
           </button>
         </div>
@@ -135,145 +359,695 @@ export default function RenewalTab() {
     );
   }
 
+  const summaryMetrics = calculateSummaryMetrics();
+
   return (
     <div className="renewal-tab">
       {/* Header */}
       <div className="renewal-header">
-        <h1 className="renewal-title">Renewal Review & Next Best Action</h1>
+        <div className="header-content">
+          <h1 className="renewal-title">Renewal Review & Next Best Action</h1>
+          <div className="header-meta">
+            <span className="last-updated">Last updated: {lastUpdated.toLocaleTimeString()}</span>
+            <button className="refresh-btn" onClick={loadAllData}>
+              🔄 Refresh
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Section 1: Renewal Snapshot Summary */}
-      <section className="renewal-summary">
-        <h2 className="section-title">Renewal Snapshot Summary</h2>
-        <div className="summary-panels">
-          {/* High-Risk Customers Panel */}
-          <div className="summary-panel high-risk">
-            <div className="panel-header">
-              <h3 className="panel-title">High-Risk Customers</h3>
-              <span className="panel-count">{renewalSummary?.highRiskCustomers?.count || 0}</span>
-            </div>
-            {renewalSummary?.highRiskCustomers?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
+      {/* Renewal Snapshot Summary */}
+      <section className="renewal-snapshot-summary">
+        <h2 className="snapshot-title">Renewal Snapshot Summary</h2>
+        
+        <div className="snapshot-metrics">
+          <div className="snapshot-metric high-risk">
+            <div className="metric-icon">⚠️</div>
+            <div className="metric-content">
+              <div className="metric-header">
+                <h3 className="metric-title">High Risk Customers</h3>
+                <div className="metric-value">{summaryMetrics.highRiskCount}</div>
+              </div>
+              <p className="metric-description">Customers at high churn risk level</p>
+              <div className="metric-details">
+                <div className="detail-item">
+                  <span className="detail-label">Risk Level:</span>
+                  <span className="detail-value">≥70% churn probability</span>
                 </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
+                <div className="detail-item">
+                  <span className="detail-label">Data Source:</span>
+                  <span className="detail-value">Policy holders churn_risk field</span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
-          {/* Total CVR at Risk Panel */}
-          <div className="summary-panel cvr-risk">
-            <div className="panel-header">
-              <h3 className="panel-title">Total CVR at Risk</h3>
-              <span className="panel-count">{renewalSummary?.totalCVRAtRisk?.count || 0}</span>
-            </div>
-            {renewalSummary?.totalCVRAtRisk?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
+          <div className="snapshot-metric clv-risk">
+            <div className="metric-icon">💰</div>
+            <div className="metric-content">
+              <div className="metric-header">
+                <h3 className="metric-title">Total CLV at Risk</h3>
+                <div className="metric-value">${summaryMetrics.totalCLVAtRisk.toLocaleString()}</div>
+              </div>
+              <p className="metric-description">Sum of CLV for high risk customers</p>
+              <div className="metric-details">
+                <div className="detail-item">
+                  <span className="detail-label">Customers:</span>
+                  <span className="detail-value">{summaryMetrics.highRiskCount} high-risk</span>
                 </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
+                <div className="detail-item">
+                  <span className="detail-label">Data Source:</span>
+                  <span className="detail-value">Policy holders lifetime_value field</span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
-          {/* Missing Coverages Panel */}
-          <div className="summary-panel missing-coverage">
-            <div className="panel-header">
-              <h3 className="panel-title">Missing Coverages</h3>
-              <span className="panel-count">{renewalSummary?.missingCoverages?.count || 0}</span>
-            </div>
-            {renewalSummary?.missingCoverages?.sampleCustomers?.map((customer, index) => (
-              <div key={index} className="sample-customer">
-                <div className="customer-name">{customer.name}</div>
-                <div className="customer-details">
-                  <div className="detail-item">
-                    <span className="detail-label">Premium:</span>
-                    <span className="detail-value">${customer.premium?.toLocaleString()}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Risk Score:</span>
-                    <span className="detail-value">{customer.riskScore}</span>
-                  </div>
-                  <div className="detail-item">
-                    <span className="detail-label">Credit Score:</span>
-                    <span className="detail-value">{customer.creditScore || 'N/A'}</span>
-                  </div>
+          <div className="snapshot-metric coverage-gaps">
+            <div className="metric-icon">🔍</div>
+            <div className="metric-content">
+              <div className="metric-header">
+                <h3 className="metric-title">Missing Coverages</h3>
+                <div className="metric-value">{summaryMetrics.missingCoverageCount}</div>
+              </div>
+              <p className="metric-description">Total coverage gaps across all customers</p>
+              <div className="metric-details">
+                <div className="detail-item">
+                  <span className="detail-label">Customers Affected:</span>
+                  <span className="detail-value">{summaryMetrics.missingCoverageCount > 0 ? 
+                    highRiskCustomers.filter(c => c.policies?.some(p => p.missingEndorsements?.length > 0)).length : 0}</span>
                 </div>
-                <div className="policies-section">
-                  <div className="policies-label">Current Policies:</div>
-                  <div className="policy-list">
-                    {customer.policies?.map((policy, pIndex) => (
-                      <span key={pIndex} className={`policy-badge ${policy.status.toLowerCase()}`}>
-                        {policy.type} ({policy.status})
-                      </span>
-                    ))}
-                  </div>
-                </div>
-                <div className="next-actions">
-                  <div className="actions-label">Best Next Actions:</div>
-                  {customer.nextActions?.map((action, aIndex) => (
-                    <div key={aIndex} className="action-item">{action}</div>
-                  ))}
+                <div className="detail-item">
+                  <span className="detail-label">Data Source:</span>
+                  <span className="detail-value">Policy holders missing_coverage field</span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
+        </div>
+      </section>
+
+      {/* High Risk Customer Profiles Section */}
+      <section className="high-risk-customer-profiles">
+        <h2 className="section-title">High Risk Customer Profiles</h2>
+        
+        <div className="customer-profiles-grid">
+          {/* Charles Smith Profile */}
+          <div className="customer-profile-card detailed-profile">
+            <div className="customer-profile-header">
+              <div className="customer-avatar">CS</div>
+              <div className="customer-basic-info">
+                <h3 className="customer-name">Charles Smith</h3>
+                <div className="customer-badges">
+                  <span className="tier-badge bronze">Bronze</span>
+                  <span className="risk-badge high-risk">High Risk (84%)</span>
+                </div>
+                <div className="customer-metrics-row">
+                  <div className="metric-item">
+                    <span className="metric-label">CLV:</span>
+                    <span className="metric-value">$24,128</span>
+                  </div>
+                  <div className="metric-item">
+                    <span className="metric-label">Credit Score:</span>
+                    <span className="metric-value">700</span>
+                  </div>
+                  <div className="metric-item">
+                    <span className="metric-label">Tenure:</span>
+                    <span className="metric-value">12 months</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="customer-profile-content">
+              {/* Current Policies */}
+              <div className="profile-section">
+                <h4 className="section-header">📋 Current Policies</h4>
+                <div className="policies-list">
+                  <div className="policy-item">
+                    <span className="policy-name">Auto Insurance</span>
+                    <span className="policy-status active">Active</span>
+                    <span className="policy-premium">$1200/year</span>
+                  </div>
+                  <div className="policy-item">
+                    <span className="policy-name">Home Insurance</span>
+                    <span className="policy-status active">Active</span>
+                    <span className="policy-premium">$800/year</span>
+                  </div>
+                  <div className="policy-item">
+                    <span className="policy-name">Life Insurance</span>
+                    <span className="policy-status active">Active</span>
+                    <span className="policy-premium">$600/year</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Coverage Opportunities */}
+              <div className="profile-section">
+                <h4 className="section-header">🎯 Coverage Opportunities</h4>
+                <div className="opportunities-placeholder">
+                  <span className="opportunity-note">Comprehensive coverage analysis in progress...</span>
+                </div>
+              </div>
+
+              {/* Next Best Actions */}
+              <div className="profile-section">
+                <h4 className="section-header">🚀 Next Best Actions</h4>
+                <div className="actions-list">
+                  <div className="action-item medium-priority">
+                    <div className="action-header">
+                      <span className="action-type">Coverage Check</span>
+                      <span className="action-priority">Medium Priority</span>
+                      <span className="action-confidence">76% confidence</span>
+                    </div>
+                    <h5 className="action-title">Policy Review & Gap Analysis</h5>
+                    <p className="action-description">
+                      Behavioral insights indicate low app engagement, decreased digital interaction, 
+                      billing irregularities detected for Charles Smith. Recommend immediate policy 
+                      review to address coverage gaps and add protective endorsements.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> $600 additional coverage
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Within 14 days
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Mobile app notification + email
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">coverage check</span>
+                      <span className="action-tag">behavioral</span>
+                      <span className="action-tag">endorsements</span>
+                      <span className="action-tag">gap analysis</span>
+                    </div>
+                  </div>
+
+                  <div className="action-item medium-priority">
+                    <div className="action-header">
+                      <span className="action-type">Engagement</span>
+                      <span className="action-priority">Medium Priority</span>
+                      <span className="action-confidence">71% confidence</span>
+                    </div>
+                    <h5 className="action-title">Digital Engagement Recovery</h5>
+                    <p className="action-description">
+                      Charles Smith shows very low engagement (30%). Implement personalized 
+                      re-engagement campaign with app incentives, policy benefits education, 
+                      and exclusive member perks.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> Retention value preservation
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Ongoing - 30 days
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Multi-channel campaign
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">engagement</span>
+                      <span className="action-tag">digital</span>
+                      <span className="action-tag">education</span>
+                      <span className="action-tag">member perks</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Business Intelligence */}
+              <div className="profile-section">
+                <h4 className="section-header">💡 Business Intelligence</h4>
+                <div className="business-intelligence">
+                  <div className="intelligence-item">
+                    <strong>Life Events:</strong>
+                    <span>Marriage/New Relationship, New Child/Dependent Added</span>
+                  </div>
+                  <div className="intelligence-item">
+                    <strong>Risk Factors:</strong>
+                    <span>Critical churn probability, Low digital engagement</span>
+                  </div>
+                  <div className="intelligence-item">
+                    <strong>Behavioral Insights:</strong>
+                    <span>Decreasing engagement trend</span>
+                  </div>
+                  <div className="intelligence-item">
+                    <strong>Property Risk:</strong>
+                    <span>73/100 hazard score</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Anna Wilson Profile */}
+          <div className="customer-profile-card detailed-profile">
+            <div className="customer-profile-header">
+              <div className="customer-avatar">AW</div>
+              <div className="customer-basic-info">
+                <h3 className="customer-name">Anna Wilson</h3>
+                <div className="customer-badges">
+                  <span className="tier-badge platinum">Platinum</span>
+                  <span className="risk-badge high-risk">High Risk (75%)</span>
+                </div>
+                <div className="customer-metrics-row">
+                  <div className="metric-item">
+                    <span className="metric-label">CLV:</span>
+                    <span className="metric-value">$42,644</span>
+                  </div>
+                  <div className="metric-item">
+                    <span className="metric-label">Credit Score:</span>
+                    <span className="metric-value">700</span>
+                  </div>
+                  <div className="metric-item">
+                    <span className="metric-label">Tenure:</span>
+                    <span className="metric-value">12 months</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="customer-profile-content">
+              {/* Current Policies */}
+              <div className="profile-section">
+                <h4 className="section-header">📋 Current Policies</h4>
+                <div className="policies-list">
+                  <div className="policy-item">
+                    <span className="policy-name">Auto Insurance</span>
+                    <span className="policy-status active">Active</span>
+                    <span className="policy-premium">$1200/year</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Coverage Opportunities */}
+              <div className="profile-section">
+                <h4 className="section-header">🎯 Coverage Opportunities</h4>
+                <div className="opportunities-placeholder">
+                  <span className="opportunity-note">Multiple cross-sell and upsell opportunities identified</span>
+                </div>
+              </div>
+
+              {/* Next Best Actions */}
+              <div className="profile-section">
+                <h4 className="section-header">🚀 Next Best Actions</h4>
+                <div className="actions-list">
+                  <div className="action-item high-priority">
+                    <div className="action-header">
+                      <span className="action-type">Cross-sell</span>
+                      <span className="action-priority">High Priority</span>
+                      <span className="action-confidence">88% confidence</span>
+                    </div>
+                    <h5 className="action-title">Bundle Campaign</h5>
+                    <p className="action-description">
+                      Anna Wilson has only Auto Insurance and recent life event detected 
+                      (Marriage/New Relationship). Recommend comprehensive bundle: Auto + Home + Life 
+                      package with 15% multi-policy discount.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> $2,100 annually
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Within 7 days
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Personal consultation call
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">cross sell</span>
+                      <span className="action-tag">bundle</span>
+                      <span className="action-tag">life event</span>
+                      <span className="action-tag">multi policy</span>
+                    </div>
+                  </div>
+
+                  <div className="action-item high-priority">
+                    <div className="action-header">
+                      <span className="action-type">Upsell</span>
+                      <span className="action-priority">High Priority</span>
+                      <span className="action-confidence">92% confidence</span>
+                    </div>
+                    <h5 className="action-title">Comprehensive Coverage Upgrade</h5>
+                    <p className="action-description">
+                      Platinum customer Anna Wilson is underinsured with high property risk exposure. 
+                      Recommend comprehensive coverage upgrade including increased liability limits, 
+                      enhanced property protection, and premium add-ons.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> $1,800 additional annually
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Immediate - within 48 hours
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Dedicated account manager
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">upsell</span>
+                      <span className="action-tag">comprehensive</span>
+                      <span className="action-tag">property risk</span>
+                      <span className="action-tag">premium</span>
+                    </div>
+                  </div>
+
+                  <div className="action-item medium-priority">
+                    <div className="action-header">
+                      <span className="action-type">Coverage Check</span>
+                      <span className="action-priority">Medium Priority</span>
+                      <span className="action-confidence">76% confidence</span>
+                    </div>
+                    <h5 className="action-title">Policy Review & Gap Analysis</h5>
+                    <p className="action-description">
+                      Behavioral insights indicate low app engagement, decreased digital interaction, 
+                      billing irregularities detected for Anna Wilson. Recommend immediate policy 
+                      review to address coverage gaps and add protective endorsements.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> $600 additional coverage
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Within 14 days
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Mobile app notification + email
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">coverage check</span>
+                      <span className="action-tag">behavioral</span>
+                      <span className="action-tag">endorsements</span>
+                      <span className="action-tag">gap analysis</span>
+                    </div>
+                  </div>
+
+                  <div className="action-item high-priority">
+                    <div className="action-header">
+                      <span className="action-type">Risk Mitigation</span>
+                      <span className="action-priority">High Priority</span>
+                      <span className="action-confidence">89% confidence</span>
+                    </div>
+                    <h5 className="action-title">Hazard-Specific Coverage</h5>
+                    <p className="action-description">
+                      Property intelligence detected flood zone proximity risks at Boston, MA. 
+                      Customer lacks matching coverage. Recommend immediate hazard-specific 
+                      policies to protect against identified risks.
+                    </p>
+                    <div className="action-details">
+                      <div className="action-metric">
+                        <strong>Expected Revenue:</strong> $450 additional premium
+                      </div>
+                      <div className="action-metric">
+                        <strong>Timeline:</strong> Within 72 hours
+                      </div>
+                      <div className="action-metric">
+                        <strong>Channel:</strong> Urgent email + SMS
+                      </div>
+                    </div>
+                    <div className="action-tags">
+                      <span className="action-tag">risk mitigation</span>
+                      <span className="action-tag">hazard</span>
+                      <span className="action-tag">property intelligence</span>
+                      <span className="action-tag">location based</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* High Risk Customers Section - Enhanced */}
+      <section className="high-risk-customers-section">
+        <div className="section-header">
+          <h2 className="section-title">High Risk Customers - Interactive Profiles</h2>
+          <div className="section-controls">
+            <input
+              type="text"
+              className="search-input"
+              placeholder="Search customers..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <select
+              className="filter-select"
+              value={riskFilter}
+              onChange={(e) => setRiskFilter(e.target.value)}
+            >
+              <option value="">All Risk Tiers</option>
+              <option value="Critical">Critical Risk</option>
+              <option value="High">High Risk</option>
+              <option value="Medium-High">Medium-High Risk</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="high-risk-customers-grid">
+          {filteredHighRiskCustomers.map((customer) => {
+            const isExpanded = expandedCustomers.has(customer.id);
+            const nextActions = determineNextBestAction(customer);
+            
+            return (
+              <div key={customer.id} className={`customer-profile-card ${customer.riskTier.toLowerCase()}`}>
+                {/* Customer Header */}
+                <div className="customer-header" onClick={() => toggleCustomerExpansion(customer.id)}>
+                  <div className="customer-basic-info">
+                    <h3 className="customer-name">{customer.name}</h3>
+                    <span className={`risk-tier-badge ${customer.riskTier.toLowerCase().replace('-', '_')}`}>
+                      {customer.riskTier} Risk
+                    </span>
+                    <span className={`clv-tier-badge ${customer.clvTier.toLowerCase()}`}>
+                      {customer.clvTier} Tier
+                    </span>
+                  </div>
+                  <div className="customer-metrics">
+                    <div className="metric">
+                      <span className="metric-label">Risk Score</span>
+                      <span className="metric-value risk-score">{customer.riskScore}</span>
+                    </div>
+                    <div className="metric">
+                      <span className="metric-label">CLV (12M)</span>
+                      <span className="metric-value clv-value">${customer.clv12M?.toLocaleString()}</span>
+                    </div>
+                    <div className="metric">
+                      <span className="metric-label">Credit Score</span>
+                      <span className={`metric-value credit-score ${customer.creditScore < 650 ? 'poor' : customer.creditScore < 750 ? 'fair' : 'good'}`}>
+                        {customer.creditScore || 'N/A'}
+                        {customer.previousCreditScore && customer.creditScore < customer.previousCreditScore && (
+                          <span className="credit-decline">↓{customer.previousCreditScore - customer.creditScore}</span>
+                        )}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="expand-indicator">
+                    {isExpanded ? '▼' : '▶'}
+                  </div>
+                </div>
+
+                {/* Expanded Content */}
+                {isExpanded && (
+                  <div className="customer-detailed-info">
+                    {/* Current Policies */}
+                    <div className="info-section policies-section">
+                      <h4 className="info-section-title">Current Policies</h4>
+                      <div className="policies-grid">
+                        {customer.policies.map((policy, index) => (
+                          <div key={index} className={`policy-card ${policy.status.toLowerCase()}`}>
+                            <div className="policy-header">
+                              <span className="policy-type">{policy.type}</span>
+                              <span className={`policy-status ${policy.status.toLowerCase()}`}>
+                                {policy.status}
+                              </span>
+                            </div>
+                            <div className="policy-details">
+                              <div className="policy-detail">
+                                <span className="detail-label">Premium:</span>
+                                <span className="detail-value">${policy.premium?.toLocaleString()}</span>
+                              </div>
+                              <div className="policy-detail">
+                                <span className="detail-label">Coverage:</span>
+                                <span className="detail-value">${policy.coverageAmount?.toLocaleString()}</span>
+                              </div>
+                              <div className="policy-detail">
+                                <span className="detail-label">Renewal:</span>
+                                <span className="detail-value">{policy.renewalDate}</span>
+                              </div>
+                            </div>
+                            {policy.coverages && (
+                              <div className="coverage-list">
+                                <span className="coverage-label">Coverages:</span>
+                                <div className="coverages">
+                                  {policy.coverages.map((coverage, cIndex) => (
+                                    <span key={cIndex} className="coverage-badge">{coverage}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                            {policy.missingEndorsements && policy.missingEndorsements.length > 0 && (
+                              <div className="missing-endorsements">
+                                <span className="missing-label">Missing:</span>
+                                <div className="missing-items">
+                                  {policy.missingEndorsements.map((endorsement, eIndex) => (
+                                    <span key={eIndex} className="missing-endorsement">{endorsement}</span>
+                                  ))}
+                                </div>
+                              </div>
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Coverage Opportunities */}
+                    <div className="info-section opportunities-section">
+                      <h4 className="info-section-title">Coverage Opportunities</h4>
+                      <div className="opportunities-grid">
+                        {customer.coverageOpportunities.map((opportunity, index) => (
+                          <div key={index} className="opportunity-card">
+                            <div className="opportunity-header">
+                              <span className="opportunity-type">{opportunity.type}</span>
+                              <span className={`opportunity-priority ${opportunity.priority.toLowerCase()}`}>
+                                {opportunity.priority} Priority
+                              </span>
+                            </div>
+                            <p className="opportunity-description">{opportunity.description}</p>
+                            <div className="opportunity-metrics">
+                              <span className="potential-premium">
+                                Potential: ${opportunity.potentialPremium?.toLocaleString()}
+                              </span>
+                              <span className="confidence-score">
+                                Confidence: {opportunity.confidenceScore}%
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Next Best Actions */}
+                    <div className="info-section actions-section">
+                      <h4 className="info-section-title">Next Best Actions</h4>
+                      <div className="actions-grid">
+                        {nextActions.slice(0, 3).map((action, index) => (
+                          <div key={index} className={`action-card ${action.type} ${action.priority}`}>
+                            <div className="action-header">
+                              <span className="action-type">{action.type.replace('_', ' ').toUpperCase()}</span>
+                              <span className={`action-priority ${action.priority}`}>
+                                {action.priority.toUpperCase()}
+                              </span>
+                            </div>
+                            <h5 className="action-title">{action.action}</h5>
+                            <p className="action-description">{action.description}</p>
+                            <div className="action-metrics">
+                              <span className="expected-uplift">Expected Uplift: {action.expectedUplift}</span>
+                              <span className="campaign-type">Campaign: {action.campaign}</span>
+                            </div>
+                            <div className="action-buttons">
+                              <button 
+                                className="execute-action-btn"
+                                onClick={() => handleExecuteAction(customer.id, action)}
+                              >
+                                Execute
+                              </button>
+                              <button 
+                                className="campaign-btn"
+                                onClick={() => handleLaunchCampaign(customer.id, action.campaign)}
+                              >
+                                Launch Campaign
+                              </button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Risk Factors & Behavioral Insights */}
+                    <div className="info-section insights-section">
+                      <h4 className="info-section-title">Risk Factors & Behavioral Insights</h4>
+                      <div className="insights-grid">
+                        {customer.lifeEvents && customer.lifeEvents.length > 0 && (
+                          <div className="insight-card life-events">
+                            <h5 className="insight-title">Life Events Detected</h5>
+                            <div className="life-events-list">
+                              {customer.lifeEvents.map((event, index) => (
+                                <span key={index} className={`life-event-badge ${event.replace('_', '-')}`}>
+                                  {event.replace('_', ' ').toUpperCase()}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {customer.propertyRisk && (
+                          <div className="insight-card property-risk">
+                            <h5 className="insight-title">Property Risk Intelligence</h5>
+                            <div className="property-risk-details">
+                              <div className="risk-metric">
+                                <span className="risk-label">{customer.propertyRisk.type} Risk:</span>
+                                <span className={`risk-level ${customer.propertyRisk.hazardRisk > 70 ? 'high' : customer.propertyRisk.hazardRisk > 40 ? 'medium' : 'low'}`}>
+                                  {customer.propertyRisk.hazardRisk}%
+                                </span>
+                              </div>
+                              <p className="risk-description">{customer.propertyRisk.description}</p>
+                            </div>
+                          </div>
+                        )}
+
+                        {customer.behaviorInsights && (
+                          <div className="insight-card behavioral">
+                            <h5 className="insight-title">Behavioral Insights</h5>
+                            <div className="behavior-metrics">
+                              {customer.behaviorInsights.lowAppUsage && (
+                                <div className="behavior-flag warning">Low App Usage</div>
+                              )}
+                              {customer.behaviorInsights.billingIrregularities && (
+                                <div className="behavior-flag critical">Billing Issues</div>
+                              )}
+                              {customer.behaviorInsights.customerServiceComplaints > 0 && (
+                                <div className="behavior-flag warning">
+                                  {customer.behaviorInsights.customerServiceComplaints} Complaints
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Customer Actions */}
+                    <div className="customer-actions">
+                      <button 
+                        className="primary-btn"
+                        onClick={() => handleViewProfile(customer)}
+                      >
+                        View Full Profile
+                      </button>
+                      <button 
+                        className="secondary-btn"
+                        onClick={() => handleSendReminder(customer.id)}
+                      >
+                        Send Reminder
+                      </button>
+                      <button className="secondary-btn">
+                        Schedule Call
+                      </button>
+                      <button className="secondary-btn">
+                        Create Task
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -300,8 +1074,8 @@ export default function RenewalTab() {
               <option value="Low">Low Risk</option>
             </select>
           </div>
-          <button className="export-btn" onClick={handleExportData}>
-            Export Data
+          <button className="export-btn" onClick={() => renewalService.exportData(filteredPipeline, 'csv')}>
+            📊 Export Data
           </button>
         </div>
         <div className="pipeline-table">
@@ -334,7 +1108,7 @@ export default function RenewalTab() {
                     <div className="action-buttons">
                       <button 
                         className="action-btn view"
-                        onClick={() => handleViewProfile(renewal.customerId)}
+                        onClick={() => handleViewProfile(renewal)}
                       >
                         View Profile
                       </button>
@@ -346,7 +1120,7 @@ export default function RenewalTab() {
                       </button>
                       <button 
                         className="action-btn campaign"
-                        onClick={() => handleLaunchCampaign(renewal.customerId)}
+                        onClick={() => handleLaunchCampaign(renewal.customerId, 'renewal')}
                       >
                         Launch Campaign
                       </button>
@@ -359,112 +1133,57 @@ export default function RenewalTab() {
         </div>
       </section>
 
-      {/* Section 3: Next Best Action Panel */}
-      <section className="next-best-actions">
-        <h2 className="section-title">Next Best Action Panel</h2>
-        <div className="actions-grid">
-          {/* Customer-Specific Campaign Script */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">📧</span>
-              Campaign Script
-            </h3>
-            <div className="campaign-script">
-              {nextBestActions?.campaignScript?.message}
+      {/* Customer Profile Modal */}
+      {selectedCustomer && (
+        <div className="customer-modal" onClick={() => setSelectedCustomer(null)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-header">
+              <h2>{selectedCustomer.name} - Complete Profile</h2>
+              <button className="modal-close" onClick={() => setSelectedCustomer(null)}>×</button>
             </div>
-            <div className="dynamic-fields">
-              <strong>Dynamic Fields:</strong>
-              {nextBestActions?.campaignScript?.dynamicFields && 
-                Object.entries(nextBestActions.campaignScript.dynamicFields).map(([key, value]) => (
-                  <span key={key} className="field-tag">
-                    {key}: {value}
-                  </span>
-                ))}
-            </div>
-            <div className="card-actions">
-              <button className="primary-btn" onClick={handleExecuteScript}>
-                Execute Script
-              </button>
-              <button className="secondary-btn">Review</button>
-            </div>
-          </div>
+            
+            <div className="modal-body">
+              <div className="profile-details-grid">
+                <div className="detail-section">
+                  <h4>Customer Information</h4>
+                  <p><strong>Email:</strong> {selectedCustomer.email}</p>
+                  <p><strong>Phone:</strong> {selectedCustomer.phone}</p>
+                  <p><strong>CLV Tier:</strong> {selectedCustomer.clvTier}</p>
+                  <p><strong>Risk Tier:</strong> {selectedCustomer.riskTier}</p>
+                  <p><strong>Customer Since:</strong> {selectedCustomer.customerSince}</p>
+                </div>
 
-          {/* Churn Mitigation Actions */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">🛡️</span>
-              Churn Mitigation
-            </h3>
-            <ul className="action-list">
-              {nextBestActions?.churnMitigation?.map((action, index) => (
-                <li key={index}>{action}</li>
-              ))}
-            </ul>
-            <div className="card-actions">
-              <button className="primary-btn">Apply Actions</button>
-              <button className="secondary-btn" onClick={handleScheduleFollowUp}>
-                Schedule Follow-Up
-              </button>
-            </div>
-          </div>
+                <div className="detail-section">
+                  <h4>Financial Profile</h4>
+                  <p><strong>CLV (12M):</strong> ${selectedCustomer.clv12M?.toLocaleString()}</p>
+                  <p><strong>Total Premium:</strong> ${selectedCustomer.totalPremium?.toLocaleString()}</p>
+                  <p><strong>Credit Score:</strong> {selectedCustomer.creditScore}</p>
+                  <p><strong>Risk Score:</strong> {selectedCustomer.riskScore}</p>
+                </div>
 
-          {/* Cross-Sell / Up-Sell Suggestions */}
-          <div className="action-card">
-            <h3 className="card-title">
-              <span className="card-icon">💰</span>
-              Cross-Sell Opportunities
-            </h3>
-            <ul className="action-list">
-              {nextBestActions?.crossSellUpSell?.map((opportunity, index) => (
-                <li key={index}>{opportunity}</li>
-              ))}
-            </ul>
-            <div className="card-actions">
-              <button className="primary-btn">Generate Offers</button>
-              <button className="secondary-btn">View Details</button>
-            </div>
-          </div>
-        </div>
+                <div className="detail-section">
+                  <h4>Policy Summary</h4>
+                  {selectedCustomer.policies?.map((policy, index) => (
+                    <div key={index} className="modal-policy-item">
+                      <strong>{policy.type}:</strong> ${policy.premium?.toLocaleString()} 
+                      ({policy.status})
+                    </div>
+                  ))}
+                </div>
 
-        {/* Outreach Channels */}
-        <div className="action-card" style={{ marginTop: '20px' }}>
-          <h3 className="card-title">
-            <span className="card-icon">📡</span>
-            Outreach Channels
-          </h3>
-          {nextBestActions?.outreachChannels && 
-            Object.entries(nextBestActions.outreachChannels).map(([channel, data]) => (
-              <div key={channel} className="channel-grid">
-                <span className="channel-name">{channel.charAt(0).toUpperCase() + channel.slice(1)}</span>
-                <span className={`priority-badge priority-${data.priority.toLowerCase()}`}>
-                  {data.priority} Priority
-                </span>
-                <span className="effectiveness-score">{data.effectiveness}% Effective</span>
+                <div className="detail-section">
+                  <h4>Recommended Actions</h4>
+                  {determineNextBestAction(selectedCustomer).slice(0, 5).map((action, index) => (
+                    <div key={index} className="modal-action-item">
+                      <strong>{action.action}:</strong> {action.description}
+                    </div>
+                  ))}
+                </div>
               </div>
-            ))}
-          <div className="recommended-channel">
-            <strong>Recommended Channel: {nextBestActions?.recommendedChannel}</strong>
+            </div>
           </div>
         </div>
-      </section>
-
-      {/* Footer */}
-      <div className="last-updated">
-        Last updated: {lastUpdated.toLocaleString()}
-        <button 
-          onClick={loadAllData} 
-          style={{ 
-            marginLeft: '16px', 
-            background: 'none', 
-            border: 'none', 
-            color: '#007bff', 
-            cursor: 'pointer',
-            textDecoration: 'underline'
-          }}
-        >
-          Refresh
-        </button>
-      </div>
+      )}
     </div>
   );
 }
