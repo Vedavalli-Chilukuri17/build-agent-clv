@@ -79,8 +79,6 @@ export const x_hete_clv_maximiz_policy_holders = Table({
         engagement_score: IntegerColumn({
             label: 'Engagement Score',
             default: '50',
-            min: 0,
-            max: 100,
         }),
         first_name: StringColumn({
             label: 'First Name',
@@ -122,11 +120,11 @@ export const x_hete_clv_maximiz_policy_holders = Table({
                 },
                 'Mobile App': {
                     label: 'Mobile App',
-                    sequence: 1,
+                    sequence: 0,
                 },
                 Phone: {
                     label: 'Phone',
-                    sequence: 2,
+                    sequence: 0,
                 },
             },
             dropdown: 'dropdown_with_none',
@@ -189,6 +187,32 @@ export const x_hete_clv_maximiz_policy_holders = Table({
         }),
         website_visits_30_days: IntegerColumn({
             label: 'Website Visits (30 Days)',
+        }),
+        u_currency_2: GenericColumn({
+            attributes: {
+                omit_sys_original: true,
+            },
+            columnType: 'currency',
+            label: 'CLV(12 Months)',
+            maxLength: 20,
+        }),
+        u_risk: StringColumn({
+            choices: {
+                low: {
+                    label: 'Low',
+                    sequence: 0,
+                },
+                medium: {
+                    label: 'Medium',
+                    sequence: 1,
+                },
+                high: {
+                    label: 'High',
+                    sequence: 2,
+                },
+            },
+            dropdown: 'dropdown_with_none',
+            label: 'Risk',
         }),
     },
 })

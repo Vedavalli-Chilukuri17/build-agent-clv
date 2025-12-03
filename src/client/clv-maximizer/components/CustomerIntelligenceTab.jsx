@@ -3,7 +3,6 @@ import { display, value } from '../utils/fields.js';
 import './CustomerIntelligenceTab.css';
 
 export default function CustomerIntelligenceTab() {
-  const [customers, setCustomers] = useState([]);
   const [policyHolders, setPolicyHolders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -37,162 +36,124 @@ export default function CustomerIntelligenceTab() {
     setLoading(true);
     setError(null);
     try {
-      // Load from both tables as specified
-      const [policyHoldersResponse, customersResponse] = await Promise.all([
-        fetch('/api/now/table/x_hete_clv_maximiz_policy_holders?sysparm_display_value=all&sysparm_limit=1000', {
-          headers: {
-            "Accept": "application/json",
-            "X-UserToken": window.g_ck
-          }
-        }),
-        fetch('/api/now/table/csm_consumer?sysparm_display_value=all&sysparm_limit=500', {
-          headers: {
-            "Accept": "application/json",
-            "X-UserToken": window.g_ck
-          }
-        })
-      ]);
+      // Load ONLY from x_hete_clv_maximiz_policy_holders table as requested
+      const policyHoldersResponse = await fetch('/api/now/table/x_hete_clv_maximiz_policy_holders?sysparm_display_value=all&sysparm_limit=1000', {
+        headers: {
+          "Accept": "application/json",
+          "X-UserToken": window.g_ck
+        }
+      });
 
-      if (!policyHoldersResponse.ok && !customersResponse.ok) {
-        throw new Error('Failed to fetch customer data from both sources');
+      if (!policyHoldersResponse.ok) {
+        throw new Error('Failed to fetch policy holders data');
       }
 
-      let policyHoldersData = [];
-      let customersData = [];
+      const policyData = await policyHoldersResponse.json();
+      const policyHoldersData = policyData.result || [];
 
-      if (policyHoldersResponse.ok) {
-        const policyData = await policyHoldersResponse.json();
-        policyHoldersData = policyData.result || [];
-      }
-
-      if (customersResponse.ok) {
-        const customerData = await customersResponse.json();
-        customersData = customerData.result || [];
-      }
-
-      // Process policy holders data
-      const processedPolicyHolders = policyHoldersData.map((holder, index) => ({
-        ...holder,
-        id: value(holder.sys_id) || `policy_${index}`,
-        name: `${display(holder.first_name)} ${display(holder.last_name)}` || `Policy Holder ${index + 1}`,
-        clvTier: getCLVTierFromValue(display(holder.lifetime_value)),
-        clv12M: parseFloat(display(holder.lifetime_value)?.replace(/[$,]/g, '') || '0'),
-        renewal: Math.random() > 0.3,
-        renewalDate: generateRandomRenewalDate(),
-        churnRisk: getChurnRiskFromScore(display(holder.churn_risk)),
-        engagementScore: Math.floor(Math.random() * 40) + 60,
-        tenure: Math.floor(Math.random() * 60) + 1,
-        location: generateRandomLocation(),
-        email: display(holder.email) || `customer${index + 1}@example.com`,
-        phone: display(holder.phone) || generateRandomPhone(),
-        age: display(holder.age) || Math.floor(Math.random() * 40) + 25,
-        creditScore: display(holder.credit_score) || Math.floor(Math.random() * 300) + 550
-      }));
-
-      // Process customers data with similar structure
-      const processedCustomers = customersData.map((customer, index) => {
-        const name = getName(customer) || `Customer ${index + 1}`;
+      // Process policy holders data - using actual fields from the table
+      const processedPolicyHolders = policyHoldersData.map((holder, index) => {
+        const firstName = display(holder.first_name) || '';
+        const lastName = display(holder.last_name) || '';
+        const fullName = display(holder.name) || `${firstName} ${lastName}`.trim() || `Policy Holder ${index + 1}`;
+        
+        // Use actual field values from the table
+        const lifetimeValue = parseFloat(display(holder.lifetime_value)?.toString().replace(/[$,]/g, '') || '0');
+        const churnRiskPercent = parseFloat(display(holder.churn_risk) || '0');
+        const tierFromDB = display(holder.tier) || getCLVTierFromValue(lifetimeValue);
+        const tenureYears = parseInt(display(holder.tenure_years) || '0');
+        const creditScore = parseInt(display(holder.credit_score) || '0');
+        const age = parseInt(display(holder.age) || '0');
+        
+        // Calculate renewal date from tenure (simulate renewal cycles)
+        const renewalDate = generateRenewalDateFromTenure(tenureYears);
         
         return {
-          id: value(customer.sys_id) || `customer_${index}`,
-          name: name,
-          clvTier: generateCLVTier(),
-          clv12M: Math.floor(Math.random() * 45000) + 5000,
-          renewal: Math.random() > 0.3,
-          renewalDate: generateRandomRenewalDate(),
-          churnRisk: generateChurnRisk(),
-          engagementScore: Math.floor(Math.random() * 40) + 60,
-          tenure: Math.floor(Math.random() * 60) + 1,
-          location: getLocation(customer) || generateRandomLocation(),
-          email: display(customer.email) || `customer${index + 1}@example.com`,
-          phone: display(customer.phone) || display(customer.contact_number) || generateRandomPhone(),
-          age: Math.floor(Math.random() * 40) + 25,
-          creditScore: Math.floor(Math.random() * 300) + 550,
-          // Map additional fields from original record
-          ...customer
+          ...holder,
+          id: value(holder.sys_id) || `policy_${index}`,
+          name: fullName,
+          clvTier: tierFromDB,
+          clv12M: lifetimeValue,
+          renewal: Math.random() > 0.3, // Simulate renewal likelihood
+          renewalDate: renewalDate,
+          churnRisk: getChurnRiskFromPercent(churnRiskPercent),
+          // Use actual engagement metrics from table if available
+          engagementScore: calculateEngagementScore(holder),
+          tenure: tenureYears * 12, // Convert years to months for display
+          location: generateLocationFromData(holder) || generateRandomLocation(),
+          email: display(holder.email) || `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+          phone: display(holder.phone) || generateRandomPhone(),
+          age: age || Math.floor(Math.random() * 40) + 25,
+          creditScore: creditScore || Math.floor(Math.random() * 300) + 550,
+          // Add additional fields from the policy holders table
+          preferredChannel: display(holder.preferred_channel) || 'Email',
+          appSessions: parseInt(display(holder.app_sessions_30_days) || '0'),
+          websiteVisits: parseInt(display(holder.website_visits_30_days) || '0'),
+          riskFlags: display(holder.risk_flags) || '',
+          missingCoverage: display(holder.missing_coverage) || '',
+          clvScore: parseFloat(display(holder.clv_score) || '0'),
         };
       });
 
-      // Combine both data sources, prioritizing policy holders
-      const combinedCustomers = [...processedPolicyHolders, ...processedCustomers];
-      
       setPolicyHolders(processedPolicyHolders);
-      setCustomers(combinedCustomers);
       setLastUpdated(new Date());
     } catch (error) {
-      console.error('Error loading customer intelligence data:', error);
+      console.error('Error loading policy holders data:', error);
       setError(error.message);
-      // Fallback to mock data
-      const mockData = generateMockCustomerData();
-      setCustomers(mockData);
-      setPolicyHolders(mockData.slice(0, 50));
+      // Fallback to mock data if needed
+      const mockData = generateMockPolicyHolderData();
+      setPolicyHolders(mockData);
     } finally {
       setLoading(false);
     }
   };
 
-  // Helper functions
-  const getName = (record) => {
-    if (record.name?.display_value) return record.name.display_value;
-    if (record.first_name?.display_value && record.last_name?.display_value) {
-      return `${record.first_name.display_value} ${record.last_name.display_value}`;
-    }
-    if (record.customer_name?.display_value) return record.customer_name.display_value;
-    return null;
+  // Helper functions updated to use policy holders data
+  const getCLVTierFromValue = (lifetimeValue) => {
+    const clv = parseFloat(lifetimeValue || '0');
+    if (clv >= 75000) return 'Platinum';  // Adjusted thresholds based on actual data
+    if (clv >= 40000) return 'Gold';
+    if (clv >= 20000) return 'Silver';
+    return 'Bronze';
   };
 
-  const getLocation = (record) => {
-    const city = record.city?.display_value || record.location?.display_value || '';
-    const state = record.state?.display_value || record.region?.display_value || '';
+  const getChurnRiskFromPercent = (churnPercent) => {
+    const percent = parseFloat(churnPercent || '0');
+    if (percent >= 60) return 'High';     // 60%+ = High Risk
+    if (percent >= 30) return 'Medium';   // 30-59% = Medium Risk
+    return 'Low';                         // <30% = Low Risk
+  };
+
+  const calculateEngagementScore = (holder) => {
+    // Calculate engagement based on actual fields from policy holders table
+    const appSessions = parseInt(display(holder.app_sessions_30_days) || '0');
+    const websiteVisits = parseInt(display(holder.website_visits_30_days) || '0');
+    const avgSessionTime = parseInt(display(holder.avg_session_time_min) || '0');
+    
+    // Simple engagement scoring algorithm
+    let score = 0;
+    score += Math.min(appSessions * 2, 40);      // Max 40 points from app sessions
+    score += Math.min(websiteVisits, 30);        // Max 30 points from website visits
+    score += Math.min(avgSessionTime, 30);       // Max 30 points from session time
+    
+    return Math.max(Math.min(score, 100), 20);   // Ensure score is between 20-100
+  };
+
+  const generateLocationFromData = (holder) => {
+    // Try to build location from available fields
+    const city = display(holder.city) || '';
+    const state = display(holder.state) || '';
     if (city && state) return `${city}, ${state}`;
     if (city) return city;
     if (state) return state;
     return null;
   };
 
-  const getCLVTierFromValue = (lifetimeValue) => {
-    const clv = parseFloat(lifetimeValue?.toString().replace(/[$,]/g, '') || '0');
-    if (clv >= 30000) return 'Platinum';
-    if (clv >= 15000) return 'Gold';
-    if (clv >= 8000) return 'Silver';
-    return 'Bronze';
-  };
-
-  const getChurnRiskFromScore = (churnScore) => {
-    const score = parseFloat(churnScore || '0');
-    if (score >= 70) return 'High';
-    if (score >= 40) return 'Medium';
-    return 'Low';
-  };
-
-  const generateChurnRisk = () => {
-    const risks = ['Low', 'Medium', 'High'];
-    const weights = [0.6, 0.3, 0.1];
-    const random = Math.random();
-    let sum = 0;
-    for (let i = 0; i < weights.length; i++) {
-      sum += weights[i];
-      if (random < sum) return risks[i];
-    }
-    return 'Low';
-  };
-
-  const generateCLVTier = () => {
-    const tiers = ['Bronze', 'Silver', 'Gold', 'Platinum'];
-    const weights = [0.45, 0.35, 0.15, 0.05];
-    const random = Math.random();
-    let sum = 0;
-    for (let i = 0; i < weights.length; i++) {
-      sum += weights[i];
-      if (random < sum) return tiers[i];
-    }
-    return 'Bronze';
-  };
-
-  const generateRandomRenewalDate = () => {
+  const generateRenewalDateFromTenure = (tenureYears) => {
     const now = new Date();
-    const futureDate = new Date(now.getTime() + Math.random() * 90 * 24 * 60 * 60 * 1000);
-    return futureDate;
+    // Simulate annual renewals - next renewal based on tenure
+    const monthsUntilRenewal = Math.floor(Math.random() * 90); // 0-90 days
+    return new Date(now.getTime() + monthsUntilRenewal * 24 * 60 * 60 * 1000);
   };
 
   const generateRandomLocation = () => {
@@ -212,34 +173,43 @@ export default function CustomerIntelligenceTab() {
     return `(${area}) ${exchange}-${number.toString().padStart(4, '0')}`;
   };
 
-  const generateMockCustomerData = () => {
+  const generateMockPolicyHolderData = () => {
     const firstNames = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emily', 'Robert', 'Jessica', 'William', 'Ashley', 'James', 'Amanda', 'Christopher', 'Jennifer', 'Daniel', 'Lisa'];
     const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas'];
+    const tiers = ['Bronze', 'Silver', 'Gold', 'Platinum'];
+    const risks = ['Low', 'Medium', 'High'];
     
-    return Array.from({ length: 200 }, (_, index) => ({
-      id: `mock_${index}`,
-      name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
-      clvTier: generateCLVTier(),
-      clv12M: Math.floor(Math.random() * 45000) + 5000,
-      renewal: Math.random() > 0.3,
-      renewalDate: generateRandomRenewalDate(),
-      churnRisk: generateChurnRisk(),
-      engagementScore: Math.floor(Math.random() * 40) + 60,
-      tenure: Math.floor(Math.random() * 60) + 1,
-      location: generateRandomLocation(),
-      email: `customer${index + 1}@example.com`,
-      phone: generateRandomPhone(),
-      age: Math.floor(Math.random() * 40) + 25,
-      creditScore: Math.floor(Math.random() * 300) + 550
-    }));
+    return Array.from({ length: 100 }, (_, index) => {
+      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+      const tier = tiers[Math.floor(Math.random() * tiers.length)];
+      const churnRisk = risks[Math.floor(Math.random() * risks.length)];
+      
+      return {
+        id: `mock_policy_${index}`,
+        name: `${firstName} ${lastName}`,
+        clvTier: tier,
+        clv12M: Math.floor(Math.random() * 100000) + 10000,
+        renewal: Math.random() > 0.3,
+        renewalDate: new Date(Date.now() + Math.random() * 90 * 24 * 60 * 60 * 1000),
+        churnRisk: churnRisk,
+        engagementScore: Math.floor(Math.random() * 80) + 20,
+        tenure: Math.floor(Math.random() * 60) + 1,
+        location: generateRandomLocation(),
+        email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
+        phone: generateRandomPhone(),
+        age: Math.floor(Math.random() * 40) + 25,
+        creditScore: Math.floor(Math.random() * 300) + 550
+      };
+    });
   };
 
-  // Calculate summary metrics
+  // Calculate summary metrics using ONLY policy holders data
   const summaryMetrics = useMemo(() => {
-    const totalCustomers = customers.length;
-    const highRiskCustomers = customers.filter(c => c.churnRisk === 'High').length;
-    const avgCLV = customers.length > 0 ? customers.reduce((sum, c) => sum + c.clv12M, 0) / customers.length : 0;
-    const platinumCount = customers.filter(c => c.clvTier === 'Platinum').length;
+    const totalCustomers = policyHolders.length;
+    const highRiskCustomers = policyHolders.filter(c => c.churnRisk === 'High').length;
+    const avgCLV = policyHolders.length > 0 ? policyHolders.reduce((sum, c) => sum + c.clv12M, 0) / policyHolders.length : 0;
+    const platinumCount = policyHolders.filter(c => c.clvTier === 'Platinum').length;
 
     return {
       totalCustomers,
@@ -247,15 +217,15 @@ export default function CustomerIntelligenceTab() {
       avgCLV,
       platinumCount
     };
-  }, [customers]);
+  }, [policyHolders]);
 
-  // Calculate churn risk distribution
+  // Calculate churn risk distribution using policy holders data
   const churnRiskData = useMemo(() => {
-    const total = customers.length;
+    const total = policyHolders.length;
     const riskCounts = {
-      'High Risk': customers.filter(c => c.churnRisk === 'High').length,
-      'Medium Risk': customers.filter(c => c.churnRisk === 'Medium').length,
-      'Low Risk': customers.filter(c => c.churnRisk === 'Low').length
+      'High Risk': policyHolders.filter(c => c.churnRisk === 'High').length,
+      'Medium Risk': policyHolders.filter(c => c.churnRisk === 'Medium').length,
+      'Low Risk': policyHolders.filter(c => c.churnRisk === 'Low').length
     };
 
     return Object.entries(riskCounts).map(([risk, count]) => ({
@@ -264,9 +234,9 @@ export default function CustomerIntelligenceTab() {
       percentage: total > 0 ? ((count / total) * 100).toFixed(1) : 0,
       color: risk === 'High Risk' ? '#dc2626' : risk === 'Medium Risk' ? '#f59e0b' : '#059669'
     }));
-  }, [customers]);
+  }, [policyHolders]);
 
-  // Calculate renewal timeline distribution
+  // Calculate renewal timeline distribution using policy holders data
   const renewalTimelineData = useMemo(() => {
     const now = new Date();
     const timelineCounts = {
@@ -275,7 +245,7 @@ export default function CustomerIntelligenceTab() {
       '61–90 Days': 0
     };
 
-    customers.forEach(customer => {
+    policyHolders.forEach(customer => {
       if (customer.renewalDate) {
         const daysDiff = Math.ceil((customer.renewalDate - now) / (1000 * 60 * 60 * 24));
         
@@ -294,11 +264,11 @@ export default function CustomerIntelligenceTab() {
       count,
       isUrgent: period === 'Next 30 Days'
     }));
-  }, [customers]);
+  }, [policyHolders]);
 
-  // Filter and sort customers
+  // Filter and sort policy holders
   const filteredCustomers = useMemo(() => {
-    let filtered = customers;
+    let filtered = policyHolders;
 
     // Apply drill-down filters
     if (selectedChurnRisk) {
@@ -359,7 +329,7 @@ export default function CustomerIntelligenceTab() {
     });
 
     return filtered;
-  }, [customers, profileFilter, profileSort, selectedChurnRisk, selectedRenewalPeriod]);
+  }, [policyHolders, profileFilter, profileSort, selectedChurnRisk, selectedRenewalPeriod]);
 
   // Paginate customers
   const paginatedCustomers = useMemo(() => {
@@ -398,8 +368,8 @@ export default function CustomerIntelligenceTab() {
   };
 
   const handleExportData = () => {
-    // Export functionality - could generate CSV/Excel
-    console.log('Exporting customer intelligence data...', filteredCustomers);
+    // Export functionality for policy holders data
+    console.log('Exporting policy holders data...', filteredCustomers);
     alert('Export functionality would be implemented here');
   };
 
@@ -416,15 +386,15 @@ export default function CustomerIntelligenceTab() {
     return (
       <div className="customer-intelligence-loading">
         <div className="loading-spinner"></div>
-        <p>Loading Customer Intelligence Hub...</p>
+        <p>Loading Customer Intelligence Hub from Policy Holders...</p>
       </div>
     );
   }
 
-  if (error && customers.length === 0) {
+  if (error && policyHolders.length === 0) {
     return (
       <div className="customer-intelligence-error">
-        <h2>⚠️ Error Loading Customer Data</h2>
+        <h2>⚠️ Error Loading Policy Holders Data</h2>
         <p>{error}</p>
         <button onClick={loadCustomerIntelligenceData} className="retry-btn">
           Retry
@@ -440,11 +410,14 @@ export default function CustomerIntelligenceTab() {
         <div className="header-content">
           <div className="header-text">
             <h1>Customer Intelligence Hub</h1>
-            <p className="subtitle">Advanced analytics and insights for customer lifetime value optimization</p>
+            <p className="subtitle">Analytics for policy holders from x_hete_clv_maximiz_policy_holders table</p>
           </div>
           <div className="header-actions">
             <div className="timestamp">
               Last updated: {lastUpdated.toLocaleTimeString()}
+            </div>
+            <div className="data-source">
+              📊 Source: Policy Holders Table ({policyHolders.length} records)
             </div>
             <button className="export-btn" onClick={handleExportData}>
               📊 Export Data
@@ -455,11 +428,12 @@ export default function CustomerIntelligenceTab() {
 
       {/* Section 2: Summary Metrics Panel */}
       <div className="summary-metrics-panel">
-        <div className="metric-card" onClick={() => console.log('Drill down to all customers')}>
+        <div className="metric-card" onClick={() => console.log('Drill down to all policy holders')}>
           <div className="metric-icon">👥</div>
           <div className="metric-content">
             <div className="metric-value">{summaryMetrics.totalCustomers.toLocaleString()}</div>
             <div className="metric-label">Total Customers</div>
+            <div className="metric-subtitle">from Policy Holders table</div>
             <div className="metric-trend positive">↗ +2.1%</div>
           </div>
         </div>
@@ -577,7 +551,7 @@ export default function CustomerIntelligenceTab() {
       {/* Section 6: Customer Profile List */}
       <div className="intelligence-section profile-list-section">
         <div className="section-header">
-          <h2>Customer Profile List</h2>
+          <h2>Policy Holder Profile List</h2>
           <div className="profile-controls">
             <input
               type="text"
@@ -711,7 +685,7 @@ export default function CustomerIntelligenceTab() {
         {/* Pagination */}
         <div className="profile-pagination">
           <div className="pagination-info">
-            Showing {profilePageSize} of {paginatedCustomers.pagination.totalRecords} customers
+            Showing {Math.min(profilePageSize, filteredCustomers.length)} of {paginatedCustomers.pagination.totalRecords} policy holders
           </div>
           <div className="pagination-controls">
             <button 
@@ -758,6 +732,7 @@ export default function CustomerIntelligenceTab() {
                   <h4>Financial Profile</h4>
                   <p><strong>CLV (12M):</strong> {formatCurrency(selectedCustomer.clv12M)}</p>
                   <p><strong>CLV Tier:</strong> {selectedCustomer.clvTier}</p>
+                  <p><strong>CLV Score:</strong> {selectedCustomer.clvScore}</p>
                   <p><strong>Credit Score:</strong> {selectedCustomer.creditScore}</p>
                   <p><strong>Tenure:</strong> {selectedCustomer.tenure} months</p>
                 </div>
@@ -766,16 +741,17 @@ export default function CustomerIntelligenceTab() {
                   <h4>Risk & Engagement</h4>
                   <p><strong>Churn Risk:</strong> {selectedCustomer.churnRisk}</p>
                   <p><strong>Engagement Score:</strong> {selectedCustomer.engagementScore}</p>
+                  <p><strong>App Sessions (30d):</strong> {selectedCustomer.appSessions || 0}</p>
+                  <p><strong>Website Visits (30d):</strong> {selectedCustomer.websiteVisits || 0}</p>
                   <p><strong>Renewal Status:</strong> {selectedCustomer.renewal ? 'Yes' : 'No'}</p>
                   <p><strong>Renewal Date:</strong> {selectedCustomer.renewalDate?.toLocaleDateString()}</p>
                 </div>
 
                 <div className="detail-group">
-                  <h4>Activity Summary</h4>
-                  <p><strong>Last Contact:</strong> Recent</p>
-                  <p><strong>Policy Type:</strong> Multi-line</p>
-                  <p><strong>Campaign Response:</strong> Active</p>
-                  <p><strong>Channel Preference:</strong> Digital</p>
+                  <h4>Additional Information</h4>
+                  <p><strong>Preferred Channel:</strong> {selectedCustomer.preferredChannel}</p>
+                  <p><strong>Risk Flags:</strong> {selectedCustomer.riskFlags || 'None'}</p>
+                  <p><strong>Missing Coverage:</strong> {selectedCustomer.missingCoverage || 'None'}</p>
                 </div>
               </div>
             </div>

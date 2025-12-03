@@ -277,7 +277,7 @@ declare global {
                     'clv-maximizer/components/CustomerIntelligenceTab.css': {
                         table: 'sys_ux_theme_asset'
                         id: 'ec3567d8461841afaba01a62a985c5cb'
-                        deleted: true
+                        deleted: false
                     }
                     'clv-maximizer/components/Dashboard.css': {
                         table: 'sys_ux_theme_asset'
@@ -674,13 +674,25 @@ declare global {
                         table: 'sys_script_client'
                         id: 'f1cdcdb050d24ef291463edf033cdb0a'
                     }
+                    update_additional_record_1: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'efa93b2d4bc84a51bcb0d76b189f919f'
+                    }
                     update_alex_rivera: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '2fcaa4c822e34463abb3009052a10227'
+                    }
+                    update_alex_rivera_current: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '2fcaa4c822e34463abb3009052a10227'
                     }
                     update_amanda_foster: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'efa93b2d4bc84a51bcb0d76b189f919f'
+                    }
+                    update_amanda_foster_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '854808a5118b4927a62b4332ac7e048a'
                     }
                     update_angela_brown: {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -690,7 +702,15 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '32dbf468795549ad9ad8262b01b1dc48'
                     }
+                    update_ashley_king_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '32dbf468795549ad9ad8262b01b1dc48'
+                    }
                     update_ashley_rodriguez: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '03aaaacc742647569538c7cdf921d3a1'
+                    }
+                    update_ashley_rodriguez_current: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '03aaaacc742647569538c7cdf921d3a1'
                     }
@@ -698,13 +718,25 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '29923a0110c244c89c4e6053ed4eb022'
                     }
+                    update_brian_lewis_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '29923a0110c244c89c4e6053ed4eb022'
+                    }
                     update_carlos_santos: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '07aec15b1eb141f689403a6b5beea07c'
+                    }
+                    update_carlos_santos_current: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '07aec15b1eb141f689403a6b5beea07c'
                     }
                     update_christopher_davis: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'e0ecce4aff6e4383880ebd9a9980dee0'
+                    }
+                    update_christopher_davis_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '00325d731c334cd7beaf540d338572a6'
                     }
                     update_customer_34: {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -754,27 +786,59 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'affbb8f19def41cda606c042450d5e39'
                     }
+                    update_daniel_garcia_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'affbb8f19def41cda606c042450d5e39'
+                    }
                     update_david_wilson: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'e479ae73948f49a1bdc98ddd946fb58e'
+                    }
+                    update_david_wilson_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '896504517da645eeb0aaf0511513bb89'
+                    }
+                    update_final_record: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'fa2477d13075477fb7d08f944dfdb6e0'
                     }
                     update_grace_liu: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'c9dc59645f9043d1a0d7ed95a168ce44'
                     }
+                    update_grace_liu_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ab20a5485a044b6388a159a03ac8c0e6'
+                    }
                     update_helen_foster: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '0205b5ddc11b4e3da5fc233648df0f63'
+                    }
+                    update_helen_foster_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b3f083018acd4c158f3e984c23eacd74'
                     }
                     update_isabella_rodriguez: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '82bc071633254a9cbfe99d101681c3e9'
                     }
+                    update_jennifer_martinez_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '862b5502c2c0413a9de80a5204494bd4'
+                    }
                     update_jennifer_rodriguez: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '862b5502c2c0413a9de80a5204494bd4'
                     }
+                    update_jennifer_rodriguez_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'c9dc59645f9043d1a0d7ed95a168ce44'
+                    }
                     update_john_miller: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ceb22be13be9321027891964c3e45a74'
+                    }
+                    update_john_miller_original: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'ceb22be13be9321027891964c3e45a74'
                     }
@@ -786,15 +850,35 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '896504517da645eeb0aaf0511513bb89'
                     }
+                    update_jordan_blake_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e0ecce4aff6e4383880ebd9a9980dee0'
+                    }
                     update_lisa_thompson: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '00325d731c334cd7beaf540d338572a6'
+                    }
+                    update_lisa_thompson_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '00325d731c334cd7beaf540d338572a6'
+                    }
+                    update_marcus_thompson: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e479ae73948f49a1bdc98ddd946fb58e'
                     }
                     update_marcus_thompson_jr: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '365524a8c6454338b5a2926a224a048a'
                     }
+                    update_maria_gonzalez_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '4723c976045e4733b85392ecc3603ccb'
+                    }
                     update_maria_lopez: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '8ab22be13be9321027891964c3e45a97'
+                    }
+                    update_maria_lopez_original: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '8ab22be13be9321027891964c3e45a97'
                     }
@@ -806,11 +890,35 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '4723c976045e4733b85392ecc3603ccb'
                     }
+                    update_michael_chen_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '82bc071633254a9cbfe99d101681c3e9'
+                    }
                     update_michelle_clark: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '32f6479927774db29624e6f23c0c17ee'
                     }
+                    update_michelle_clark_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '32f6479927774db29624e6f23c0c17ee'
+                    }
+                    update_missing_record_1: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '9d8e90cf038e4b87a0c37ed8a5b373bf'
+                    }
+                    update_missing_record_2: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '1ac9d0a1545d40a58ac81b1fa94de9cd'
+                    }
+                    update_missing_record_3: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '0205b5ddc11b4e3da5fc233648df0f63'
+                    }
                     update_nancy_white: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '3d886b609a2b4289a20b5273a2c13836'
+                    }
+                    update_nancy_white_current: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '3d886b609a2b4289a20b5273a2c13836'
                     }
@@ -818,13 +926,33 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'fa2477d13075477fb7d08f944dfdb6e0'
                     }
+                    update_patricia_brown_2: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ee63378fc58d4fa6af79d154f3e90aa5'
+                    }
+                    update_patricia_brown_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e479ae73948f49a1bdc98ddd946fb58e'
+                    }
                     update_raj_patel: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ceb22be13be9321027891964c3e45a96'
+                    }
+                    update_raj_patel_original: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'ceb22be13be9321027891964c3e45a96'
                     }
                     update_robert_martinez: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'ee63378fc58d4fa6af79d154f3e90aa5'
+                    }
+                    update_robert_martinez_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ee63378fc58d4fa6af79d154f3e90aa5'
+                    }
+                    update_ryan_hall_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '53e3b193c6f74750820554975d6a4ff1'
                     }
                     update_samuel_mitchell: {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -834,19 +962,35 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'ceb22be13be9321027891964c3e45a79'
                     }
+                    update_sara_chen_original: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ceb22be13be9321027891964c3e45a79'
+                    }
                     update_sarah_johnson: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: 'c5d2ce5a290f43328c65acfd1a1a5bb4'
                     }
+                    update_sarah_johnson_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'a05ba015d8264c0cb9816f2e3650231f'
+                    }
                     update_taylor_smith: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '3383ca62618a4c2fab28fda9285f90f7'
+                    }
+                    update_taylor_smith_current: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'c5d2ce5a290f43328c65acfd1a1a5bb4'
                     }
                     update_timothy_lewis: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '6bed12608f024345baf996cbc0603df2'
                     }
                     update_victoria_cooper: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '285f6b09665b4e1fabdcac7c5b060483'
+                    }
+                    update_victoria_cooper_current: {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '285f6b09665b4e1fabdcac7c5b060483'
                     }
@@ -1413,11 +1557,28 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: '38cf9f86db4c4b33a9e2204f1fbfb1f8'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
+                            value: 'low'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '3a3afabb312d467185f98d247a1d4fb3'
                         key: {
                             name: 'x_hete_clv_maximiz_product_performance'
                             element: 'last_updated'
+                        }
+                    },
+                    {
+                        table: 'sys_choice_set'
+                        id: '3a667bc6ebedf6904870fc4dbad0cde3'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
                         }
                     },
                     {
@@ -1726,6 +1887,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: '55d47b6a5b5f4ef3a516189d140b70bd'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
+                            value: 'medium'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '5699a2c965854828a215551ec83bc42f'
                         key: {
@@ -1994,6 +2164,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '72b722919feb40f49d1e328f0e7404e0'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_currency_2'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '7466537b70094d95a508e6106456e3fb'
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
@@ -2024,6 +2202,15 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'phone'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '76214d0654df4af5b00b76c66b79cea1'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
                             language: 'en'
                         }
                     },
@@ -2195,6 +2382,15 @@ declare global {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'preferred_channel'
                             value: 'Mobile App'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '88d323268a664805b686673fe10d86f4'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_currency_2'
+                            language: 'en'
                         }
                     },
                     {
@@ -2534,6 +2730,23 @@ declare global {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'status'
                             value: 'cancelled'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: 'a79137d5e479443baefda3395a400340'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
+                            value: 'high'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
+                        id: 'a8a50fba1bfa438997a3425a904919d6'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            element: 'u_risk'
                         }
                     },
                     {
