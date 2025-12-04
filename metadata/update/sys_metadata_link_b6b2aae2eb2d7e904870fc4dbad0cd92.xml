@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>08dc82f5ebe1f2904870fc4dbad0cd2b</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_campaigns">
+    <x_hete_clv_maximiz_campaigns action="INSERT_OR_UPDATE">
+        <campaign_name>upsell</campaign_name>
+        <campaign_type>retention</campaign_type>
+        <channel>email</channel>
+        <created_by>Emma Thompson</created_by>
+        <customer_tier>silver</customer_tier>
+        <enable_ab_testing>false</enable_ab_testing>
+        <estimated_reach>4799</estimated_reach>
+        <launch_date>2025-12-03</launch_date>
+        <launch_time>09:00</launch_time>
+        <launched_at>2025-12-02 00:00:00</launched_at>
+        <message_body>Dear {CustomerName},
+
+As a valued Silver tier customer, we are writing to inform you of important updates to your policy. Based on your profile, we recommend considering these coverage options: Jewelry &amp; Valuables.
+
+Please review the attached information and contact us if you have any questions.
+
+Best regards,
+Customer Service Team</message_body>
+        <priority>medium</priority>
+        <product_propensity>Jewelry &amp; Valuables</product_propensity>
+        <send_test_email>false</send_test_email>
+        <status>launched</status>
+        <subject_line>Important Silver Policy Update - Action Required</subject_line>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 03:19:55</sys_created_on>
+        <sys_id>08dc82f5ebe1f2904870fc4dbad0cd2b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 03:19:55</sys_updated_on>
+        <tone_style>professional</tone_style>
+    </x_hete_clv_maximiz_campaigns>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:51:07</sys_created_on>
+        <sys_id>b6b2aae2eb2d7e904870fc4dbad0cd92</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>upsell</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_b6b2aae2eb2d7e904870fc4dbad0cd92</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:51:07</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_campaigns</tablename>
+    </sys_metadata_link>
+</record_update>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>b4821b561e004e8eab47f3b9731de9bd</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>2</abandoned_journeys>
+        <age>41</age>
+        <app_sessions_30_days>19</app_sessions_30_days>
+        <avg_session_time_min>8</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>22</churn_risk>
+        <clv_score>6.3</clv_score>
+        <credit_inquiries_last_6m>1</credit_inquiries_last_6m>
+        <credit_score>722</credit_score>
+        <credit_utilization_percent>29</credit_utilization_percent>
+        <customer_id>CUST-2024-1024</customer_id>
+        <delinquency_12m>0</delinquency_12m>
+        <email>grace.liu@nonprofit.org</email>
+        <engagement_score/>
+        <first_name>Grace</first_name>
+        <last_name>Liu</last_name>
+        <lifetime_value>46800</lifetime_value>
+        <missing_coverage>Volunteer Activity Coverage</missing_coverage>
+        <name>Grace Liu</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>4</number_of_open_accounts>
+        <phone>+15550124</phone>
+        <preferred_channel>Email</preferred_channel>
+        <quote_views>5</quote_views>
+        <renewal_date/>
+        <risk/>
+        <risk_flags>Non-profit Sector, Stable</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:42:14</sys_created_on>
+        <sys_id>b4821b561e004e8eab47f3b9731de9bd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:42:14</sys_updated_on>
+        <tenure_years>13</tenure_years>
+        <tier>silver</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>16</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:14</sys_created_on>
+        <sys_id>9742ea22eb2d7e904870fc4dbad0cdb6</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Grace Liu</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_9742ea22eb2d7e904870fc4dbad0cdb6</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:14</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

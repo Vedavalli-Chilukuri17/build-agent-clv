@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>e5e211e2eba93e904870fc4dbad0cdee</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>6</abandoned_journeys>
+        <age>74</age>
+        <app_sessions_30_days>63</app_sessions_30_days>
+        <avg_session_time_min>11</avg_session_time_min>
+        <bankruptcies_flag>true</bankruptcies_flag>
+        <churn_risk>26.68</churn_risk>
+        <clv>8693.71</clv>
+        <clv_score>410</clv_score>
+        <credit_inquiries_last_6m>0</credit_inquiries_last_6m>
+        <credit_score>696</credit_score>
+        <credit_utilization_percent>88.42</credit_utilization_percent>
+        <customer_id>CUST0001056</customer_id>
+        <delinquency_12m>2</delinquency_12m>
+        <email>michael.miller@example.com</email>
+        <engagement_score>78</engagement_score>
+        <first_name>Michael</first_name>
+        <last_name>Miller</last_name>
+        <lifetime_value>6880.05</lifetime_value>
+        <missing_coverage>Vision</missing_coverage>
+        <name/>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>3</number_of_open_accounts>
+        <phone>+19544255046</phone>
+        <preferred_channel>Phone</preferred_channel>
+        <quote_views>8</quote_views>
+        <renewal_date>2026-07-31</renewal_date>
+        <risk>medium</risk>
+        <risk_flags>High</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 07:02:20</sys_created_on>
+        <sys_id>e5e211e2eba93e904870fc4dbad0cdee</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 07:02:20</sys_updated_on>
+        <tenure_years>5</tenure_years>
+        <tier>bronze</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>28</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:17</sys_created_on>
+        <sys_id>84526e22eb2d7e904870fc4dbad0cd6d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name/>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_84526e22eb2d7e904870fc4dbad0cd6d</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:17</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

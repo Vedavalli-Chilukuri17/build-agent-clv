@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>f148e268169c4cda8063c0c6be003d08</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>45</abandoned_journeys>
+        <age>24</age>
+        <app_sessions_30_days>22</app_sessions_30_days>
+        <avg_session_time_min>2</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>82</churn_risk>
+        <clv_score>2.9</clv_score>
+        <credit_inquiries_last_6m>11</credit_inquiries_last_6m>
+        <credit_score>590</credit_score>
+        <credit_utilization_percent>88</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>6</delinquency_12m>
+        <email>ryan.hall@gig.work</email>
+        <engagement_score/>
+        <first_name>Ryan</first_name>
+        <last_name>Hall</last_name>
+        <lifetime_value>15600</lifetime_value>
+        <missing_coverage>All Optional Coverage</missing_coverage>
+        <name>Ryan Christopher Hall</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>2</number_of_open_accounts>
+        <phone>+15550118</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>52</quote_views>
+        <renewal_date/>
+        <risk/>
+        <risk_flags>Gig Economy, High Risk Profile</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:42:14</sys_created_on>
+        <sys_id>f148e268169c4cda8063c0c6be003d08</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:42:14</sys_updated_on>
+        <tenure_years>1</tenure_years>
+        <tier>bronze</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>18</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:18</sys_created_on>
+        <sys_id>9852ae22eb2d7e904870fc4dbad0cd48</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Ryan Christopher Hall</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_9852ae22eb2d7e904870fc4dbad0cd48</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:18</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

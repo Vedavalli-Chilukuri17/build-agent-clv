@@ -6,9 +6,9 @@ export default function SimpleDashboard() {
   const [dashboardData, setDashboardData] = useState({
     // Basic KPIs sourced from Policy Holders table
     totalCustomers: 0,
-    highValueCustomers: 0,
-    avgCLV: 0,
-    averageChurnRisk: 0, // Changed to average churn risk
+    highValueCustomersPercentage: 0,
+    avgLifetimeValue: 0,
+    averageChurnRisk: 0,
     dataSource: 'x_hete_clv_maximiz_policy_holders',
     
     // Renewal Pipeline
@@ -67,6 +67,21 @@ export default function SimpleDashboard() {
     loadComprehensiveDashboardData();
   }, []);
 
+  // Helper function to filter out "unknown" and invalid values
+  const isValidValue = (val) => {
+    if (!val) return false;
+    const normalizedVal = val.toString().toLowerCase().trim();
+    return normalizedVal !== 'unknown' && normalizedVal !== '' && normalizedVal !== 'null' && normalizedVal !== 'undefined';
+  };
+
+  // Helper function to get valid tier values
+  const getValidTier = (tierValue) => {
+    if (!tierValue) return null;
+    const normalizedTier = tierValue.toString().toLowerCase().trim();
+    const validTiers = ['platinum', 'gold', 'silver', 'bronze'];
+    return validTiers.includes(normalizedTier) ? normalizedTier : null;
+  };
+
   const loadComprehensiveDashboardData = async () => {
     setLoading(true);
     try {
@@ -76,9 +91,12 @@ export default function SimpleDashboard() {
       const policyHolders = await fetchPolicyHoldersData();
       console.log(`✅ Successfully loaded ${policyHolders.length} policy holder records from x_hete_clv_maximiz_policy_holders`);
       
-      // Secondary data for product performance
-      const productPerformance = await fetchTableData('x_hete_clv_maximiz_competitor_benchmark');
-      console.log(`📊 Loaded ${productPerformance.length} product performance records`);
+      // Secondary data for product performance - filter out unknown values
+      const productPerformanceRaw = await fetchTableData('x_hete_clv_maximiz_competitor_benchmark');
+      const productPerformance = productPerformanceRaw.filter(p => 
+        isValidValue(display(p.product)) && display(p.product) !== 'Unknown'
+      );
+      console.log(`📊 Loaded ${productPerformance.length} valid product performance records (filtered from ${productPerformanceRaw.length} total)`);
 
       if (policyHolders.length === 0) {
         console.warn('⚠️ No policy holders found in the table. Dashboard will show zero counts.');
@@ -89,22 +107,35 @@ export default function SimpleDashboard() {
       const totalCustomers = policyHolders.length;
       console.log(`👥 Total Customers calculated from Policy Holders table: ${totalCustomers}`);
       
-      // Calculate High-Value Customers (Platinum and Gold tiers)
+      // Calculate High-Value Customers PERCENTAGE (Platinum and Gold tiers) - filter unknown
       const highValueCustomers = policyHolders.filter(p => {
         const tier = display(p.tier);
-        const isHighValue = tier === 'Platinum' || tier === 'Gold' || tier === 'platinum' || tier === 'gold';
-        return isHighValue;
+        const validTier = getValidTier(tier);
+        return validTier === 'platinum' || validTier === 'gold';
       }).length;
-      console.log(`⭐ High-Value Customers (Platinum & Gold): ${highValueCustomers}`);
+      
+      const highValueCustomersPercentage = totalCustomers > 0 ? (highValueCustomers / totalCustomers) * 100 : 0;
+      console.log(`⭐ High-Value Customers: ${highValueCustomers} out of ${totalCustomers} (${highValueCustomersPercentage.toFixed(1)}%)`);
 
-      // Calculate Average CLV using the "clv" field (CLV 12 Months) from Policy Holders
-      const avgCLV = policyHolders.length > 0
-        ? policyHolders.reduce((sum, p) => {
-            const clv12Months = parseFloat(display(p.clv)) || 0;
-            return sum + clv12Months;
-          }, 0) / policyHolders.length
-        : 0;
-      console.log(`💰 Average CLV calculated: $${Math.round(avgCLV)}`);
+      // Calculate Average LIFETIME VALUE using the "lifetime_value" field from Policy Holders
+      let avgLifetimeValue = 0;
+      let validLifetimeValueCount = 0;
+      let lifetimeValueSum = 0;
+      
+      policyHolders.forEach(p => {
+        const lifetimeValue = parseFloat(display(p.lifetime_value));
+        if (!isNaN(lifetimeValue) && lifetimeValue > 0) {
+          lifetimeValueSum += lifetimeValue;
+          validLifetimeValueCount++;
+        }
+      });
+      
+      if (validLifetimeValueCount > 0) {
+        avgLifetimeValue = lifetimeValueSum / validLifetimeValueCount;
+        console.log(`💰 Average Lifetime Value calculated: $${Math.round(avgLifetimeValue)} (from ${validLifetimeValueCount} valid records)`);
+      } else {
+        console.warn('⚠️ No valid lifetime_value data found in Policy Holders');
+      }
 
       // Calculate AVERAGE Churn Risk from churn_risk field in Policy Holders table
       console.log('🎯 CALCULATING AVERAGE CHURN RISK FROM CHURN_RISK FIELD:');
@@ -113,12 +144,12 @@ export default function SimpleDashboard() {
       let validChurnRiskCount = 0;
       let churnRiskValues = [];
       
-      // Analyze churn risk field values
+      // Analyze churn risk field values - filter unknown
       policyHolders.forEach(p => {
         const churnRiskRaw = display(p.churn_risk);
         const churnRiskNum = parseFloat(churnRiskRaw);
         
-        if (!isNaN(churnRiskNum) && churnRiskRaw !== null && churnRiskRaw !== undefined && churnRiskRaw !== '') {
+        if (!isNaN(churnRiskNum) && churnRiskRaw !== null && churnRiskRaw !== undefined && churnRiskRaw !== '' && isValidValue(churnRiskRaw)) {
           churnRiskValues.push(churnRiskNum);
           validChurnRiskCount++;
         }
@@ -140,7 +171,10 @@ export default function SimpleDashboard() {
           averageChurnRisk: averageChurnRisk.toFixed(2),
           minChurnRisk: Math.min(...churnRiskValues),
           maxChurnRisk: Math.max(...churnRiskValues),
-          sampleValues: churnRiskValues.slice(0, 10)
+          sampleValues: churnRiskValues.slice(0, 10),
+          highValueCustomersPercentage: highValueCustomersPercentage.toFixed(1),
+          avgLifetimeValue: Math.round(avgLifetimeValue),
+          validLifetimeValueCount
         });
       } else {
         console.warn('⚠️ No valid churn_risk values found in Policy Holders data');
@@ -149,15 +183,12 @@ export default function SimpleDashboard() {
         setDebugInfo({
           totalCustomers,
           validChurnRiskCount: 0,
-          error: 'No valid churn_risk values found'
+          error: 'No valid churn_risk values found',
+          highValueCustomersPercentage: highValueCustomersPercentage.toFixed(1),
+          avgLifetimeValue: Math.round(avgLifetimeValue),
+          validLifetimeValueCount
         });
       }
-
-      // Calculate High-Risk Customers (for breakdown by tier) - customers with churn risk over 60%
-      const highRiskCustomers = policyHolders.filter(p => {
-        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-        return churnRisk > 60;
-      }).length;
 
       // Calculate Renewal Pipeline (30/60/90 days) from Policy Holders renewal dates
       const now = new Date();
@@ -168,26 +199,26 @@ export default function SimpleDashboard() {
       const renewalPipeline = {
         next30Days: policyHolders.filter(p => {
           const renewalDate = display(p.renewal_date);
-          if (!renewalDate) return false;
+          if (!renewalDate || !isValidValue(renewalDate)) return false;
           const rDate = new Date(renewalDate);
-          return rDate >= now && rDate <= next30Days;
+          return !isNaN(rDate.getTime()) && rDate >= now && rDate <= next30Days;
         }).length,
         next60Days: policyHolders.filter(p => {
           const renewalDate = display(p.renewal_date);
-          if (!renewalDate) return false;
+          if (!renewalDate || !isValidValue(renewalDate)) return false;
           const rDate = new Date(renewalDate);
-          return rDate >= now && rDate <= next60Days;
+          return !isNaN(rDate.getTime()) && rDate >= now && rDate <= next60Days;
         }).length,
         next90Days: policyHolders.filter(p => {
           const renewalDate = display(p.renewal_date);
-          if (!renewalDate) return false;
+          if (!renewalDate || !isValidValue(renewalDate)) return false;
           const rDate = new Date(renewalDate);
-          return rDate >= now && rDate <= next90Days;
+          return !isNaN(rDate.getTime()) && rDate >= now && rDate <= next90Days;
         }).length
       };
       console.log('📅 Renewal Pipeline calculated:', renewalPipeline);
 
-      // Calculate Tier Distribution from Policy Holders
+      // Calculate Tier Distribution from Policy Holders - FILTER OUT UNKNOWN
       const tierDistribution = {
         platinum: 0,
         gold: 0,
@@ -196,14 +227,23 @@ export default function SimpleDashboard() {
       };
 
       policyHolders.forEach(p => {
-        const tier = display(p.tier)?.toLowerCase();
-        if (tier && tierDistribution.hasOwnProperty(tier)) {
-          tierDistribution[tier]++;
+        const tier = display(p.tier);
+        const validTier = getValidTier(tier);
+        if (validTier && tierDistribution.hasOwnProperty(validTier)) {
+          tierDistribution[validTier]++;
         }
       });
-      console.log('🏆 Tier Distribution:', tierDistribution);
+      
+      console.log('🏆 Tier Distribution (filtered):', tierDistribution);
+      
+      // Log filtered out records for debugging
+      const unknownTierCount = policyHolders.filter(p => {
+        const tier = display(p.tier);
+        return !getValidTier(tier);
+      }).length;
+      console.log(`🔍 Filtered out ${unknownTierCount} records with unknown/invalid tier values`);
 
-      // Calculate High-Risk Customers by Tier (using churn_risk over 60%)
+      // Calculate High-Risk Customers by Tier (using churn_risk over 60%) - FILTER UNKNOWN
       console.log('🎯 CALCULATING HIGH-RISK CUSTOMERS BY TIER (churn risk over 60%):');
       const highRiskByTier = {
         platinum: 0,
@@ -213,58 +253,64 @@ export default function SimpleDashboard() {
       };
 
       policyHolders.forEach(p => {
-        const tier = display(p.tier)?.toLowerCase();
+        const tier = display(p.tier);
+        const validTier = getValidTier(tier);
         const churnRisk = parseFloat(display(p.churn_risk)) || 0;
         
-        if (churnRisk > 60 && tier && highRiskByTier.hasOwnProperty(tier)) {
-          highRiskByTier[tier]++;
+        if (churnRisk > 60 && validTier && highRiskByTier.hasOwnProperty(validTier)) {
+          highRiskByTier[validTier]++;
         }
       });
       
-      console.log('🎯 High-Risk by Tier (churn risk over 60%):', highRiskByTier);
+      console.log('🎯 High-Risk by Tier (filtered, churn risk over 60%):', highRiskByTier);
 
-      // Calculate CLV Band Distribution based on Policy Holders lifetime_value
+      // Calculate CLV Band Distribution based on Policy Holders lifetime_value - FILTER UNKNOWN
       const clvBands = {
         high: policyHolders.filter(p => {
-          const ltv = parseFloat(display(p.lifetime_value)) || 0;
-          return ltv > 50000;
+          const ltv = parseFloat(display(p.lifetime_value));
+          return !isNaN(ltv) && ltv > 50000;
         }).length,
         medium: policyHolders.filter(p => {
-          const ltv = parseFloat(display(p.lifetime_value)) || 0;
-          return ltv >= 20000 && ltv <= 50000;
+          const ltv = parseFloat(display(p.lifetime_value));
+          return !isNaN(ltv) && ltv >= 20000 && ltv <= 50000;
         }).length,
         low: policyHolders.filter(p => {
-          const ltv = parseFloat(display(p.lifetime_value)) || 0;
-          return ltv < 20000;
+          const ltv = parseFloat(display(p.lifetime_value));
+          return !isNaN(ltv) && ltv > 0 && ltv < 20000;
         }).length
       };
-      console.log('💎 CLV Bands:', clvBands);
+      console.log('💎 CLV Bands (filtered):', clvBands);
 
-      // Calculate Risk Factor Analysis from Policy Holders credit and delinquency data
+      // Calculate Risk Factor Analysis from Policy Holders credit and delinquency data - FILTER UNKNOWN
       const riskAnalysis = {
         creditRisk: policyHolders.filter(p => {
-          const creditScore = parseInt(display(p.credit_score)) || 0;
-          return creditScore < 650;
+          const creditScore = parseInt(display(p.credit_score));
+          return !isNaN(creditScore) && creditScore > 0 && creditScore < 650;
         }).length,
         propertyRisk: policyHolders.filter(p => {
-          const delinquency = parseInt(display(p.delinquency_12m)) || 0;
-          return delinquency > 2;
+          const delinquency = parseInt(display(p.delinquency_12m));
+          return !isNaN(delinquency) && delinquency > 2;
         }).length,
         combinedRisk: policyHolders.filter(p => {
-          const creditScore = parseInt(display(p.credit_score)) || 0;
-          const delinquency = parseInt(display(p.delinquency_12m)) || 0;
-          const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-          return creditScore < 650 || delinquency > 2 || churnRisk > 70;
+          const creditScore = parseInt(display(p.credit_score));
+          const delinquency = parseInt(display(p.delinquency_12m));
+          const churnRisk = parseFloat(display(p.churn_risk));
+          
+          const hasCredit = !isNaN(creditScore) && creditScore > 0 && creditScore < 650;
+          const hasDelinquency = !isNaN(delinquency) && delinquency > 2;
+          const hasChurnRisk = !isNaN(churnRisk) && churnRisk > 70;
+          
+          return hasCredit || hasDelinquency || hasChurnRisk;
         }).length
       };
-      console.log('⚠️ Risk Analysis:', riskAnalysis);
+      console.log('⚠️ Risk Analysis (filtered):', riskAnalysis);
 
       // Update dashboard data with calculated metrics
       setDashboardData({
         totalCustomers,
-        highValueCustomers,
-        avgCLV: Math.round(avgCLV),
-        averageChurnRisk: Math.round(averageChurnRisk * 100) / 100, // Store average churn risk
+        highValueCustomersPercentage: Math.round(highValueCustomersPercentage * 10) / 10,
+        avgLifetimeValue: Math.round(avgLifetimeValue),
+        averageChurnRisk: Math.round(averageChurnRisk * 100) / 100,
         dataSource: 'x_hete_clv_maximiz_policy_holders',
         renewalPipeline,
         highRiskByTier,
@@ -280,7 +326,7 @@ export default function SimpleDashboard() {
       });
 
       setLastUpdated(new Date());
-      console.log('✅ Dashboard data successfully updated from Policy Holders table');
+      console.log('✅ Dashboard data successfully updated from Policy Holders table (unknown values filtered)');
 
     } catch (error) {
       console.error('❌ Error loading comprehensive dashboard data:', error);
@@ -289,8 +335,8 @@ export default function SimpleDashboard() {
       setDashboardData(prevData => ({
         ...prevData,
         totalCustomers: 0,
-        highValueCustomers: 0,
-        avgCLV: 0,
+        highValueCustomersPercentage: 0,
+        avgLifetimeValue: 0,
         averageChurnRisk: 0
       }));
     } finally {
@@ -321,10 +367,10 @@ export default function SimpleDashboard() {
       
       if (policyHolders.length > 0) {
         console.log('📋 Sample policy holder record fields:', Object.keys(policyHolders[0]));
-        console.log('📋 Sample record with churn_risk field:', {
+        console.log('📋 Sample record with key fields:', {
           churn_risk: policyHolders[0].churn_risk,
-          risk: policyHolders[0].risk,
-          tier: policyHolders[0].tier
+          tier: policyHolders[0].tier,
+          lifetime_value: policyHolders[0].lifetime_value
         });
       }
       
@@ -359,7 +405,8 @@ export default function SimpleDashboard() {
         <div className="loading-spinner"></div>
         <p>Loading Analytics from Policy Holders Table...</p>
         <p className="loading-subtext">Fetching data from x_hete_clv_maximiz_policy_holders</p>
-        <p className="loading-subtext">Calculating average churn risk...</p>
+        <p className="loading-subtext">Filtering out unknown values...</p>
+        <p className="loading-subtext">Calculating metrics...</p>
       </div>
     );
   }
@@ -380,20 +427,19 @@ export default function SimpleDashboard() {
       {/* Debug Information Panel */}
       {debugInfo && (
         <div className="debug-panel">
-          <h3>🔍 Churn Risk Analysis</h3>
+          <h3>🔍 Dashboard Data Analysis</h3>
           <div className="debug-content">
             {debugInfo.error ? (
               <div className="debug-error">❌ Error: {debugInfo.error}</div>
             ) : (
               <div className="debug-success">
                 <p><strong>Total Customers:</strong> {debugInfo.totalCustomers}</p>
-                <p><strong>Valid Churn Risk Records:</strong> {debugInfo.validChurnRiskCount}</p>
-                <p><strong>Average Churn Risk:</strong> {debugInfo.averageChurnRisk}%</p>
-                {debugInfo.minChurnRisk !== undefined && (
-                  <>
-                    <p><strong>Range:</strong> {debugInfo.minChurnRisk}% - {debugInfo.maxChurnRisk}%</p>
-                    <p><strong>Sample Values:</strong> {debugInfo.sampleValues?.join(', ')}%</p>
-                  </>
+                <p><strong>High-Value Customers:</strong> {debugInfo.highValueCustomersPercentage}% (Gold + Platinum)</p>
+                <p><strong>Average Lifetime Value:</strong> ${debugInfo.avgLifetimeValue?.toLocaleString()} (from {debugInfo.validLifetimeValueCount} records)</p>
+                <p><strong>Average Churn Risk:</strong> {debugInfo.averageChurnRisk}% (from {debugInfo.validChurnRiskCount} records)</p>
+                <p><strong>Data Quality:</strong> Unknown values filtered from all calculations</p>
+                {debugInfo.sampleValues && (
+                  <p><strong>Sample Churn Values:</strong> {debugInfo.sampleValues?.join(', ')}%</p>
                 )}
               </div>
             )}
@@ -417,18 +463,18 @@ export default function SimpleDashboard() {
           <div className="simple-kpi-card high-value">
             <div className="kpi-icon">⭐</div>
             <div className="kpi-content">
-              <div className="kpi-value">{dashboardData.highValueCustomers.toLocaleString()}</div>
+              <div className="kpi-value">{dashboardData.highValueCustomersPercentage}%</div>
               <div className="kpi-label">High-Value Customers</div>
-              <div className="kpi-sublabel">Platinum & Gold Tiers</div>
+              <div className="kpi-sublabel">% Gold + Platinum Tiers</div>
             </div>
           </div>
 
           <div className="simple-kpi-card clv">
             <div className="kpi-icon">💰</div>
             <div className="kpi-content">
-              <div className="kpi-value">${dashboardData.avgCLV.toLocaleString()}</div>
-              <div className="kpi-label">Average CLV (12-Month)</div>
-              <div className="kpi-sublabel">From CLV Field</div>
+              <div className="kpi-value">${dashboardData.avgLifetimeValue.toLocaleString()}</div>
+              <div className="kpi-label">Average Lifetime Value</div>
+              <div className="kpi-sublabel">From lifetime_value Field</div>
             </div>
           </div>
 
@@ -443,7 +489,7 @@ export default function SimpleDashboard() {
         </div>
       </div>
 
-      {/* Dynamic Performance Metrics - Now in single row */}
+      {/* Dynamic Performance Metrics */}
       <div className="dashboard-section">
         <h2>Dynamic Performance Metrics</h2>
         
@@ -464,7 +510,7 @@ export default function SimpleDashboard() {
                 <span className="pipeline-value">{dashboardData.renewalPipeline.next90Days}</span>
               </div>
             </div>
-            <div className="data-source-note">From renewal_date field</div>
+            <div className="data-source-note">From valid renewal_date values</div>
           </div>
 
           <div className="metric-card risk-breakdown">
@@ -487,7 +533,7 @@ export default function SimpleDashboard() {
                 <span className="risk-count">{dashboardData.highRiskByTier.bronze}</span>
               </div>
             </div>
-            <div className="data-source-note">Customers with high churn risk</div>
+            <div className="data-source-note">Valid tiers with high churn risk</div>
           </div>
 
           <div className="metric-card cross-sell">
@@ -510,7 +556,7 @@ export default function SimpleDashboard() {
         </div>
       </div>
 
-      {/* Market Intelligence - All from Policy Holders table */}
+      {/* Market Intelligence - All from Policy Holders table, filtered */}
       <div className="dashboard-section">
         <h2>Market Intelligence</h2>
         
@@ -559,7 +605,7 @@ export default function SimpleDashboard() {
                 </div>
               </div>
             </div>
-            <div className="data-source-note">From tier field in Policy Holders</div>
+            <div className="data-source-note">Valid tiers only (unknown filtered)</div>
           </div>
 
           <div className="intelligence-card clv-bands">
@@ -587,7 +633,7 @@ export default function SimpleDashboard() {
                 </div>
               </div>
             </div>
-            <div className="data-source-note">From lifetime_value field</div>
+            <div className="data-source-note">Valid lifetime_value data only</div>
           </div>
 
           <div className="intelligence-card risk-analysis">
@@ -609,48 +655,54 @@ export default function SimpleDashboard() {
                 <div className="risk-description">Multiple Risk Factors</div>
               </div>
             </div>
-            <div className="data-source-note">From credit_score & delinquency_12m fields</div>
+            <div className="data-source-note">Valid numeric data only</div>
           </div>
 
-          {/* Product Performance Analysis in Single Row Format */}
+          {/* Product Performance Analysis - filtered */}
           <div className="intelligence-card product-performance-horizontal">
             <h3>📊 Product Performance Analysis</h3>
             {dashboardData.productPerformanceData.length > 0 ? (
               <div className="product-horizontal-scroll">
-                {dashboardData.productPerformanceData.slice(0, 6).map((product, index) => (
-                  <div key={index} className="product-card">
-                    <div className="product-card-header">
-                      <div className="product-card-name">{display(product.product)}</div>
-                      <div className={`frequency-badge ${display(product.purchase_frequency) || 'competitive'}`}>
-                        {display(product.purchase_frequency) || 'Competitive'}
+                {dashboardData.productPerformanceData.slice(0, 6).map((product, index) => {
+                  const productName = display(product.product);
+                  // Skip if product name is unknown or invalid
+                  if (!isValidValue(productName) || productName === 'Unknown') return null;
+                  
+                  return (
+                    <div key={index} className="product-card">
+                      <div className="product-card-header">
+                        <div className="product-card-name">{productName}</div>
+                        <div className={`frequency-badge ${display(product.purchase_frequency) || 'competitive'}`}>
+                          {display(product.purchase_frequency) || 'Competitive'}
+                        </div>
+                      </div>
+                      <div className="product-card-metrics">
+                        <div className="product-metric">
+                          <div className="metric-label-small">Premium vs Competitor</div>
+                          <div className={`metric-value-small ${(display(product.premium_vs_competitor) || '').startsWith('+') ? 'positive' : 'negative'}`}>
+                            {display(product.premium_vs_competitor) || '0%'}
+                          </div>
+                        </div>
+                        <div className="product-metric">
+                          <div className="metric-label-small">Revenue per Customer</div>
+                          <div className="metric-value-small">
+                            {display(product.revenue_per_customer) || '0K'}
+                          </div>
+                        </div>
+                        <div className="product-metric">
+                          <div className="metric-label-small">Campaign Uplift</div>
+                          <div className="metric-value-small positive">
+                            {display(product.campaign_uplift) || '0%'}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="product-card-metrics">
-                      <div className="product-metric">
-                        <div className="metric-label-small">Premium vs Competitor</div>
-                        <div className={`metric-value-small ${(display(product.premium_vs_competitor) || '').startsWith('+') ? 'positive' : 'negative'}`}>
-                          {display(product.premium_vs_competitor) || '0%'}
-                        </div>
-                      </div>
-                      <div className="product-metric">
-                        <div className="metric-label-small">Revenue per Customer</div>
-                        <div className="metric-value-small">
-                          {display(product.revenue_per_customer) || '0K'}
-                        </div>
-                      </div>
-                      <div className="product-metric">
-                        <div className="metric-label-small">Campaign Uplift</div>
-                        <div className="metric-value-small positive">
-                          {display(product.campaign_uplift) || '0%'}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             ) : (
               <div className="no-product-data">
-                <p>Loading product performance data...</p>
+                <p>No valid product performance data available</p>
               </div>
             )}
           </div>
@@ -660,17 +712,17 @@ export default function SimpleDashboard() {
       {/* Data Source Footer */}
       <div className="dashboard-footer">
         <div className="data-source-details">
-          <strong>📋 Data Sources & Field Mapping:</strong>
+          <strong>📋 Clean Data Sources & Field Mapping:</strong>
           <ul>
             <li><strong>Total Customers:</strong> COUNT(*) from x_hete_clv_maximiz_policy_holders</li>
-            <li><strong>Average Churn Risk:</strong> AVG(churn_risk) from x_hete_clv_maximiz_policy_holders</li>
-            <li><strong>High-Value Customers:</strong> tier IN ('Platinum', 'Gold') from policy holders</li>
-            <li><strong>Average CLV:</strong> AVG(clv) from policy holders</li>
-            <li><strong>Risk Analysis:</strong> credit_score, delinquency_12m from policy holders</li>
+            <li><strong>High-Value Customers:</strong> % of valid tier IN ('Platinum', 'Gold')</li>
+            <li><strong>Average Lifetime Value:</strong> AVG(valid lifetime_value) from policy holders</li>
+            <li><strong>Average Churn Risk:</strong> AVG(valid churn_risk) from policy holders</li>
+            <li><strong>Data Quality:</strong> All "unknown" and invalid values filtered</li>
           </ul>
         </div>
         <button onClick={loadComprehensiveDashboardData} className="refresh-data-btn">
-          🔄 Refresh Data from Policy Holders Table
+          🔄 Refresh Clean Data from Policy Holders
         </button>
       </div>
     </div>

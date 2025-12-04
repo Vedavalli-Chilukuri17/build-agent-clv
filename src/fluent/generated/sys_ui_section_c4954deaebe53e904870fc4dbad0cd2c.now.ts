@@ -330,15 +330,3 @@ Record({
         sys_ui_section: 'c4954deaebe53e904870fc4dbad0cd2c',
     },
 })
-Record({
-    $id: Now.ID['c4954deaebe53e904870fc4dbad0cd2c'],
-    table: 'sys_ui_section',
-    data: {
-        header: false,
-        name: 'u_imp_tmpl_x_hete_clv_maximiz_policy_holders',
-        sys_domain: 'global',
-        sys_domain_path: '/',
-        title: false,
-        view: 'Default view',
-    },
-})

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>bf6f5df9d53f4accb450e43cb89112f8</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>6</abandoned_journeys>
+        <age>38</age>
+        <app_sessions_30_days>22</app_sessions_30_days>
+        <avg_session_time_min>11</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>52</churn_risk>
+        <clv>28500</clv>
+        <clv_score>79.1</clv_score>
+        <credit_inquiries_last_6m>3</credit_inquiries_last_6m>
+        <credit_score>715</credit_score>
+        <credit_utilization_percent>28</credit_utilization_percent>
+        <customer_id>GOLD002</customer_id>
+        <delinquency_12m>1</delinquency_12m>
+        <email>jennifer.chen@email.com</email>
+        <engagement_score>68</engagement_score>
+        <first_name>Jennifer</first_name>
+        <last_name>Chen</last_name>
+        <lifetime_value>75000</lifetime_value>
+        <missing_coverage>Home Insurance</missing_coverage>
+        <name>Jennifer Chen</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>2</number_of_open_accounts>
+        <phone>+15550004</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>9</quote_views>
+        <renewal_date>2025-04-10</renewal_date>
+        <risk>medium</risk>
+        <risk_flags>Credit Utilization High</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 09:19:57</sys_created_on>
+        <sys_id>bf6f5df9d53f4accb450e43cb89112f8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 09:19:57</sys_updated_on>
+        <tenure_years>4</tenure_years>
+        <tier>gold</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk>medium</u_risk>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>19</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:15</sys_created_on>
+        <sys_id>1f42ea22eb2d7e904870fc4dbad0cddc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Jennifer Chen</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_1f42ea22eb2d7e904870fc4dbad0cddc</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:15</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

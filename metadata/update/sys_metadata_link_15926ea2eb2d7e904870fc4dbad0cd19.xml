@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>7e103aab8b8440f09b0f6d41efa78e4e</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_competitor_benchmark">
+    <x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE">
+        <avg_premium>750</avg_premium>
+        <campaign_uplift>+10.3%</campaign_uplift>
+        <claims_ratio>0.35</claims_ratio>
+        <competitor_name>Umbrella Liability Market</competitor_name>
+        <customer_satisfaction>4.3</customer_satisfaction>
+        <data_source>Umbrella Insurance Market Analysis</data_source>
+        <last_updated>2024-03-20 15:20:00</last_updated>
+        <market_share>8.9</market_share>
+        <premium_vs_competitor>+14.3%</premium_vs_competitor>
+        <product>Umbrella Liability</product>
+        <product_category>Liability Insurance</product_category>
+        <purchase_frequency>strong</purchase_frequency>
+        <renewal_rate>88.7</renewal_rate>
+        <revenue_per_customer>$3K</revenue_per_customer>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-03 13:05:59</sys_created_on>
+        <sys_id>7e103aab8b8440f09b0f6d41efa78e4e</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-03 13:05:59</sys_updated_on>
+    </x_hete_clv_maximiz_competitor_benchmark>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:50:28</sys_created_on>
+        <sys_id>15926ea2eb2d7e904870fc4dbad0cd19</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Umbrella Liability</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_15926ea2eb2d7e904870fc4dbad0cd19</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:50:28</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_competitor_benchmark</tablename>
+    </sys_metadata_link>
+</record_update>

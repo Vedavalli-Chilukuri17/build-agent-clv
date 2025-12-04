@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>eee37db13da045fb84edae3e3bc44b05</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>4</abandoned_journeys>
+        <age>44</age>
+        <app_sessions_30_days>21</app_sessions_30_days>
+        <avg_session_time_min>5</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>35</churn_risk>
+        <clv_score>6.1</clv_score>
+        <credit_inquiries_last_6m>4</credit_inquiries_last_6m>
+        <credit_score>689</credit_score>
+        <credit_utilization_percent>47</credit_utilization_percent>
+        <customer_id>CUST-2024-1027</customer_id>
+        <delinquency_12m>1</delinquency_12m>
+        <email>carlos.santos@restaurant.biz</email>
+        <engagement_score/>
+        <first_name>Carlos</first_name>
+        <last_name>Santos</last_name>
+        <lifetime_value>59200</lifetime_value>
+        <missing_coverage>Business Interruption</missing_coverage>
+        <name>Carlos Eduardo Santos</name>
+        <number_of_closed_accounts>2</number_of_closed_accounts>
+        <number_of_open_accounts>6</number_of_open_accounts>
+        <phone>+15550127</phone>
+        <preferred_channel>Phone</preferred_channel>
+        <quote_views>9</quote_views>
+        <renewal_date/>
+        <risk/>
+        <risk_flags>Small Business Owner, Economic Sensitivity</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:42:14</sys_created_on>
+        <sys_id>eee37db13da045fb84edae3e3bc44b05</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:42:14</sys_updated_on>
+        <tenure_years>10</tenure_years>
+        <tier>silver</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>13</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:18</sys_created_on>
+        <sys_id>14526e22eb2d7e904870fc4dbad0cdf3</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Carlos Eduardo Santos</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_14526e22eb2d7e904870fc4dbad0cdf3</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:18</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

@@ -367,206 +367,27 @@
   color: #dc2626;
 }
 
-/* Risk Breakdown */
-.risk-breakdown {
+/* Channel Performance */
+.channel-performance {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-  margin-bottom: 1rem;
 }
 
-.risk-item {
+.channel-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.75rem;
-  border-radius: 8px;
-  font-weight: 500;
-}
-
-.risk-item.high {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.risk-item.medium {
-  background: #fef3c7;
-  color: #92400e;
-}
-
-.risk-item.low {
-  background: #d1fae5;
-  color: #065f46;
-}
-
-.credit-risk-summary {
-  padding-top: 1rem;
-  border-top: 1px solid #e5e7eb;
-}
-
-.credit-risk-summary p {
-  margin: 0 0 0.5rem 0;
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-/* Analytics Grids */
-.analytics-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 2rem;
-}
-
-.analytics-card {
-  background: white;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-}
-
-.analytics-card h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 1.5rem 0;
-}
-
-.analytics-card h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #374151;
-  margin: 1rem 0 0.75rem 0;
-}
-
-/* Demographics Stats */
-.demographics-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 1rem;
   background: #f9fafb;
   border-radius: 8px;
-}
-
-.stat-label {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-bottom: 0.5rem;
-}
-
-.stat-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-.age-groups {
-  border-top: 1px solid #e5e7eb;
-  padding-top: 1rem;
-}
-
-.age-group-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-/* Tier Performance */
-.tier-performance {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.tier-performance-item {
   border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1rem;
-  background: #fafafa;
-}
-
-.tier-performance-item.platinum {
-  border-left: 4px solid #6b7280;
-}
-
-.tier-performance-item.gold {
-  border-left: 4px solid #f59e0b;
-}
-
-.tier-performance-item.silver {
-  border-left: 4px solid #9ca3af;
-}
-
-.tier-performance-item.bronze {
-  border-left: 4px solid #ea580c;
-}
-
-.tier-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.75rem;
-}
-
-.customer-count {
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-.tier-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-}
-
-.tier-metric {
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  padding: 0.5rem;
-  background: white;
-  border-radius: 6px;
-  font-size: 0.875rem;
-}
-
-.tier-metric span:first-child {
-  color: #6b7280;
-  margin-bottom: 0.25rem;
-}
-
-.tier-metric span:last-child {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-/* Channel Analysis */
-.channel-analysis {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.channel-item {
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  background: #fafafa;
 }
 
 .channel-info {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.5rem;
+  flex-direction: column;
+  gap: 0.25rem;
 }
 
 .channel-name {
@@ -579,432 +400,183 @@
   color: #6b7280;
 }
 
-.channel-metrics {
+.channel-engagement {
   font-size: 0.875rem;
   color: #6b7280;
 }
 
-/* Risk Analytics */
-.risk-overview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.risk-card {
-  padding: 2rem;
-  border-radius: 12px;
-  text-align: center;
-  color: white;
-}
-
-.risk-card.critical {
-  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
-}
-
-.risk-card.moderate {
-  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-}
-
-.risk-card.safe {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-}
-
-.risk-card h3 {
-  font-size: 1.125rem;
-  margin: 0 0 1rem 0;
-  opacity: 0.9;
-}
-
-.risk-count {
-  font-size: 3rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-
-.risk-card p {
-  margin: 0;
-  opacity: 0.8;
-  font-size: 0.875rem;
-}
-
-/* Risk Factors Grid */
-.risk-factors-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.risk-factor-card {
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.factor-icon {
-  font-size: 1.5rem;
-  padding: 0.75rem;
-  background: #f3f4f6;
-  border-radius: 50%;
-}
-
-.factor-value {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #dc2626;
-}
-
-.factor-label {
-  font-size: 0.875rem;
-  color: #6b7280;
-}
-
-/* Credit Score Distribution */
-.credit-risk-analysis {
-  margin-bottom: 2rem;
-}
-
-.credit-risk-analysis h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.credit-score-distribution h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.score-bands {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.score-band {
-  padding: 1.5rem 1rem;
-  border-radius: 8px;
-  text-align: center;
-  border: 2px solid transparent;
-}
-
-.score-band.excellent {
-  background: #d1fae5;
-  color: #065f46;
-  border-color: #10b981;
-}
-
-.score-band.good {
-  background: #dbeafe;
-  color: #1e40af;
-  border-color: #3b82f6;
-}
-
-.score-band.fair {
-  background: #fef3c7;
-  color: #92400e;
-  border-color: #f59e0b;
-}
-
-.score-band.poor {
-  background: #fee2e2;
-  color: #991b1b;
-  border-color: #dc2626;
-}
-
-.band-label {
-  display: block;
-  font-size: 0.875rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.band-count {
-  font-size: 2rem;
-  font-weight: 700;
-}
-
-.credit-stats {
-  padding: 1.5rem;
+/* Extended Benchmark Table */
+.benchmark-table-extended {
   background: #f9fafb;
   border-radius: 8px;
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  min-width: 100%;
 }
 
-.credit-stats p {
-  margin: 0 0 0.5rem 0;
+.benchmark-header-extended {
+  display: grid;
+  grid-template-columns: 2fr repeat(7, 1fr);
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25px;
+  min-width: 800px;
+}
+
+.benchmark-row-extended {
+  display: grid;
+  grid-template-columns: 2fr repeat(7, 1fr);
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+  min-width: 800px;
+  font-size: 0.875rem;
+}
+
+.benchmark-row-extended:hover {
+  background: #f3f4f6;
+}
+
+.benchmark-row-extended:last-child {
+  border-bottom: none;
+}
+
+.benchmark-row-extended .metric-name {
+  font-weight: 600;
   color: #374151;
 }
 
-/* CLV Analytics */
-.clv-summary {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+.benchmark-row-extended .metric-value {
+  color: #1f2937;
+  text-align: center;
+  font-weight: 500;
 }
 
-.clv-metric-card {
-  background: white;
+/* Original Benchmark Table (for backward compatibility) */
+.benchmark-table {
+  background: #f9fafb;
+  border-radius: 8px;
+  overflow: hidden;
   border: 1px solid #e5e7eb;
-  border-radius: 12px;
-  padding: 2rem;
+}
+
+.benchmark-header {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.benchmark-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  transition: background-color 0.2s ease;
+}
+
+.benchmark-row:hover {
+  background: #f3f4f6;
+}
+
+.benchmark-row:last-child {
+  border-bottom: none;
+}
+
+.metric-name {
+  font-weight: 600;
+  color: #374151;
+}
+
+.our-value {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.competitor-value {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.status {
+  font-weight: 700;
+  font-size: 0.875rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
   text-align: center;
 }
 
-.clv-metric-card h3 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: #6b7280;
-  margin: 0 0 1rem 0;
-}
-
-.clv-value {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-/* CLV Distribution */
-.clv-distribution {
-  margin-bottom: 2rem;
-}
-
-.clv-distribution h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.clv-bands {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.clv-band {
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px solid transparent;
-}
-
-.clv-band.high {
+.status.above {
   background: #d1fae5;
-  border-color: #10b981;
+  color: #065f46;
 }
 
-.clv-band.medium {
-  background: #dbeafe;
-  border-color: #3b82f6;
+.status.below {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
-.clv-band.low {
-  background: #fef3c7;
-  border-color: #f59e0b;
-}
-
-.band-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.band-title {
-  font-weight: 600;
-  color: #374151;
-}
-
-.band-count {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #1f2937;
-}
-
-/* CLV by Tier */
-.clv-by-tier {
-  margin-bottom: 2rem;
-}
-
-.clv-by-tier h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.tier-clv-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
-.tier-clv-card {
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 2px solid transparent;
-}
-
-.tier-clv-card.platinum {
-  background: #f3f4f6;
-  border-color: #6b7280;
-}
-
-.tier-clv-card.gold {
-  background: #fef3c7;
-  border-color: #f59e0b;
-}
-
-.tier-clv-card.silver {
-  background: #f3f4f6;
-  border-color: #9ca3af;
-}
-
-.tier-clv-card.bronze {
-  background: #fed7aa;
-  border-color: #ea580c;
-}
-
-.tier-clv-card h4 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin: 0 0 1rem 0;
-  text-transform: capitalize;
-}
-
-.tier-clv-metrics {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.clv-metric {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  font-size: 0.875rem;
-}
-
-.clv-metric span:first-child {
-  color: #6b7280;
-}
-
-.clv-metric span:last-child {
-  font-weight: 600;
-  color: #1f2937;
-}
-
-/* Top Value Customers */
-.top-value-customers {
-  margin-bottom: 2rem;
-}
-
-.top-value-customers h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #1f2937;
-  margin-bottom: 1.5rem;
-}
-
-.customer-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.customer-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.benchmark-summary {
   padding: 1rem;
   background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 8px;
+  border-top: 1px solid #e5e7eb;
+  text-align: center;
 }
 
-.customer-info {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.benchmark-summary p {
+  margin: 0.25rem 0;
+  font-size: 0.875rem;
+  color: #6b7280;
 }
 
-.customer-name {
+.benchmark-summary p:first-child {
   font-weight: 600;
-  color: #1f2937;
-}
-
-.customer-tier {
-  padding: 0.25rem 0.75rem;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-.customer-tier.platinum {
-  background: #e5e7eb;
   color: #374151;
 }
 
-.customer-tier.gold {
-  background: #fef3c7;
-  color: #92400e;
+/* No Benchmark Data */
+.no-benchmark-data {
+  text-align: center;
+  padding: 2rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
 }
 
-.customer-tier.silver {
-  background: #f3f4f6;
+.no-benchmark-data p {
+  margin: 0.5rem 0;
   color: #6b7280;
-}
-
-.customer-tier.bronze {
-  background: #fed7aa;
-  color: #ea580c;
-}
-
-.customer-value {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.25rem;
-}
-
-.lifetime-value {
-  font-weight: 700;
-  color: #1f2937;
-  font-size: 1.125rem;
-}
-
-.clv-12m {
   font-size: 0.875rem;
-  color: #6b7280;
+}
+
+.no-benchmark-data p:first-child {
+  font-weight: 600;
+  color: #374151;
+  font-size: 1rem;
 }
 
 /* Dashboard Footer */
 .dashboard-footer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 1.5rem 2rem;
   background: white;
   border-top: 1px solid #e5e7eb;
   margin-top: 2rem;
-}
-
-.dashboard-footer p {
-  margin: 0;
-  font-size: 0.875rem;
-  color: #6b7280;
 }
 
 .refresh-button {
@@ -1045,16 +617,13 @@
     grid-template-columns: 1fr;
   }
   
-  .analytics-grid {
-    grid-template-columns: 1fr;
+  .benchmark-table-extended {
+    overflow-x: scroll;
   }
   
-  .risk-overview {
-    grid-template-columns: 1fr;
-  }
-  
-  .clv-summary {
-    grid-template-columns: 1fr;
+  .benchmark-header-extended,
+  .benchmark-row-extended {
+    min-width: 600px;
   }
   
   .dashboard-footer {

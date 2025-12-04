@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>c636faa7435c4962bfef40be4a5656c8</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_competitor_benchmark">
+    <x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE">
+        <avg_premium>650</avg_premium>
+        <campaign_uplift>+15.6%</campaign_uplift>
+        <claims_ratio>0.62</claims_ratio>
+        <competitor_name>Pet Insurance Market</competitor_name>
+        <customer_satisfaction>4.3</customer_satisfaction>
+        <data_source>Pet Insurance Trends Analysis</data_source>
+        <last_updated>2024-03-20 17:00:00</last_updated>
+        <market_share>4.3</market_share>
+        <premium_vs_competitor>+11.2%</premium_vs_competitor>
+        <product>Pet Insurance Premium</product>
+        <product_category>Pet Insurance</product_category>
+        <purchase_frequency>strong</purchase_frequency>
+        <renewal_rate>84.2</renewal_rate>
+        <revenue_per_customer>$2K</revenue_per_customer>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 03:51:56</sys_created_on>
+        <sys_id>c636faa7435c4962bfef40be4a5656c8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 03:51:56</sys_updated_on>
+    </x_hete_clv_maximiz_competitor_benchmark>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:50:29</sys_created_on>
+        <sys_id>2592aea2eb2d7e904870fc4dbad0cdaa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Pet Insurance Premium</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_2592aea2eb2d7e904870fc4dbad0cdaa</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:50:29</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_competitor_benchmark</tablename>
+    </sys_metadata_link>
+</record_update>
