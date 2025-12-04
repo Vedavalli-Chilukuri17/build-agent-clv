@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 
+// UPDATED 2024-12-28: Changed to "CLV Maximization Solution"
 export default function Navigation({ currentTab, onTabChange }) {
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard' },
@@ -13,7 +14,7 @@ export default function Navigation({ currentTab, onTabChange }) {
   return (
     <nav className="clv-navigation">
       <div className="nav-header">
-        <h2 className="nav-title">CLV Maximizer</h2>
+        <h2 className="nav-title">CLV Maximization Solution</h2>
         <p className="nav-subtitle">Customer Success Platform</p>
       </div>
       

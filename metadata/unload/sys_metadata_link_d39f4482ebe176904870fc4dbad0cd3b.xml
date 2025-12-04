@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>3d886b609a2b4289a20b5273a2c13836</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>5</abandoned_journeys>
+        <age>51</age>
+        <app_sessions_30_days>15</app_sessions_30_days>
+        <avg_session_time_min>7</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>45</churn_risk>
+        <clv_score>5.8</clv_score>
+        <credit_inquiries_last_6m>3</credit_inquiries_last_6m>
+        <credit_score>690</credit_score>
+        <credit_utilization_percent>52</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>1</delinquency_12m>
+        <email>nancy.white@education.edu</email>
+        <first_name>Nancy</first_name>
+        <last_name>White</last_name>
+        <lifetime_value>41200</lifetime_value>
+        <missing_coverage>Vision Insurance</missing_coverage>
+        <name>Nancy Susan White</name>
+        <number_of_closed_accounts>2</number_of_closed_accounts>
+        <number_of_open_accounts>4</number_of_open_accounts>
+        <phone>+15550115</phone>
+        <preferred_channel>Email</preferred_channel>
+        <quote_views>12</quote_views>
+        <risk_flags>Moderate Utilization, Stable</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:13:57</sys_created_on>
+        <sys_id>3d886b609a2b4289a20b5273a2c13836</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:13:57</sys_updated_on>
+        <tenure_years>8</tenure_years>
+        <tier>silver</tier>
+        <website_visits_30_days>10</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>d39f4482ebe176904870fc4dbad0cd3b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Nancy Susan White</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_d39f4482ebe176904870fc4dbad0cd3b</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

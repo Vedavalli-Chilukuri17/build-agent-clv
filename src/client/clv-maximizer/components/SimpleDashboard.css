@@ -131,7 +131,7 @@
   font-style: italic;
 }
 
-/* Dynamic Performance Metrics - 2x2 Grid Layout */
+/* Dynamic Performance Metrics - Default 2x2 Grid Layout */
 .metrics-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -140,6 +140,12 @@
   margin-bottom: 32px;
   max-width: 1200px;
   margin: 0 auto 32px auto;
+}
+
+/* Single Row Layout for Metrics */
+.metrics-grid.metrics-single-row {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
 }
 
 .metric-card {
@@ -268,6 +274,14 @@
   align-items: center;
   font-size: 0.9rem;
   color: #5a6c7d;
+}
+
+.no-channel-data {
+  text-align: center;
+  color: #5a6c7d;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 8px;
 }
 
 /* Cross-Sell/Upsell */
@@ -474,53 +488,129 @@
   font-style: italic;
 }
 
-/* Competitor Benchmark */
-.competitor-table {
+/* Product Performance Horizontal Layout - NEW */
+.product-performance-horizontal {
+  grid-column: 1 / -1; /* Span full width */
+}
+
+.product-horizontal-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.product-horizontal-scroll::-webkit-scrollbar {
+  height: 6px;
+}
+
+.product-horizontal-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.product-horizontal-scroll::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 10px;
+}
+
+.product-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+.product-card {
+  min-width: 280px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.product-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.product-card-name {
+  font-weight: 600;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  line-height: 1.2;
+}
+
+.product-card-metrics {
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
-.competitor-header {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 12px;
-  padding: 12px 16px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  font-weight: 600;
-  color: #2c3e50;
-  font-size: 0.9rem;
+.product-metric {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
 }
 
-.competitor-row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: 12px;
-  padding: 12px 16px;
-  background: white;
-  border: 1px solid #e9ecef;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  transition: background-color 0.2s ease;
-}
-
-.competitor-row:hover {
-  background: #f8f9fa;
-}
-
-.competitor-name {
-  font-weight: 500;
-  color: #2c3e50;
-}
-
-.market-share,
-.avg-premium,
-.renewal-rate {
+.metric-label-small {
+  font-size: 0.75rem;
   color: #5a6c7d;
-  text-align: center;
+  font-weight: 500;
 }
 
+.metric-value-small {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.metric-value-small.positive {
+  color: #27ae60;
+}
+
+.metric-value-small.negative {
+  color: #e74c3c;
+}
+
+/* Purchase Frequency Badges */
+.frequency-badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.frequency-badge.strong {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white;
+}
+
+.frequency-badge.competitive {
+  background: linear-gradient(135deg, #f39c12, #f7dc6f);
+  color: #2c3e50;
+}
+
+.frequency-badge.challenged {
+  background: linear-gradient(135deg, #e74c3c, #ec7063);
+  color: white;
+}
+
+/* No Data States */
+.no-product-data,
 .no-competitor-data {
   text-align: center;
   color: #5a6c7d;
@@ -529,6 +619,7 @@
   border-radius: 8px;
 }
 
+.no-product-data p,
 .no-competitor-data p {
   margin: 8px 0;
 }
@@ -540,6 +631,11 @@
   }
   
   .metrics-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .metrics-grid.metrics-single-row {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
@@ -576,47 +672,17 @@
     grid-template-rows: auto;
   }
   
+  .metrics-grid.metrics-single-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
   .tier-risk-grid {
     grid-template-columns: 1fr;
   }
   
-  .competitor-header,
-  .competitor-row {
-    grid-template-columns: 1fr;
-    gap: 8px;
-    text-align: left;
-  }
-  
-  .competitor-header {
-    display: none;
-  }
-  
-  .competitor-row {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .competitor-row span:before {
-    font-weight: 600;
-    color: #5a6c7d;
-    margin-right: 8px;
-  }
-  
-  .competitor-name:before {
-    content: "Competitor: ";
-  }
-  
-  .market-share:before {
-    content: "Market Share: ";
-  }
-  
-  .avg-premium:before {
-    content: "Avg Premium: ";
-  }
-  
-  .renewal-rate:before {
-    content: "Renewal Rate: ";
+  .product-card {
+    min-width: 240px;
   }
 }
 
@@ -646,5 +712,15 @@
   
   .metric-card {
     min-height: auto;
+  }
+  
+  .product-card {
+    min-width: 200px;
+  }
+  
+  .product-metric {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
   }
 }

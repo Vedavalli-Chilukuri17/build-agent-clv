@@ -3,7 +3,9 @@ import { DataIngestionService } from '../services/DataIngestionService.js';
 import { display, value } from '../utils/fields.js';
 import './DataIngestionTab.css';
 
+// CACHE BUSTER: Updated 2024-12-28 - REMOVED Quick Analytics Panel completely
 export default function DataIngestionTab() {
+  // REMOVED: Quick Analytics Panel as requested
   const [ingestionData, setIngestionData] = useState({
     files: [],
     logs: [],
@@ -27,7 +29,7 @@ export default function DataIngestionTab() {
   const [selectedCRMDataset, setSelectedCRMDataset] = useState(null);
   const [crmDatasets, setCrmDatasets] = useState([]);
   const [crmPreviewData, setCrmPreviewData] = useState(null);
-  const [crmAnalytics, setCrmAnalytics] = useState(null);
+  // COMPLETELY REMOVED: crmAnalytics state to eliminate any Quick Analytics display
 
   const service = useMemo(() => new DataIngestionService(), []);
   const itemsPerPage = 5;
@@ -74,7 +76,7 @@ export default function DataIngestionTab() {
   };
 
   const loadCRMDatasetDetails = (dataset) => {
-    // Generate CRM preview data
+    // Generate CRM preview data ONLY - NO analytics data
     const mockCRMPreview = {
       fileName: dataset.fileName,
       recordCount: dataset.recordCount,
@@ -92,15 +94,7 @@ export default function DataIngestionTab() {
       ]
     };
     setCrmPreviewData(mockCRMPreview);
-
-    // Generate CRM analytics
-    const mockAnalytics = {
-      avgPolicyTenure: (Math.random() * 24 + 12).toFixed(1), // 12-36 months
-      avgPremium: `$${(Math.random() * 800 + 800).toFixed(0)}`, // $800-1600
-      avgClaimsPerCustomer: (Math.random() * 1.5 + 0.5).toFixed(1), // 0.5-2.0
-      highCLVPercentage: (Math.random() * 20 + 15).toFixed(1) // 15-35%
-    };
-    setCrmAnalytics(mockAnalytics);
+    // COMPLETELY REMOVED: Quick Analytics data generation to ensure no display of those metrics
   };
 
   // Calculate metrics
@@ -454,36 +448,7 @@ export default function DataIngestionTab() {
                 )}
               </div>
 
-              {/* Quick Analytics Panel */}
-              <div className="workflow-panel analytics-panel">
-                <h3>Quick Analytics Panel</h3>
-                {previewData ? (
-                  <div className="quick-analytics">
-                    <div className="analytics-grid">
-                      <div className="analytics-item">
-                        <span className="analytics-label">Record Count</span>
-                        <span className="analytics-value">{previewData.recordCount.toLocaleString()}</span>
-                      </div>
-                      <div className="analytics-item">
-                        <span className="analytics-label">Column Count</span>
-                        <span className="analytics-value">{previewData.columnCount}</span>
-                      </div>
-                      <div className="analytics-item">
-                        <span className="analytics-label">Null Values</span>
-                        <span className="analytics-value">{previewData.nullValues}</span>
-                      </div>
-                      <div className="analytics-item">
-                        <span className="analytics-label">File Size</span>
-                        <span className="analytics-value">{selectedFile ? service.formatFileSize(selectedFile.size) : 'N/A'}</span>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="no-analytics">
-                    Upload a file to view analytics
-                  </div>
-                )}
-              </div>
+              {/* REMOVED: Quick Analytics Panel - NO LONGER EXISTS */}
 
               {/* Validation Panel */}
               <div className="workflow-panel validation-panel">
@@ -645,41 +610,6 @@ export default function DataIngestionTab() {
                           ))}
                         </tbody>
                       </table>
-                    </div>
-                  </div>
-
-                  {/* Quick Analytics Panel */}
-                  <div className="crm-quick-analytics">
-                    <h3>Quick Analytics Panel</h3>
-                    <div className="crm-analytics-grid">
-                      <div className="crm-analytics-card">
-                        <div className="analytics-card-icon">⏱️</div>
-                        <div className="analytics-card-content">
-                          <div className="analytics-card-value">{crmAnalytics.avgPolicyTenure}</div>
-                          <div className="analytics-card-label">Avg. Policy Tenure (months)</div>
-                        </div>
-                      </div>
-                      <div className="crm-analytics-card">
-                        <div className="analytics-card-icon">💰</div>
-                        <div className="analytics-card-content">
-                          <div className="analytics-card-value">{crmAnalytics.avgPremium}</div>
-                          <div className="analytics-card-label">Avg. Premium</div>
-                        </div>
-                      </div>
-                      <div className="crm-analytics-card">
-                        <div className="analytics-card-icon">📋</div>
-                        <div className="analytics-card-content">
-                          <div className="analytics-card-value">{crmAnalytics.avgClaimsPerCustomer}</div>
-                          <div className="analytics-card-label">Avg. Claims per Customer</div>
-                        </div>
-                      </div>
-                      <div className="crm-analytics-card">
-                        <div className="analytics-card-icon">⭐</div>
-                        <div className="analytics-card-content">
-                          <div className="analytics-card-value">{crmAnalytics.highCLVPercentage}%</div>
-                          <div className="analytics-card-label">% of High CLV Customers</div>
-                        </div>
-                      </div>
                     </div>
                   </div>
 

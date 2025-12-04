@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>e0c7f7c5caa2422c9204c088267f8d82</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>3</abandoned_journeys>
+        <age>32</age>
+        <app_sessions_30_days>26</app_sessions_30_days>
+        <avg_session_time_min>9</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>29</churn_risk>
+        <clv_score>5.9</clv_score>
+        <credit_inquiries_last_6m>2</credit_inquiries_last_6m>
+        <credit_score>688</credit_score>
+        <credit_utilization_percent>44</credit_utilization_percent>
+        <customer_id>CUST-2024-1025</customer_id>
+        <delinquency_12m>0</delinquency_12m>
+        <email>samantha.foster@university.edu</email>
+        <first_name>Samantha</first_name>
+        <last_name>Foster</last_name>
+        <lifetime_value>44300</lifetime_value>
+        <missing_coverage>Sabbatical Protection</missing_coverage>
+        <name>Samantha Foster</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>5</number_of_open_accounts>
+        <phone>+15550125</phone>
+        <preferred_channel>Email</preferred_channel>
+        <quote_views>9</quote_views>
+        <risk_flags>Academic Schedule, Stable but Lower Income</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>e0c7f7c5caa2422c9204c088267f8d82</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>6</tenure_years>
+        <tier>silver</tier>
+        <website_visits_30_days>17</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:25</sys_created_on>
+        <sys_id>e79f8482ebe176904870fc4dbad0cd07</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Samantha Foster</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_e79f8482ebe176904870fc4dbad0cd07</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:25</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

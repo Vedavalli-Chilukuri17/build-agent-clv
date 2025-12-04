@@ -10,6 +10,6 @@ BusinessRule({
     when: 'before',
     action: ['insert'],
     order: 50,
-    description: 'Suppresses info messages when campaign records are created via the CLV Maximizer application',
+    description: 'Suppresses info messages when campaign records are created via the CLV Maximization Solution application',
     script: Now.include('../../server/suppress-campaign-messages.js')
 })

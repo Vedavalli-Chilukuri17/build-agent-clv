@@ -7,7 +7,7 @@ import CampaignTab from './components/CampaignTab.jsx';
 import DataIngestionTab from './components/DataIngestionTab.jsx';
 import './app.css';
 
-export default function CLVMaximizerApp() {
+export default function CLVMaximizationSolutionApp() {
   const [currentTab, setCurrentTab] = useState('dashboard');
 
   // Handle hash-based routing for deep linking
@@ -52,7 +52,7 @@ export default function CLVMaximizerApp() {
   };
 
   return (
-    <div className="clv-maximizer-workspace">
+    <div className="clv-maximization-solution-workspace">
       <Navigation currentTab={currentTab} onTabChange={handleTabChange} />
       <main className="main-content">
         {renderTabContent()}

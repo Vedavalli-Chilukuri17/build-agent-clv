@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>dfc22ec6c50641cf97b15b7470e76877</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>8</abandoned_journeys>
+        <age>42</age>
+        <app_sessions_30_days>18</app_sessions_30_days>
+        <avg_session_time_min>5</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>50</churn_risk>
+        <clv_score>5.4</clv_score>
+        <credit_inquiries_last_6m>5</credit_inquiries_last_6m>
+        <credit_score>685</credit_score>
+        <credit_utilization_percent>58</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>2</delinquency_12m>
+        <email>lisa.thompson@retail.com</email>
+        <first_name>Lisa</first_name>
+        <last_name>Thompson</last_name>
+        <lifetime_value>34200</lifetime_value>
+        <missing_coverage>Auto Comprehensive</missing_coverage>
+        <name>Lisa Thompson</name>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>5</number_of_open_accounts>
+        <phone>+15550103</phone>
+        <preferred_channel>Phone</preferred_channel>
+        <quote_views>15</quote_views>
+        <risk_flags>Payment History, High Utilization</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:13:57</sys_created_on>
+        <sys_id>dfc22ec6c50641cf97b15b7470e76877</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:13:57</sys_updated_on>
+        <tenure_years>6</tenure_years>
+        <tier>silver</tier>
+        <website_visits_30_days>12</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:25</sys_created_on>
+        <sys_id>2f9f8482ebe176904870fc4dbad0cd04</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Lisa Thompson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_2f9f8482ebe176904870fc4dbad0cd04</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:25</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

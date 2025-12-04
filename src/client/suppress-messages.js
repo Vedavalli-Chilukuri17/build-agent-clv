@@ -2,7 +2,7 @@
 function onLoad() {
     // Override the global info message function for this specific context
     if (window.parent && window.parent.g_user_date_time_format) {
-        // Check if we're in the CLV Maximizer context
+        // Check if we're in the CLV Maximization Solution context
         var currentUrl = window.location.href;
         if (currentUrl.includes('clv_maximizer.do') || currentUrl.includes('x_hete_clv_maximiz')) {
             // Store original addInfoMessage function

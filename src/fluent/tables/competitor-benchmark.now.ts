@@ -3,24 +3,67 @@ import {
   Table, 
   StringColumn, 
   DecimalColumn,
-  DateTimeColumn
+  DateTimeColumn,
+  ChoiceColumn
 } from '@servicenow/sdk/core';
 
-// Competitor Benchmark table for comparison data
+// Enhanced Competitor Benchmark table for product performance analysis
 export const x_hete_clv_maximiz_competitor_benchmark = Table({
   name: 'x_hete_clv_maximiz_competitor_benchmark',
   label: 'Competitor Benchmark',
   schema: {
-    competitor_name: StringColumn({
-      label: 'Competitor Name',
+    product: StringColumn({
+      label: 'Product',
       maxLength: 100,
       mandatory: true
     }),
     
+    purchase_frequency: ChoiceColumn({
+      label: 'Purchase Frequency',
+      choices: {
+        strong: {
+          label: 'Strong',
+          sequence: 0
+        },
+        competitive: {
+          label: 'Competitive', 
+          sequence: 1
+        },
+        challenged: {
+          label: 'Challenged',
+          sequence: 2
+        }
+      },
+      dropdown: 'dropdown_with_none'
+    }),
+    
+    premium_vs_competitor: StringColumn({
+      label: 'Premium vs Competitor',
+      maxLength: 20,
+      default: '0%'
+    }),
+    
+    revenue_per_customer: StringColumn({
+      label: 'Revenue per Customer',
+      maxLength: 20,
+      default: '$0K'
+    }),
+    
+    campaign_uplift: StringColumn({
+      label: 'Campaign Uplift',
+      maxLength: 20,
+      default: '0%'
+    }),
+    
+    // Keep original fields for backward compatibility
+    competitor_name: StringColumn({
+      label: 'Competitor Name',
+      maxLength: 100
+    }),
+    
     product_category: StringColumn({
       label: 'Product Category',
-      maxLength: 100,
-      mandatory: true
+      maxLength: 100
     }),
     
     market_share: DecimalColumn({
@@ -65,7 +108,7 @@ export const x_hete_clv_maximiz_competitor_benchmark = Table({
   },
   
   // Table configuration
-  display: 'competitor_name',
+  display: 'product',
   allow_web_service_access: true,
   actions: ['create', 'read', 'update', 'delete'],
   accessible_from: 'public'
