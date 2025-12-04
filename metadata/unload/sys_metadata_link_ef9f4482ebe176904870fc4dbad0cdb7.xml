@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>a4206366a29041a19f30af23be2e6654</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>26</abandoned_journeys>
+        <age>27</age>
+        <app_sessions_30_days>68</app_sessions_30_days>
+        <avg_session_time_min>3</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>76</churn_risk>
+        <clv_score>4.1</clv_score>
+        <credit_inquiries_last_6m>7</credit_inquiries_last_6m>
+        <credit_score>658</credit_score>
+        <credit_utilization_percent>72</credit_utilization_percent>
+        <customer_id>CUST-2024-1021</customer_id>
+        <delinquency_12m>1</delinquency_12m>
+        <email>hannah.park@techstartup.ai</email>
+        <first_name>Hannah</first_name>
+        <last_name>Park</last_name>
+        <lifetime_value>19200</lifetime_value>
+        <missing_coverage>Tech Equipment Protection</missing_coverage>
+        <name>Hannah Park</name>
+        <number_of_closed_accounts>0</number_of_closed_accounts>
+        <number_of_open_accounts>4</number_of_open_accounts>
+        <phone>+15550121</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>38</quote_views>
+        <risk_flags>High Utilization, Price Shopping, Short Tenure</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>a4206366a29041a19f30af23be2e6654</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>2</tenure_years>
+        <tier>bronze</tier>
+        <website_visits_30_days>52</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:24</sys_created_on>
+        <sys_id>ef9f4482ebe176904870fc4dbad0cdb7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Hannah Park</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_ef9f4482ebe176904870fc4dbad0cdb7</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:24</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

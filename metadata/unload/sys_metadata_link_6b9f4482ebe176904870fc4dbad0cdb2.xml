@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>9d8e90cf038e4b87a0c37ed8a5b373bf</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>0</abandoned_journeys>
+        <age>45</age>
+        <app_sessions_30_days>45</app_sessions_30_days>
+        <avg_session_time_min>8</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>10</churn_risk>
+        <clv_score>8.9</clv_score>
+        <credit_inquiries_last_6m>1</credit_inquiries_last_6m>
+        <credit_score>820</credit_score>
+        <credit_utilization_percent>15</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>0</delinquency_12m>
+        <email>sarah.johnson@techcorp.com</email>
+        <first_name>Sarah</first_name>
+        <last_name>Johnson</last_name>
+        <lifetime_value>125000</lifetime_value>
+        <missing_coverage>None</missing_coverage>
+        <name>Sarah Johnson</name>
+        <number_of_closed_accounts>2</number_of_closed_accounts>
+        <number_of_open_accounts>8</number_of_open_accounts>
+        <phone>+15550101</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>3</quote_views>
+        <risk_flags>Low Risk</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:13:57</sys_created_on>
+        <sys_id>9d8e90cf038e4b87a0c37ed8a5b373bf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:13:57</sys_updated_on>
+        <tenure_years>12</tenure_years>
+        <tier>platinum</tier>
+        <website_visits_30_days>28</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:24</sys_created_on>
+        <sys_id>6b9f4482ebe176904870fc4dbad0cdb2</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Sarah Johnson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_6b9f4482ebe176904870fc4dbad0cdb2</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:24</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

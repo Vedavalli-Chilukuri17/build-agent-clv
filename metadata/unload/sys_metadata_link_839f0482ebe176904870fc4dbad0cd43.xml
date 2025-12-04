@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>07aec15b1eb141f689403a6b5beea07c</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>7</abandoned_journeys>
+        <age>30</age>
+        <app_sessions_30_days>38</app_sessions_30_days>
+        <avg_session_time_min>5</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>43</churn_risk>
+        <clv_score>5.6</clv_score>
+        <credit_inquiries_last_6m>4</credit_inquiries_last_6m>
+        <credit_score>679</credit_score>
+        <credit_utilization_percent>55</credit_utilization_percent>
+        <customer_id>CUST-2024-1027</customer_id>
+        <delinquency_12m>1</delinquency_12m>
+        <email>isabella.garcia@design.studio</email>
+        <first_name>Isabella</first_name>
+        <last_name>Garcia</last_name>
+        <lifetime_value>36800</lifetime_value>
+        <missing_coverage>Equipment Insurance</missing_coverage>
+        <name>Isabella Garcia</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>4</number_of_open_accounts>
+        <phone>+15550127</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>16</quote_views>
+        <risk_flags>Freelance Income, Creative Industry</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>07aec15b1eb141f689403a6b5beea07c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>3</tenure_years>
+        <tier>silver</tier>
+        <website_visits_30_days>31</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>839f0482ebe176904870fc4dbad0cd43</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Isabella Garcia</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_839f0482ebe176904870fc4dbad0cd43</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

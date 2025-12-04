@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>4723c976045e4733b85392ecc3603ccb</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>1</abandoned_journeys>
+        <age>44</age>
+        <app_sessions_30_days>28</app_sessions_30_days>
+        <avg_session_time_min>9</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>18</churn_risk>
+        <clv_score>7.8</clv_score>
+        <credit_inquiries_last_6m>2</credit_inquiries_last_6m>
+        <credit_score>765</credit_score>
+        <credit_utilization_percent>28</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>0</delinquency_12m>
+        <email>maria.gonzalez@healthcare.med</email>
+        <first_name>Maria</first_name>
+        <last_name>Gonzalez</last_name>
+        <lifetime_value>78200</lifetime_value>
+        <missing_coverage>Travel Insurance</missing_coverage>
+        <name>Maria Elena Gonzalez</name>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>9</number_of_open_accounts>
+        <phone>+15550113</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>6</quote_views>
+        <risk_flags>Stable Customer</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:13:57</sys_created_on>
+        <sys_id>4723c976045e4733b85392ecc3603ccb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:13:57</sys_updated_on>
+        <tenure_years>11</tenure_years>
+        <tier>gold</tier>
+        <website_visits_30_days>22</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>579f4482ebe176904870fc4dbad0cd4a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Maria Elena Gonzalez</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_579f4482ebe176904870fc4dbad0cd4a</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

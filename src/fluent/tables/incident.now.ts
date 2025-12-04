@@ -6,11 +6,11 @@ export const x_hete_clv_maximiz_incident = Table({
     name: 'x_hete_clv_maximiz_incident',
     label: 'Incident',
     schema: {
-        number: StringColumn({ 
+        number: StringColumn({
             label: 'Number',
             maxLength: 40,
-            read_only: true,
-            default: 'javascript:global.getNextObjNumberPadded();'
+            readOnly: true,
+            default: 'javascript:global.getNextObjNumberPadded();',
         }),
         short_description: StringColumn({
             label: 'Short Description',
@@ -51,13 +51,13 @@ export const x_hete_clv_maximiz_incident = Table({
             label: 'Resolved At',
         }),
     },
-    accessible_from: 'public',
-    caller_access: 'tracking',
-    actions: ['create', 'read', 'update', 'delete'],
-    allow_web_service_access: true,
-    auto_number: {
+    accessibleFrom: 'public',
+    callerAccess: 'tracking',
+    actions: ['read', 'update', 'delete', 'create'],
+    allowWebServiceAccess: true,
+    autoNumber: {
         prefix: 'INC',
         number: 1000,
-        number_of_digits: 7
-    }
+        numberOfDigits: 7,
+    },
 })

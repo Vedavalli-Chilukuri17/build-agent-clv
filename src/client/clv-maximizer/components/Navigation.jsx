@@ -13,7 +13,7 @@ export default function Navigation({ currentTab, onTabChange }) {
   return (
     <nav className="clv-navigation">
       <div className="nav-header">
-        <h2 className="nav-title">CLV Maximizer</h2>
+        <h2 className="nav-title">CLV Maximization Solution</h2>
         <p className="nav-subtitle">Customer Success Platform</p>
       </div>
       

@@ -11,10 +11,10 @@ export function suppressCampaignMessages(current, previous) {
         gs.setProperty('glide.ui.show_insert_message', 'false');
         
         // Log the suppression for debugging (can be removed in production)
-        gs.debug('CLV Maximizer: Suppressing info messages for campaign creation');
+        gs.debug('CLV Maximization Solution: Suppressing info messages for campaign creation');
         
     } catch (error) {
         // If there's an error, log it but don't fail the transaction
-        gs.warn('CLV Maximizer: Could not suppress info messages - ' + error);
+        gs.warn('CLV Maximization Solution: Could not suppress info messages - ' + error);
     }
 }

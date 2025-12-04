@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>0205b5ddc11b4e3da5fc233648df0f63</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>12</abandoned_journeys>
+        <age>37</age>
+        <app_sessions_30_days>16</app_sessions_30_days>
+        <avg_session_time_min>4</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>61</churn_risk>
+        <clv_score>4.3</clv_score>
+        <credit_inquiries_last_6m>6</credit_inquiries_last_6m>
+        <credit_score>612</credit_score>
+        <credit_utilization_percent>76</credit_utilization_percent>
+        <customer_id>CUST-2024-1026</customer_id>
+        <delinquency_12m>3</delinquency_12m>
+        <email>daniel.wright@logistics.transport</email>
+        <first_name>Daniel</first_name>
+        <last_name>Wright</last_name>
+        <lifetime_value>25700</lifetime_value>
+        <missing_coverage>Commercial Vehicle Enhancement</missing_coverage>
+        <name>Daniel Wright</name>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>3</number_of_open_accounts>
+        <phone>+15550126</phone>
+        <preferred_channel>Phone</preferred_channel>
+        <quote_views>24</quote_views>
+        <risk_flags>Transportation Industry, Credit Issues</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>0205b5ddc11b4e3da5fc233648df0f63</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>4</tenure_years>
+        <tier>bronze</tier>
+        <website_visits_30_days>7</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>0f9f0482ebe176904870fc4dbad0cd3d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Daniel Wright</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_0f9f0482ebe176904870fc4dbad0cd3d</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

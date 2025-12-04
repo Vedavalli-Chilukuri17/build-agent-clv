@@ -9,10 +9,10 @@ export function restoreCampaignMessages(current, previous) {
         gs.setProperty('glide.ui.show_insert_message', 'true');
         
         // Log the restoration for debugging (can be removed in production)
-        gs.debug('CLV Maximizer: Restored normal info message behavior after campaign creation');
+        gs.debug('CLV Maximization Solution: Restored normal info message behavior after campaign creation');
         
     } catch (error) {
         // If there's an error, log it but don't fail the transaction
-        gs.warn('CLV Maximizer: Could not restore info messages - ' + error);
+        gs.warn('CLV Maximization Solution: Could not restore info messages - ' + error);
     }
 }

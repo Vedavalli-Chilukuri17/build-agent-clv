@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>8c1969bfeb564b2e829ab81a1a60d6b9</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>1</abandoned_journeys>
+        <age>49</age>
+        <app_sessions_30_days>19</app_sessions_30_days>
+        <avg_session_time_min>9</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>16</churn_risk>
+        <clv_score>7.4</clv_score>
+        <credit_inquiries_last_6m>1</credit_inquiries_last_6m>
+        <credit_score>745</credit_score>
+        <credit_utilization_percent>26</credit_utilization_percent>
+        <customer_id>CUST-2024-1022</customer_id>
+        <delinquency_12m>0</delinquency_12m>
+        <email>robert.mitchell@government.gov</email>
+        <first_name>Robert</first_name>
+        <last_name>Mitchell</last_name>
+        <lifetime_value>72800</lifetime_value>
+        <missing_coverage>Identity Theft Protection</missing_coverage>
+        <name>Robert Mitchell</name>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>7</number_of_open_accounts>
+        <phone>+15550122</phone>
+        <preferred_channel>Phone</preferred_channel>
+        <quote_views>4</quote_views>
+        <risk_flags>Government Employee - Stable</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>8c1969bfeb564b2e829ab81a1a60d6b9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>14</tenure_years>
+        <tier>gold</tier>
+        <website_visits_30_days>11</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:24</sys_created_on>
+        <sys_id>af9f4482ebe176904870fc4dbad0cdaf</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Robert Mitchell</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_af9f4482ebe176904870fc4dbad0cdaf</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:24</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>

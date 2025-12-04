@@ -10,6 +10,6 @@ ClientScript({
     active: true,
     global: true,
     ui_type: 'all',
-    description: 'Suppresses automatic info messages when campaign records are created via API calls from the CLV Maximizer application',
+    description: 'Suppresses automatic info messages when campaign records are created via API calls from the CLV Maximization Solution application',
     script: Now.include('../../client/suppress-messages.js')
 })

@@ -94,6 +94,10 @@ declare global {
                         table: 'sys_transform_entry'
                         id: '8ab22be13be9321027891964c3e45a2a'
                     }
+                    '94ff615aebed7a904870fc4dbad0cd56': {
+                        table: 'sys_kmf_crypto_caller_policy'
+                        id: '94ff615aebed7a904870fc4dbad0cd56'
+                    }
                     a201e7ad3ba9321027891964c3e45a7f: {
                         table: 'sys_scope_privilege'
                         id: 'a201e7ad3ba9321027891964c3e45a7f'
@@ -137,6 +141,26 @@ declare global {
                     br_suppress_campaign_messages: {
                         table: 'sys_script'
                         id: '9c4b3b8bb6234bc1a17792f4afb7942d'
+                    }
+                    'bronze-customer-001': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '375714f830ee4e7382554a89c1338c38'
+                    }
+                    'bronze-customer-002': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '0269b4ee06d64b12afb05098bd52e49a'
+                    }
+                    'bronze-customer-003': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '74593df35d744fed8b79d0a820ce5ee0'
+                    }
+                    'bronze-customer-004': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'dafe0aa152a341bc81f96b5fb73759c1'
+                    }
+                    'bronze-customer-005': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e51b9d7e1461476596d15fcc1014939e'
                     }
                     c2c2a32d3ba9321027891964c3e45a1f: {
                         table: 'sys_ui_element'
@@ -266,6 +290,146 @@ declare global {
                         table: 'sys_transform_entry'
                         id: 'ceb22be13be9321027891964c3e45a27'
                     }
+                    clv_bronze_001: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'eef0b6fa793148e8b634d0fa0880506d'
+                    }
+                    clv_bronze_002: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'd07b65bc9c184d2eb5ba664660361a2c'
+                    }
+                    clv_bronze_003: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'f0a96c3c5204499bba8e3b7ef20cac1f'
+                    }
+                    clv_bronze_004: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b7e056135b4e4ee6949f07a87675dda3'
+                    }
+                    clv_bronze_005: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'd189758de5ca4bd995ded51736c8685a'
+                    }
+                    clv_bronze_006: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '58ae3f0d6d454e99a103ada5f02a9a7e'
+                    }
+                    clv_gold_001: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '0a9b6d8a858547a48a585276f2feffb4'
+                    }
+                    clv_gold_002: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '2590a65fd07247ca879d0f328a6a03e3'
+                    }
+                    clv_gold_003: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'fb1b34816e274a8fbbdde945fa5c8bed'
+                    }
+                    clv_gold_004: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '859ed57e16a546e1b84320992afbf6e5'
+                    }
+                    clv_gold_005: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '9c27ceddde974e9688ada694f6df8a9e'
+                    }
+                    clv_gold_006: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '3e79c2c8cb9e4e2aae20d0f7f157421b'
+                    }
+                    clv_gold_007: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b35774a6e3984c1b95aa48ebe6d05999'
+                    }
+                    clv_platinum_001: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'a6b329cefaf640a6964c26e1e5a067a9'
+                    }
+                    clv_platinum_002: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b1ee7e880c3d4c5592897eaec75d75b2'
+                    }
+                    clv_platinum_003: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '3fa0e43ffac14c16b2b0c176bc5851c0'
+                    }
+                    clv_platinum_004: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '54fa8a7040ac4947a77ac884efa10a1e'
+                    }
+                    clv_platinum_005: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'bbf696cd68ea40399f21f3ada35b1789'
+                    }
+                    clv_platinum_006: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e5d3ef00b2fb4f399f4f84c168e99fc1'
+                    }
+                    clv_platinum_007: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'c34a6902161b45ceb675ae1cb36bbb24'
+                    }
+                    clv_platinum_008: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'db7171879cea4d5b9938cba7b4893bc4'
+                    }
+                    clv_platinum_009: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '1c327ad8fbf04765abdc3d611b30ca48'
+                    }
+                    clv_platinum_010: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'dfd45eddaad04640b87dda3b0080883a'
+                    }
+                    clv_silver_001: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '64aa244663194d2289fd82e14a1d3e27'
+                    }
+                    clv_silver_002: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'c6ef677b5196439195ce93ebc654aaf1'
+                    }
+                    clv_silver_003: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e80261077c994d24a33c0962466f8b0c'
+                    }
+                    clv_silver_004: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '8c9891c9ca224abd8445079603d668f7'
+                    }
+                    clv_silver_005: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '2db421d7a9e445f197371067eb1b25fe'
+                    }
+                    clv_silver_006: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '144070ffd42c48a394a7a0aa4c69eca3'
+                    }
+                    clv_silver_007: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '589b72b1911f4fdaac7f2a9fcf5ee140'
+                    }
+                    clv_silver_008: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '41d1dedad5d34d13aea42f0edd999ac8'
+                    }
+                    clv_silver_009: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ecbba757062d435f8de4920abac29172'
+                    }
+                    clv_silver_010: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '54ac375fca5445e19f55b05ea3ce5fe4'
+                    }
+                    clv_silver_011: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'df5ddd4ef5214468b1d38ea64d4f8749'
+                    }
+                    clv_silver_012: {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '18265b033d864c6a91a8130e5bfcdc42'
+                    }
                     'clv-maximizer-workspace': {
                         table: 'sys_ui_page'
                         id: '2618f7d2f4604c8f8339a9ba5aef710b'
@@ -292,6 +456,111 @@ declare global {
                     'clv-maximizer/components/RenewalTab.css': {
                         table: 'sys_ux_theme_asset'
                         id: '326c0b26ecd24b669ee317882e485a28'
+                    }
+                    competitor_auto_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '3640254afcba420cb86fb81a8052ffd7'
+                        deleted: true
+                    }
+                    competitor_auto_2: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'e9439a1e6fa64b6fa8d72e1b087f56c7'
+                        deleted: true
+                    }
+                    competitor_auto_3: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'cb3f2e591c22438f8139847b66b3fe17'
+                        deleted: true
+                    }
+                    competitor_business_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'ecbfe5a903194d70884c80671452b006'
+                        deleted: true
+                    }
+                    competitor_business_2: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'db23315e23464789b00b7b14f511af53'
+                        deleted: true
+                    }
+                    competitor_business_3: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'bdd3fa29d6cf48ffa7eb907fb14a7eb4'
+                        deleted: true
+                    }
+                    competitor_cyber_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'cd6356f5af6b4f6da311cbed9f1578d9'
+                        deleted: true
+                    }
+                    competitor_digital_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '4ca7ecccadd241169721879f90edab47'
+                        deleted: true
+                    }
+                    competitor_health_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'ab6719bb82ed4d95ac729ed49427cd07'
+                        deleted: true
+                    }
+                    competitor_health_2: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '3a697515ce90456bbb74ffa597304b98'
+                        deleted: true
+                    }
+                    competitor_health_3: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'a5a6cf04238342ff9618799fdd4e808a'
+                        deleted: true
+                    }
+                    competitor_home_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'aba8d9b7a667430dbd7502fc4e430ad7'
+                        deleted: true
+                    }
+                    competitor_home_2: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '400f715808a64c1d8053689c11e4fcba'
+                        deleted: true
+                    }
+                    competitor_home_3: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '457ab389eaa544f4a91ff9cfb916aea9'
+                        deleted: true
+                    }
+                    competitor_life_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '3e8de02590d447feaeb2a8b084edf6d5'
+                        deleted: true
+                    }
+                    competitor_life_2: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '394bdfa6f7ef405481f96ca9d7cc0229'
+                        deleted: true
+                    }
+                    competitor_life_3: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'e4accc14333d43bb8079484c3e3ca3e2'
+                        deleted: true
+                    }
+                    competitor_micro_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'd72e0e356be54ae98e7d75d6e1fdcdf7'
+                        deleted: true
+                    }
+                    competitor_pet_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'd9ae53f0e7b3408c8863c736be084b89'
+                        deleted: true
+                    }
+                    competitor_travel_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '49a2bef572874d6bbaa0e79ae72da837'
+                        deleted: true
+                    }
+                    competitor_usage_1: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '17ecb063190f4f06a52ae31e6cc27f51'
+                        deleted: true
                     }
                     ea01e7ad3ba9321027891964c3e45a55: {
                         table: 'sys_scope_privilege'
@@ -457,6 +726,66 @@ declare global {
                         table: 'sys_transform_entry'
                         id: 'f9b2e7e13be9321027891964c3e45adf'
                     }
+                    'gold-customer-001': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'cf3196a63ceb41a4852e3ef644dea0e9'
+                    }
+                    'gold-customer-002': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '8184a080944a488a86b955ce0bb40244'
+                    }
+                    'gold-customer-003': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'be8fdf2a7c1b4fe7a0f1aafb78298bf9'
+                    }
+                    'gold-customer-004': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '44bdcf76c3534a74b07f01af6b42ec57'
+                    }
+                    'gold-customer-005': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '58b4cfa4aaf34117ac2a300e9c3f4dc1'
+                    }
+                    'gold-customer-006': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b67aadb745e44116ab7f8320915005e6'
+                    }
+                    'gold-customer-007': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'd628531ff6b4447fa63f7b0a9f4e7998'
+                    }
+                    'gold-customer-008': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '41fc8af4d6d9460ab6704f8f9cb60c15'
+                    }
+                    'gold-customer-009': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'ea7ad015e2aa4911a09a330a99b44de7'
+                    }
+                    'gold-customer-010': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '4ee844b0a1ad49cd8d75025a04d6dc7d'
+                    }
+                    'gold-customer-011': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b390817e887a4267bac3509c6feefc98'
+                    }
+                    'gold-customer-012': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '0bb9004d08484ae4a4063ec9e7859954'
+                    }
+                    'gold-customer-013': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '9cdfcc2be95b4974b5b7a1991db8eb63'
+                    }
+                    'gold-customer-014': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '30887d932a364bd0a2be9aa8f2742c11'
+                    }
+                    'gold-customer-015': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '28001eb9551545189c1bdd55ea35b9d5'
+                    }
                     'incident-manager-page': {
                         table: 'sys_ui_page'
                         id: 'c932d7417f084df49b5fe0f1ee2a44c0'
@@ -606,6 +935,46 @@ declare global {
                         table: 'x_hete_clv_maximiz_policy_holders'
                         id: '61634e0667e04ea686de3d92611fa1d4'
                     }
+                    'premium-customer-001': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '92922ee685404b2e84719cfedb582d98'
+                    }
+                    'premium-customer-002': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '082acca96ecb4a70aa83bae60643d82a'
+                    }
+                    'premium-customer-003': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'fc31c7a03b3549c3a663555ec9f64825'
+                    }
+                    'premium-customer-004': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '72404cc551e04d0ea4cbe31b8c67a81b'
+                    }
+                    'premium-customer-005': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '63179f07832e41c68b8838e454be03d4'
+                    }
+                    'premium-customer-006': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'b875e9544bec42c58571f738e1db66f3'
+                    }
+                    'premium-customer-007': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '775b565ebd134ca5bf1de2dadf2693bf'
+                    }
+                    'premium-customer-008': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '1d0901f65e7b4d308ad35800c6e3b0e2'
+                    }
+                    'premium-customer-009': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '6ddcff90ccd14ec58e97669fa85bd0d3'
+                    }
+                    'premium-customer-010': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'e1a7b20d9b0d4e65956dc0150a2a0dcd'
+                    }
                     product_001: {
                         table: 'x_hete_clv_maximiz_product_performance'
                         id: 'a454ff9e4c504f21b32fbd1c18c3d113'
@@ -630,6 +999,54 @@ declare global {
                         table: 'x_hete_clv_maximiz_product_performance'
                         id: '6380c91ac90844c09e7c43e988e7185d'
                     }
+                    product_auto_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '36a4e8cae29b41a5b19fc2d10937bacc'
+                    }
+                    product_business_package: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '8b12485c3003407180fdcd5ea0dd1e0e'
+                    }
+                    product_cyber_security: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'be71c30ae1a84f799e0000586e4d962e'
+                    }
+                    product_disability_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '54977120c05541e9b6e965d2907202d5'
+                    }
+                    product_health_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '5e504b7b92a94534ad75a71480fe4926'
+                    }
+                    product_home_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '808ea70d3da347728f7c90872647eeb6'
+                    }
+                    product_life_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '81ac5f02709347bb82d019057a54de57'
+                    }
+                    product_pet_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'e61069a376674405b562798bbc3521f8'
+                    }
+                    product_renters_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '08d32906aeb84213af3c7492843abc6d'
+                    }
+                    product_travel_insurance: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: 'a21630bfd89149069397c27b4dd295bc'
+                    }
+                    product_umbrella_liability: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '7e103aab8b8440f09b0f6d41efa78e4e'
+                    }
+                    product_usage_based: {
+                        table: 'x_hete_clv_maximiz_competitor_benchmark'
+                        id: '141a9eb90ffc4900a98f1ad2cf440ed7'
+                    }
                     renewal_001: {
                         table: 'x_hete_clv_maximiz_renewal_tracker'
                         id: 'a11fa98bec0d46aabfbb66db2a22ecb7'
@@ -653,6 +1070,30 @@ declare global {
                     renewal_006: {
                         table: 'x_hete_clv_maximiz_renewal_tracker'
                         id: '458ffc60bbf242759420a955d0a27c95'
+                    }
+                    'silver-customer-001': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '02c386ed8faa426189a7532438b26ce5'
+                    }
+                    'silver-customer-002': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: 'a4a4da1b0dac499ebff9854e0f9d1691'
+                    }
+                    'silver-customer-003': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '7754fa8ae1024095b8ee876c8db854e7'
+                    }
+                    'silver-customer-004': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '993015827e7d439a8fa6f8c9b57228ca'
+                    }
+                    'silver-customer-005': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '968d1bbd984f442584d7c12214ff136e'
+                    }
+                    'silver-customer-020': {
+                        table: 'x_hete_clv_maximiz_policy_holders'
+                        id: '1b1c170e36db4a13ae21ef59c2e38b5e'
                     }
                     'src_server_campaign-scheduler_js': {
                         table: 'sys_module'
@@ -1025,6 +1466,29 @@ declare global {
                 }
                 composite: [
                     {
+                        table: 'sys_ui_list_element'
+                        id: '0001c51c5f864fdea5a68ab4205d831b'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'churn_risk'
+                        }
+                    },
+                    {
                         table: 'sys_db_object'
                         id: '023486d3e2934ffa93785df774bb8988'
                         key: {
@@ -1092,6 +1556,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '061b297551be475db6c262255e28bfa9'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'campaign_uplift'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '07a13cf819d8410483edf53caa19229c'
                         key: {
@@ -1117,6 +1589,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '099cd5f99e1f43b4ae26d85ecfc9e864'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'credit_score'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '0a585a2e38d042b5a8acb80e1c8ed21f'
                         key: {
@@ -1136,6 +1631,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '0b43a55879144021affb70b75cdabe96'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_product_performance'
                             element: 'performance_label'
@@ -1146,6 +1642,38 @@ declare global {
                         id: '0be043fe54f643ab8d6630894ff53e48'
                         key: {
                             name: 'x_hete_clv_maximiz_product_performance'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '0c6bd28486b94407b144ac8d04616338'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'campaign_uplift'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '0d100e02c09c4898b02988da1d0de496'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'app_sessions_30_days'
                         }
                     },
                     {
@@ -1195,6 +1723,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '10452d1fd2e44dddb7d603f73cc06bef'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'product'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '10e789477feb41b592510b1c8eeb73cc'
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
@@ -1207,6 +1743,29 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'campaign_name'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '11456dd06f1449448727a22169d447a9'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'last_name'
                         }
                     },
                     {
@@ -1287,6 +1846,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '1b67642003e34515aaa40ad0431536e2'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'tenure_years'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '1c45d534cb144c818c026bf3d01ea445'
                         key: {
@@ -1362,9 +1944,19 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '26509f858da54a9d9d4bd48e12d95d16'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'tone_style'
+                        }
+                    },
+                    {
+                        table: 'sys_choice_set'
+                        id: '26f17bb7686744eaa25a02a9abf4a49f'
+                        deleted: true
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
                         }
                     },
                     {
@@ -1393,6 +1985,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '2a286de1eca3449ba4a51ddc9dac6e7a'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'tier'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '2af1785f6dff40c2bc08cc1cfc565348'
                         key: {
@@ -1404,6 +2019,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '2b4403ed9d5f4eccbf3bb2a678e07761'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'status'
@@ -1470,6 +2086,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '2eb2ac424bf14fa7ab88d13d9bfd0039'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'missing_coverage'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '2ee0c64d82da4a7f8b91e89774729df0'
                         key: {
@@ -1532,6 +2171,52 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '350851be3d1848b8a308c6a97eb6aedb'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'engagement_score'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '351f33a7af154f178b82aa9ff87d8532'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'risk'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '35db886d2c7848fabfb8a03bbf462c56'
                         key: {
@@ -1566,6 +2251,38 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_documentation'
+                        id: '39ac32217bb24fe69162772d85e8c678'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '3a2586d091a745baa911fc54c04dd0d4'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'delinquency_12m'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '3a3afabb312d467185f98d247a1d4fb3'
                         key: {
@@ -1576,6 +2293,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '3a667bc6ebedf6904870fc4dbad0cde3'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'u_risk'
@@ -1596,6 +2314,29 @@ declare global {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'priority'
                             value: 'low'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '3c337c66097942feaa49b2dbc3565f37'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'number_of_closed_accounts'
                         }
                     },
                     {
@@ -1658,6 +2399,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '40ad47b345904cb9a83d1fd4961886bb'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'u_risk'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '40f8c4aeceb1464ab7610deb10d91e0d'
                         key: {
@@ -1679,6 +2443,52 @@ declare global {
                         id: '43be7bfdfbde4c4f93a1a3d8d3ead820'
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '43d3262109834397a6c00bf1d5293433'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'name'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '441ac9eecc464d60a3bf124f8758735e'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'renewal_date'
                         }
                     },
                     {
@@ -1761,6 +2571,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '4ab22be13be9321027891964c3e45a71'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'preferred_channel'
@@ -1769,14 +2580,62 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '4ad2b797db0745e28c91ec60eca16158'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'customer_tier'
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '4ade35869e3e438a88a3372c6ea44e35'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'clv'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '4af41845b84347ddbf2f214f9592c424'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'lifetime_value'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: '4c488fe1f7ba4e2a82d183dfb226b97d'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'churn_risk'
@@ -1846,6 +2705,14 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '52b352e49e824177b53dd8332c4e3e7c'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '52bfc9f708294bb7997fa11e8087cd92'
                         key: {
                             name: 'x_hete_clv_maximiz_competitor_benchmark'
@@ -1881,9 +2748,33 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '554bc2c9041a436aaadd602c08643c46'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '55c90e367cde4e909bb34a0199fda712'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'preferred_channel'
                         }
                     },
                     {
@@ -1952,6 +2843,38 @@ declare global {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'churn_risk'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: '5b9d711b24b841f5be6e8b80333bcf68'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'premium_vs_competitor'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '5b9fc33c7e7d4fc288beb5419c39fb26'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'age'
                         }
                     },
                     {
@@ -2039,6 +2962,29 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'quote_views'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '6638b73f8e8044af8a90097c1c66869b'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'customer_id'
                         }
                     },
                     {
@@ -2164,11 +3110,28 @@ declare global {
                     },
                     {
                         table: 'sys_dictionary'
+                        id: '72843c2a2c054a798f7b63e9f3e12a47'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'premium_vs_competitor'
+                        }
+                    },
+                    {
+                        table: 'sys_dictionary'
                         id: '72b722919feb40f49d1e328f0e7404e0'
                         deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'u_currency_2'
+                        }
+                    },
+                    {
+                        table: 'sys_choice'
+                        id: '73ceb2f3637d494a91412ddb1c145178'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
+                            value: 'competitive'
                         }
                     },
                     {
@@ -2268,6 +3231,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '7d63468a343d42d6899f817ceab92c0f'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'campaign_type'
@@ -2386,6 +3350,14 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_dictionary'
+                        id: '88d09f24c6ed433faae4db707469f4a5'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'revenue_per_customer'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: '88d323268a664805b686673fe10d86f4'
                         deleted: true
@@ -2398,6 +3370,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '89bf3cfe08fe4c05aab271d6b1e398cc'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'priority'
@@ -2449,8 +3422,32 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '8f6ac96efefd482080cc831b51ca5d26'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'first_name'
+                        }
+                    },
+                    {
                         table: 'sys_choice_set'
                         id: '90a2f2e0d2ac4e5790b11e92d96827b4'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -2510,6 +3507,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: '961a422331204e4ebb842963ff06cf2c'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'credit_inquiries_last_6m'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: '962ae4139a6c4bf4acf34b2eabb3419b'
                         key: {
@@ -2550,6 +3570,29 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'renewal_amount'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: '977fca177cd64fd7b784a4f225deb4f4'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'phone'
                         }
                     },
                     {
@@ -2615,6 +3658,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '9db2e7e13be9321027891964c3e45a3d'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'tier'
@@ -2882,6 +3926,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'b36fec83ccd0474d839332f9c061550d'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'number_of_open_accounts'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'b83349c739b843b4b16b8ff57accf17f'
                         key: {
@@ -2935,6 +4002,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'bc7b5e9f1e234cc89640054151639d6d'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'customer_tier'
@@ -2958,6 +4026,15 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'bf0c3042d894417e91f42c3c1ed62058'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
+                            value: 'strong'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'bfd8f397ec6b40b0b4e7be29715bb3b8'
                         key: {
@@ -2968,6 +4045,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'c05f00951edb49dbb961a04b49667b7d'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'risk'
@@ -3060,6 +4138,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'c77d2f12fd0b4bbc91648306fc4c33f4'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'channel'
@@ -3111,6 +4190,29 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'renewal_date'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'ce79a8295d92421a95f6860ba3c723d9'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'credit_utilization_percent'
                         }
                     },
                     {
@@ -3244,6 +4346,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'da2c3c0f73364aea937440bb3365dd76'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'status'
@@ -3317,6 +4420,47 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_choice'
+                        id: 'dbf4023ef8e84dd7bdbec3fb8ccb1ffc'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'purchase_frequency'
+                            value: 'challenged'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'dc8f4270eed34545be4301664e06ae02'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'revenue_per_customer'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'dccba175439747d1aeb79724572ef69b'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'abandoned_journeys'
+                        }
+                    },
+                    {
                         table: 'sys_dictionary'
                         id: 'de01e7ad3ba9321027891964c3e45a02'
                         deleted: true
@@ -3341,6 +4485,29 @@ declare global {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'risk'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'dfa2f29b4e8345f5bae344d99b2e6da4'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'risk_flags'
                         }
                     },
                     {
@@ -3465,6 +4632,52 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'e7c9c303185f4ed7bd9bf8e8df890d4e'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'website_visits_30_days'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'e7de7b1172be4e88b68cd5485a6ad3bb'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'avg_session_time_min'
+                        }
+                    },
+                    {
                         table: 'sys_choice'
                         id: 'e8482f76079548dc9c762889786b26f1'
                         key: {
@@ -3480,6 +4693,29 @@ declare global {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'status'
                             value: 'launched'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'ea0b1548236a493e9fd93736297ff55e'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'sys_updated_on'
                         }
                     },
                     {
@@ -3545,6 +4781,29 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'f008309587a54cdbbb805eb160c0b39e'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'email'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'f08eaea71d7d4330be8bebfb189d59aa'
                         key: {
@@ -3562,12 +4821,81 @@ declare global {
                         }
                     },
                     {
+                        table: 'sys_ui_list_element'
+                        id: 'f27d691cf55642cd8c1d4babfe063406'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'bankruptcies_flag'
+                        }
+                    },
+                    {
                         table: 'sys_documentation'
                         id: 'f3382a0199a44012a4f32fca23fecb2d'
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'clv_score'
                             language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'f3cfd4bd3a4148bcb6d31ef7bf6bd40a'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'quote_views'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list_element'
+                        id: 'f3fd18a0bbf04e9683519318ebf2325e'
+                        key: {
+                            list_id: {
+                                id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                                key: {
+                                    name: 'x_hete_clv_maximiz_policy_holders'
+                                    view: {
+                                        id: 'Default view'
+                                        key: {
+                                            name: 'NULL'
+                                        }
+                                    }
+                                    sys_domain: 'global'
+                                    element: 'NULL'
+                                    relationship: 'NULL'
+                                    parent: 'NULL'
+                                }
+                            }
+                            element: 'clv_score'
                         }
                     },
                     {
@@ -3618,6 +4946,32 @@ declare global {
                         key: {
                             name: 'x_hete_clv_maximiz_product_performance'
                             element: 'renewal_vs_competitor_1'
+                        }
+                    },
+                    {
+                        table: 'sys_documentation'
+                        id: 'f8e2e22eb2d0499aaf98feffa5cc0ae2'
+                        key: {
+                            name: 'x_hete_clv_maximiz_competitor_benchmark'
+                            element: 'product'
+                            language: 'en'
+                        }
+                    },
+                    {
+                        table: 'sys_ui_list'
+                        id: 'f8ef8c99c1f1457f882e89dd7e0af196'
+                        key: {
+                            name: 'x_hete_clv_maximiz_policy_holders'
+                            view: {
+                                id: 'Default view'
+                                key: {
+                                    name: 'NULL'
+                                }
+                            }
+                            sys_domain: 'global'
+                            element: 'NULL'
+                            relationship: 'NULL'
+                            parent: 'NULL'
                         }
                     },
                     {

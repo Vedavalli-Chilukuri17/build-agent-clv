@@ -150,6 +150,81 @@
   margin: 0;
 }
 
+/* Section Navigation */
+.section-navigation {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.next-btn,
+.prev-btn {
+  padding: 16px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid;
+  min-width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.next-btn {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+  border-color: #3b82f6;
+  color: white;
+  margin-left: auto;
+}
+
+.next-btn:hover:not(:disabled) {
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+}
+
+.next-btn:disabled {
+  background: #d1d5db;
+  border-color: #d1d5db;
+  color: #9ca3af;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.prev-btn {
+  background: white;
+  border-color: #d1d5db;
+  color: #374151;
+  margin-right: auto;
+}
+
+.prev-btn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #9ca3af;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.validation-message {
+  text-align: center;
+  margin-top: 16px;
+  padding: 12px 20px;
+  background: #fef3c7;
+  border: 1px solid #f59e0b;
+  border-radius: 8px;
+  color: #92400e;
+  font-size: 14px;
+  font-weight: 500;
+}
+
 /* Widget Styles */
 .campaign-widget {
   margin-bottom: 32px;
@@ -453,6 +528,12 @@
   min-height: 120px;
 }
 
+.form-help {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
 /* Multi-Select Grid for Product Propensity */
 .multi-select-grid {
   display: grid;
@@ -680,6 +761,15 @@ button:disabled {
   overflow-y: auto;
 }
 
+.campaigns-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+  color: #6b7280;
+}
+
 .campaign-item {
   padding: 16px;
   border: 1px solid #e5e7eb;
@@ -715,9 +805,15 @@ button:disabled {
   text-transform: uppercase;
 }
 
-.campaign-status.active {
+.campaign-status.active,
+.campaign-status.launched {
   background: #d1fae5;
   color: #065f46;
+}
+
+.campaign-status.scheduled {
+  background: #dbeafe;
+  color: #1e40af;
 }
 
 .campaign-status.completed {
@@ -850,6 +946,18 @@ button:disabled {
   .missing-requirements label {
     min-width: auto;
   }
+
+  .nav-buttons {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .next-btn,
+  .prev-btn {
+    min-width: auto;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 @media (max-width: 480px) {
@@ -893,5 +1001,12 @@ button:disabled {
 
   .multi-select-grid .checkbox-item {
     padding: 6px 10px;
+  }
+
+  .next-btn,
+  .prev-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+    min-width: auto;
   }
 }

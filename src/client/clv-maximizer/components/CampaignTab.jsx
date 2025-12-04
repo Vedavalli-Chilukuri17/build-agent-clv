@@ -166,6 +166,32 @@ export default function CampaignTab() {
     }));
   };
 
+  // Navigation handlers
+  const handleNextSection = () => {
+    if (currentSection === 'setup') {
+      setCurrentSection('ai-content');
+    } else if (currentSection === 'ai-content') {
+      setCurrentSection('preview-launch');
+    }
+  };
+
+  const handlePreviousSection = () => {
+    if (currentSection === 'ai-content') {
+      setCurrentSection('setup');
+    } else if (currentSection === 'preview-launch') {
+      setCurrentSection('ai-content');
+    }
+  };
+
+  // Validation for navigation
+  const canProceedFromSetup = () => {
+    return campaignForm.campaignName.trim() !== '';
+  };
+
+  const canProceedFromAIContent = () => {
+    return contentForm.subjectLine.trim() !== '' || contentForm.messageBody.trim() !== '';
+  };
+
   // Generate fallback content based on current form state
   const generateFallbackContent = () => {
     const productText = campaignForm.productPropensity.length > 0 
@@ -720,6 +746,24 @@ export default function CampaignTab() {
                   </div>
                 </div>
               </div>
+
+              {/* Navigation Buttons for Setup Section */}
+              <div className="section-navigation">
+                <div className="nav-buttons">
+                  <button
+                    className="btn-primary next-btn"
+                    onClick={handleNextSection}
+                    disabled={!canProceedFromSetup()}
+                  >
+                    Next: AI Content Generation →
+                  </button>
+                </div>
+                {!canProceedFromSetup() && (
+                  <div className="validation-message">
+                    Please enter a campaign name to continue
+                  </div>
+                )}
+              </div>
             </section>
           )}
 
@@ -748,6 +792,24 @@ export default function CampaignTab() {
                       {contentForm.messageBody || 'No message body generated yet. Please generate content in the Set Up section.'}
                     </div>
                   </div>
+                </div>
+
+                {/* Regenerate button */}
+                <div className="ai-generation-controls">
+                  <button
+                    className="btn-ai generate-btn"
+                    onClick={handleGenerateContent}
+                    disabled={isGenerating}
+                  >
+                    {isGenerating ? '🤖 Generating...' : '🤖 Generate with AI'}
+                  </button>
+                  <button
+                    className="btn-secondary regenerate-btn"
+                    onClick={handleGenerateContent}
+                    disabled={isGenerating}
+                  >
+                    🔄 Regenerate
+                  </button>
                 </div>
               </div>
 
@@ -805,6 +867,24 @@ export default function CampaignTab() {
                       </label>
                     </div>
                   </div>
+                </div>
+              </div>
+
+              {/* Navigation Buttons for AI Content Section */}
+              <div className="section-navigation">
+                <div className="nav-buttons">
+                  <button
+                    className="btn-secondary prev-btn"
+                    onClick={handlePreviousSection}
+                  >
+                    ← Previous: Setup
+                  </button>
+                  <button
+                    className="btn-primary next-btn"
+                    onClick={handleNextSection}
+                  >
+                    Next: Preview & Launch →
+                  </button>
                 </div>
               </div>
             </section>
@@ -892,6 +972,18 @@ export default function CampaignTab() {
                     )}
                   </div>
                 )}
+              </div>
+
+              {/* Navigation Buttons for Preview & Launch Section */}
+              <div className="section-navigation">
+                <div className="nav-buttons">
+                  <button
+                    className="btn-secondary prev-btn"
+                    onClick={handlePreviousSection}
+                  >
+                    ← Previous: AI Content Generation
+                  </button>
+                </div>
               </div>
             </section>
           )}

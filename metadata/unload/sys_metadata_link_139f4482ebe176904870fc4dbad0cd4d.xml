@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>unload</directory>
+        <documentkey>53e3b193c6f74750820554975d6a4ff1</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>45</abandoned_journeys>
+        <age>24</age>
+        <app_sessions_30_days>22</app_sessions_30_days>
+        <avg_session_time_min>2</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>82</churn_risk>
+        <clv_score>2.9</clv_score>
+        <credit_inquiries_last_6m>11</credit_inquiries_last_6m>
+        <credit_score>590</credit_score>
+        <credit_utilization_percent>88</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>6</delinquency_12m>
+        <email>ryan.hall@gig.work</email>
+        <first_name>Ryan</first_name>
+        <last_name>Hall</last_name>
+        <lifetime_value>15600</lifetime_value>
+        <missing_coverage>All Optional Coverage</missing_coverage>
+        <name>Ryan Christopher Hall</name>
+        <number_of_closed_accounts>1</number_of_closed_accounts>
+        <number_of_open_accounts>2</number_of_open_accounts>
+        <phone>+15550118</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>52</quote_views>
+        <risk_flags>Gig Economy, High Risk Profile</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:13:57</sys_created_on>
+        <sys_id>53e3b193c6f74750820554975d6a4ff1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:13:57</sys_updated_on>
+        <tenure_years>1</tenure_years>
+        <tier>bronze</tier>
+        <website_visits_30_days>18</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>139f4482ebe176904870fc4dbad0cd4d</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Ryan Christopher Hall</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_139f4482ebe176904870fc4dbad0cd4d</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+</record_update>
