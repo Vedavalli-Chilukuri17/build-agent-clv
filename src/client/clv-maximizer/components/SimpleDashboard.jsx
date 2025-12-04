@@ -8,7 +8,7 @@ export default function SimpleDashboard() {
     totalCustomers: 0,
     highValueCustomers: 0,
     avgCLV: 0,
-    churnRisk: 0,
+    averageChurnRisk: 0, // Changed to average churn risk
     dataSource: 'x_hete_clv_maximiz_policy_holders',
     
     // Renewal Pipeline
@@ -85,36 +85,6 @@ export default function SimpleDashboard() {
         setDebugInfo({ error: 'No policy holders data found' });
       }
 
-      // Debug: Check churn risk field values
-      console.log('🔍 DEBUGGING CHURN RISK DATA:');
-      if (policyHolders.length > 0) {
-        // Sample the first 5 records to see what churn_risk values look like
-        const churnRiskSamples = policyHolders.slice(0, 5).map((p, index) => {
-          const rawValue = p.churn_risk;
-          const displayValue = display(p.churn_risk);
-          const numericValue = parseFloat(displayValue);
-          return {
-            index,
-            rawValue,
-            displayValue,
-            numericValue,
-            isValidNumber: !isNaN(numericValue)
-          };
-        });
-        console.log('📋 Churn Risk Sample Data:', churnRiskSamples);
-
-        // Check if we have any churn_risk values
-        const hasChurnRiskData = policyHolders.some(p => {
-          const churnValue = display(p.churn_risk);
-          return churnValue !== null && churnValue !== undefined && churnValue !== '';
-        });
-        console.log(`📊 Has Churn Risk Data: ${hasChurnRiskData}`);
-
-        // Get all unique churn risk values to understand the data
-        const uniqueChurnValues = [...new Set(policyHolders.map(p => display(p.churn_risk)))];
-        console.log('🎯 Unique Churn Risk Values:', uniqueChurnValues.slice(0, 10)); // First 10 unique values
-      }
-
       // Calculate Total Customers - DIRECTLY from Policy Holders table
       const totalCustomers = policyHolders.length;
       console.log(`👥 Total Customers calculated from Policy Holders table: ${totalCustomers}`);
@@ -136,70 +106,58 @@ export default function SimpleDashboard() {
         : 0;
       console.log(`💰 Average CLV calculated: $${Math.round(avgCLV)}`);
 
-      // Enhanced Churn Risk Calculation with multiple fallback strategies
-      console.log('🎯 CALCULATING CHURN RISK WITH ENHANCED LOGIC:');
+      // Calculate AVERAGE Churn Risk from churn_risk field in Policy Holders table
+      console.log('🎯 CALCULATING AVERAGE CHURN RISK FROM CHURN_RISK FIELD:');
       
-      let highRiskCustomers = 0;
-      let churnRiskThreshold = 60; // Default threshold
+      let averageChurnRisk = 0;
+      let validChurnRiskCount = 0;
+      let churnRiskValues = [];
       
-      // Strategy 1: Try with percentage values (0-100)
-      const percentageBasedRisk = policyHolders.filter(p => {
-        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-        return churnRisk > 60; // Assuming percentage format
-      }).length;
+      // Analyze churn risk field values
+      policyHolders.forEach(p => {
+        const churnRiskRaw = display(p.churn_risk);
+        const churnRiskNum = parseFloat(churnRiskRaw);
+        
+        if (!isNaN(churnRiskNum) && churnRiskRaw !== null && churnRiskRaw !== undefined && churnRiskRaw !== '') {
+          churnRiskValues.push(churnRiskNum);
+          validChurnRiskCount++;
+        }
+      });
       
-      console.log(`📈 Strategy 1 (>60%): ${percentageBasedRisk} high-risk customers`);
+      console.log(`📊 Found ${validChurnRiskCount} valid churn_risk values out of ${totalCustomers} customers`);
+      console.log(`📈 Churn risk values sample:`, churnRiskValues.slice(0, 10));
       
-      // Strategy 2: Try with decimal values (0-1)
-      const decimalBasedRisk = policyHolders.filter(p => {
-        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-        return churnRisk > 0.6; // Assuming decimal format (0-1)
-      }).length;
-      
-      console.log(`📈 Strategy 2 (>0.6): ${decimalBasedRisk} high-risk customers`);
-      
-      // Strategy 3: Use risk field if available
-      const riskFieldBasedRisk = policyHolders.filter(p => {
-        const risk = display(p.risk);
-        return risk === 'high' || risk === 'High';
-      }).length;
-      
-      console.log(`📈 Strategy 3 (risk='high'): ${riskFieldBasedRisk} high-risk customers`);
-      
-      // Strategy 4: Lower threshold for percentage
-      const lowThresholdRisk = policyHolders.filter(p => {
-        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-        return churnRisk > 50; // Lower threshold
-      }).length;
-      
-      console.log(`📈 Strategy 4 (>50%): ${lowThresholdRisk} high-risk customers`);
-      
-      // Choose the best strategy (one that gives reasonable results)
-      if (riskFieldBasedRisk > 0) {
-        highRiskCustomers = riskFieldBasedRisk;
-        churnRiskThreshold = "risk='high'";
-        console.log(`✅ Using Strategy 3: risk field based calculation`);
-      } else if (percentageBasedRisk > 0) {
-        highRiskCustomers = percentageBasedRisk;
-        churnRiskThreshold = ">60%";
-        console.log(`✅ Using Strategy 1: percentage based (>60%)`);
-      } else if (decimalBasedRisk > 0) {
-        highRiskCustomers = decimalBasedRisk;
-        churnRiskThreshold = ">0.6";
-        console.log(`✅ Using Strategy 2: decimal based (>0.6)`);
-      } else if (lowThresholdRisk > 0) {
-        highRiskCustomers = lowThresholdRisk;
-        churnRiskThreshold = ">50%";
-        console.log(`✅ Using Strategy 4: lower threshold (>50%)`);
+      if (validChurnRiskCount > 0) {
+        const totalChurnRisk = churnRiskValues.reduce((sum, value) => sum + value, 0);
+        averageChurnRisk = totalChurnRisk / validChurnRiskCount;
+        
+        console.log(`✅ Average Churn Risk calculated: ${averageChurnRisk.toFixed(2)}%`);
+        console.log(`📋 Min: ${Math.min(...churnRiskValues)}, Max: ${Math.max(...churnRiskValues)}`);
+        
+        setDebugInfo({
+          totalCustomers,
+          validChurnRiskCount,
+          averageChurnRisk: averageChurnRisk.toFixed(2),
+          minChurnRisk: Math.min(...churnRiskValues),
+          maxChurnRisk: Math.max(...churnRiskValues),
+          sampleValues: churnRiskValues.slice(0, 10)
+        });
       } else {
-        // Fallback: Create some sample data if no churn risk data exists
-        highRiskCustomers = Math.floor(totalCustomers * 0.15); // Assume 15% high risk
-        churnRiskThreshold = "estimated";
-        console.log(`⚠️ No churn risk data found, using estimated 15% high risk`);
+        console.warn('⚠️ No valid churn_risk values found in Policy Holders data');
+        averageChurnRisk = 0;
+        
+        setDebugInfo({
+          totalCustomers,
+          validChurnRiskCount: 0,
+          error: 'No valid churn_risk values found'
+        });
       }
 
-      const churnRisk = totalCustomers > 0 ? (highRiskCustomers / totalCustomers) * 100 : 0;
-      console.log(`⚠️ Final Churn Risk: ${churnRisk.toFixed(2)}% (${highRiskCustomers}/${totalCustomers} customers, threshold: ${churnRiskThreshold})`);
+      // Calculate High-Risk Customers (for breakdown by tier) - customers with churn risk over 60%
+      const highRiskCustomers = policyHolders.filter(p => {
+        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
+        return churnRisk > 60;
+      }).length;
 
       // Calculate Renewal Pipeline (30/60/90 days) from Policy Holders renewal dates
       const now = new Date();
@@ -245,8 +203,8 @@ export default function SimpleDashboard() {
       });
       console.log('🏆 Tier Distribution:', tierDistribution);
 
-      // Enhanced High-Risk Customers by Tier calculation
-      console.log('🎯 CALCULATING HIGH-RISK BY TIER:');
+      // Calculate High-Risk Customers by Tier (using churn_risk over 60%)
+      console.log('🎯 CALCULATING HIGH-RISK CUSTOMERS BY TIER (churn risk over 60%):');
       const highRiskByTier = {
         platinum: 0,
         gold: 0,
@@ -256,36 +214,14 @@ export default function SimpleDashboard() {
 
       policyHolders.forEach(p => {
         const tier = display(p.tier)?.toLowerCase();
-        let isHighRisk = false;
+        const churnRisk = parseFloat(display(p.churn_risk)) || 0;
         
-        // Use the same logic that worked for overall churn risk
-        if (churnRiskThreshold === "risk='high'") {
-          const risk = display(p.risk);
-          isHighRisk = risk === 'high' || risk === 'High';
-        } else if (churnRiskThreshold === ">60%") {
-          const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-          isHighRisk = churnRisk > 60;
-        } else if (churnRiskThreshold === ">0.6") {
-          const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-          isHighRisk = churnRisk > 0.6;
-        } else if (churnRiskThreshold === ">50%") {
-          const churnRisk = parseFloat(display(p.churn_risk)) || 0;
-          isHighRisk = churnRisk > 50;
-        } else {
-          // Estimated distribution based on tier
-          const random = Math.random();
-          if (tier === 'platinum') isHighRisk = random < 0.10; // 10% high risk
-          else if (tier === 'gold') isHighRisk = random < 0.12; // 12% high risk
-          else if (tier === 'silver') isHighRisk = random < 0.15; // 15% high risk
-          else if (tier === 'bronze') isHighRisk = random < 0.20; // 20% high risk
-        }
-        
-        if (isHighRisk && tier && highRiskByTier.hasOwnProperty(tier)) {
+        if (churnRisk > 60 && tier && highRiskByTier.hasOwnProperty(tier)) {
           highRiskByTier[tier]++;
         }
       });
       
-      console.log('🎯 High-Risk by Tier (Enhanced):', highRiskByTier);
+      console.log('🎯 High-Risk by Tier (churn risk over 60%):', highRiskByTier);
 
       // Calculate CLV Band Distribution based on Policy Holders lifetime_value
       const clvBands = {
@@ -323,25 +259,12 @@ export default function SimpleDashboard() {
       };
       console.log('⚠️ Risk Analysis:', riskAnalysis);
 
-      // Set debug info for display
-      setDebugInfo({
-        totalCustomers,
-        highRiskCustomers,
-        churnRiskThreshold,
-        strategies: {
-          percentageBased: percentageBasedRisk,
-          decimalBased: decimalBasedRisk,
-          riskFieldBased: riskFieldBasedRisk,
-          lowThreshold: lowThresholdRisk
-        }
-      });
-
       // Update dashboard data with calculated metrics
       setDashboardData({
         totalCustomers,
         highValueCustomers,
         avgCLV: Math.round(avgCLV),
-        churnRisk: Math.round(churnRisk * 100) / 100,
+        averageChurnRisk: Math.round(averageChurnRisk * 100) / 100, // Store average churn risk
         dataSource: 'x_hete_clv_maximiz_policy_holders',
         renewalPipeline,
         highRiskByTier,
@@ -368,7 +291,7 @@ export default function SimpleDashboard() {
         totalCustomers: 0,
         highValueCustomers: 0,
         avgCLV: 0,
-        churnRisk: 0
+        averageChurnRisk: 0
       }));
     } finally {
       setLoading(false);
@@ -436,7 +359,7 @@ export default function SimpleDashboard() {
         <div className="loading-spinner"></div>
         <p>Loading Analytics from Policy Holders Table...</p>
         <p className="loading-subtext">Fetching data from x_hete_clv_maximiz_policy_holders</p>
-        <p className="loading-subtext">Analyzing churn risk patterns...</p>
+        <p className="loading-subtext">Calculating average churn risk...</p>
       </div>
     );
   }
@@ -451,30 +374,27 @@ export default function SimpleDashboard() {
           {lastUpdated && (
             <small> • Last Updated: {lastUpdated.toLocaleTimeString()}</small>
           )}
-          {debugInfo && (
-            <small> • Debug: {debugInfo.highRiskCustomers || 0} high-risk customers detected</small>
-          )}
         </div>
       </div>
 
       {/* Debug Information Panel */}
       {debugInfo && (
         <div className="debug-panel">
-          <h3>🔍 Debug Information</h3>
+          <h3>🔍 Churn Risk Analysis</h3>
           <div className="debug-content">
             {debugInfo.error ? (
               <div className="debug-error">❌ Error: {debugInfo.error}</div>
             ) : (
               <div className="debug-success">
                 <p><strong>Total Customers:</strong> {debugInfo.totalCustomers}</p>
-                <p><strong>High-Risk Customers:</strong> {debugInfo.highRiskCustomers} (Threshold: {debugInfo.churnRiskThreshold})</p>
-                <p><strong>Risk Detection Strategies:</strong></p>
-                <ul>
-                  <li>Percentage Based (&gt;60%): {debugInfo.strategies?.percentageBased}</li>
-                  <li>Decimal Based (&gt;0.6): {debugInfo.strategies?.decimalBased}</li>
-                  <li>Risk Field (high): {debugInfo.strategies?.riskFieldBased}</li>
-                  <li>Lower Threshold (&gt;50%): {debugInfo.strategies?.lowThreshold}</li>
-                </ul>
+                <p><strong>Valid Churn Risk Records:</strong> {debugInfo.validChurnRiskCount}</p>
+                <p><strong>Average Churn Risk:</strong> {debugInfo.averageChurnRisk}%</p>
+                {debugInfo.minChurnRisk !== undefined && (
+                  <>
+                    <p><strong>Range:</strong> {debugInfo.minChurnRisk}% - {debugInfo.maxChurnRisk}%</p>
+                    <p><strong>Sample Values:</strong> {debugInfo.sampleValues?.join(', ')}%</p>
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -515,9 +435,9 @@ export default function SimpleDashboard() {
           <div className="simple-kpi-card risk">
             <div className="kpi-icon">⚠️</div>
             <div className="kpi-content">
-              <div className="kpi-value">{dashboardData.churnRisk}%</div>
-              <div className="kpi-label">Churn Risk</div>
-              <div className="kpi-sublabel">Enhanced Detection Logic</div>
+              <div className="kpi-value">{dashboardData.averageChurnRisk}%</div>
+              <div className="kpi-label">Average Churn Risk</div>
+              <div className="kpi-sublabel">From churn_risk(%) Field</div>
             </div>
           </div>
         </div>
@@ -567,7 +487,7 @@ export default function SimpleDashboard() {
                 <span className="risk-count">{dashboardData.highRiskByTier.bronze}</span>
               </div>
             </div>
-            <div className="data-source-note">Enhanced churn risk detection</div>
+            <div className="data-source-note">Customers with high churn risk</div>
           </div>
 
           <div className="metric-card cross-sell">
@@ -646,7 +566,7 @@ export default function SimpleDashboard() {
             <h3>💎 CLV Band Distribution</h3>
             <div className="clv-band-chart">
               <div className="clv-band high-clv">
-                <div className="band-label">High CLV (&gt;$50K)</div>
+                <div className="band-label">High CLV (Over $50K)</div>
                 <div className="band-value">{dashboardData.clvBands.high}</div>
                 <div className="band-percentage">
                   {Math.round(dashboardData.clvBands.high / Math.max(dashboardData.totalCustomers, 1) * 100)}%
@@ -660,7 +580,7 @@ export default function SimpleDashboard() {
                 </div>
               </div>
               <div className="clv-band low-clv">
-                <div className="band-label">Low CLV (&lt;$20K)</div>
+                <div className="band-label">Low CLV (Under $20K)</div>
                 <div className="band-value">{dashboardData.clvBands.low}</div>
                 <div className="band-percentage">
                   {Math.round(dashboardData.clvBands.low / Math.max(dashboardData.totalCustomers, 1) * 100)}%
@@ -676,12 +596,12 @@ export default function SimpleDashboard() {
               <div className="risk-factor">
                 <div className="risk-type">Credit Risk</div>
                 <div className="risk-count">{dashboardData.riskAnalysis.creditRisk}</div>
-                <div className="risk-description">Credit Score &lt; 650</div>
+                <div className="risk-description">Credit Score Under 650</div>
               </div>
               <div className="risk-factor">
                 <div className="risk-type">Property Risk</div>
                 <div className="risk-count">{dashboardData.riskAnalysis.propertyRisk}</div>
-                <div className="risk-description">Delinquency &gt; 2</div>
+                <div className="risk-description">Delinquency Over 2</div>
               </div>
               <div className="risk-factor">
                 <div className="risk-type">Combined Risk</div>
@@ -740,17 +660,17 @@ export default function SimpleDashboard() {
       {/* Data Source Footer */}
       <div className="dashboard-footer">
         <div className="data-source-details">
-          <strong>📋 Data Sources & Debug Info:</strong>
+          <strong>📋 Data Sources & Field Mapping:</strong>
           <ul>
-            <li><strong>Primary:</strong> x_hete_clv_maximiz_policy_holders (Customer metrics, CLV, Risk analysis)</li>
-            <li><strong>Secondary:</strong> x_hete_clv_maximiz_competitor_benchmark (Product performance)</li>
-            {debugInfo && !debugInfo.error && (
-              <li><strong>Churn Risk Detection:</strong> {debugInfo.churnRiskThreshold} - {debugInfo.highRiskCustomers} customers identified</li>
-            )}
+            <li><strong>Total Customers:</strong> COUNT(*) from x_hete_clv_maximiz_policy_holders</li>
+            <li><strong>Average Churn Risk:</strong> AVG(churn_risk) from x_hete_clv_maximiz_policy_holders</li>
+            <li><strong>High-Value Customers:</strong> tier IN ('Platinum', 'Gold') from policy holders</li>
+            <li><strong>Average CLV:</strong> AVG(clv) from policy holders</li>
+            <li><strong>Risk Analysis:</strong> credit_score, delinquency_12m from policy holders</li>
           </ul>
         </div>
         <button onClick={loadComprehensiveDashboardData} className="refresh-data-btn">
-          🔄 Refresh Data & Debug
+          🔄 Refresh Data from Policy Holders Table
         </button>
       </div>
     </div>
