@@ -1,419 +1,479 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DashboardService } from '../services/DashboardService.js';
-import { CLVDataService } from '../services/CLVDataService.js';
-import { display, value } from '../utils/fields.js';
-import KPIRow from './dashboard/KPIRow.jsx';
-import PerformanceMetrics from './dashboard/PerformanceMetrics.jsx';
-import MarketIntelligence from './dashboard/MarketIntelligence.jsx';
 import './EnhancedDashboard.css';
 
 export default function EnhancedDashboard() {
-  const [dashboardData, setDashboardData] = useState({
-    kpis: {},
-    performanceMetrics: {},
-    marketIntelligence: {},
-    rawData: {
-      policyHolders: [],
-      campaigns: [],
-      productPerformance: [],
-      competitorBenchmark: []
-    }
-  });
+  const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedReport, setSelectedReport] = useState('overview');
+  const [error, setError] = useState(null);
+  
+  const dashboardService = new DashboardService();
 
   useEffect(() => {
-    loadAllDashboardData();
-    
-    // Set up auto-refresh every 5 minutes
-    const interval = setInterval(loadAllDashboardData, 5 * 60 * 1000);
-    
-    return () => {
-      if (interval) clearInterval(interval);
-    };
+    loadDashboardData();
   }, []);
 
-  const loadAllDashboardData = async () => {
+  const loadDashboardData = async () => {
     setLoading(true);
+    setError(null);
     try {
-      // Load data from all tables
-      const [
-        policyHolders,
-        campaigns,
-        productPerformance,
-        competitorBenchmark
-      ] = await Promise.all([
-        fetchTableData('x_hete_clv_maximiz_policy_holders'),
-        fetchTableData('x_hete_clv_maximiz_campaigns'),
-        fetchTableData('x_hete_clv_maximiz_product_performance'),
-        fetchTableData('x_hete_clv_maximiz_competitor_benchmark')
-      ]);
-
-      // Calculate all metrics using real data
-      const kpis = calculateEnhancedKPIs(policyHolders, campaigns);
-      const performanceMetrics = calculateDynamicPerformanceMetrics(policyHolders, campaigns);
-      const marketIntelligence = calculateMarketIntelligence(
-        policyHolders, 
-        productPerformance, 
-        competitorBenchmark
-      );
-
-      setDashboardData({
-        kpis,
-        performanceMetrics,
-        marketIntelligence,
-        rawData: {
-          policyHolders,
-          campaigns,
-          productPerformance,
-          competitorBenchmark
-        }
-      });
-
+      const data = await dashboardService.getComprehensiveDashboardReports();
+      setDashboardData(data);
     } catch (error) {
-      console.error('Error loading enhanced dashboard data:', error);
+      console.error('Error loading dashboard data:', error);
+      setError('Failed to load dashboard data. Please try again.');
     } finally {
       setLoading(false);
     }
-  };
-
-  const fetchTableData = async (tableName) => {
-    try {
-      const response = await fetch(`/api/now/table/${tableName}?sysparm_display_value=all&sysparm_limit=1000`, {
-        headers: {
-          "Accept": "application/json",
-          "X-UserToken": window.g_ck
-        }
-      });
-      const data = await response.json();
-      console.log(`${tableName}:`, data.result?.length || 0, 'records loaded');
-      return data.result || [];
-    } catch (error) {
-      console.error(`Error fetching ${tableName}:`, error);
-      return [];
-    }
-  };
-
-  const getNumericValue = (value) => {
-    if (value === null || value === undefined || value === '') return 0;
-    const numVal = parseFloat(value);
-    return isNaN(numVal) ? 0 : numVal;
-  };
-
-  const calculateEnhancedKPIs = (policyHolders, campaigns) => {
-    console.log('Calculating Enhanced KPIs...');
-    
-    const now = new Date();
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
-    const ninetyDaysFromNow = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
-
-    // RENEWAL CONVERSION RATE with trend analysis
-    const eligibleForRenewal = policyHolders.filter(p => {
-      const renewalDate = p.renewal_date;
-      if (!renewalDate || renewalDate === '') return false;
-      const rDate = new Date(renewalDate);
-      return rDate >= thirtyDaysAgo && rDate <= ninetyDaysFromNow;
-    });
-
-    const likelyRenewals = eligibleForRenewal.filter(p => {
-      const churnRisk = getNumericValue(p.churn_risk);
-      const engagementScore = getNumericValue(p.engagement_score);
-      return churnRisk < 50 && engagementScore > 40;
-    });
-
-    const renewalConversionRate = eligibleForRenewal.length > 0 
-      ? (likelyRenewals.length / eligibleForRenewal.length * 100) 
-      : 0;
-
-    // CHURN RATE monitoring and projections
-    const highRiskCustomers = policyHolders.filter(p => {
-      const churnRisk = getNumericValue(p.churn_risk);
-      return churnRisk > 60 || p.risk === 'high';
-    });
-
-    const churnRate = policyHolders.length > 0 ? (highRiskCustomers.length / policyHolders.length * 100) : 0;
-
-    // AVERAGE CLV BY CUSTOMER TIER
-    const clvByTier = ['platinum', 'gold', 'silver', 'bronze'].reduce((acc, tier) => {
-      const tierCustomers = policyHolders.filter(p => p.tier?.toLowerCase() === tier);
-      const avgCLV = tierCustomers.length > 0
-        ? tierCustomers.reduce((sum, p) => {
-            const lifetimeValue = getNumericValue(p.lifetime_value);
-            const clv = getNumericValue(p.clv);
-            return sum + Math.max(lifetimeValue, clv);
-          }, 0) / tierCustomers.length
-        : 0;
-      
-      acc[tier.charAt(0).toUpperCase() + tier.slice(1)] = avgCLV;
-      return acc;
-    }, {});
-
-    // CAMPAIGN ROI TRACKING
-    const launchedCampaigns = campaigns.filter(c => c.status === 'launched' || c.status === 'completed');
-    const campaignReach = launchedCampaigns.reduce((sum, c) => sum + getNumericValue(c.estimated_reach), 0);
-    const totalCustomers = policyHolders.length;
-    
-    const highEngagementCustomers = policyHolders.filter(p => {
-      const engagementScore = getNumericValue(p.engagement_score);
-      const appSessions = getNumericValue(p.app_sessions_30_days);
-      const websiteVisits = getNumericValue(p.website_visits_30_days);
-      return engagementScore > 60 || appSessions > 15 || websiteVisits > 20;
-    });
-
-    const campaignROI = totalCustomers > 0 
-      ? (highEngagementCustomers.length / totalCustomers * 100) * (campaignReach > 0 ? 1.5 : 1)
-      : 0;
-
-    // PROJECTED RENEWALS WITH CONFIDENCE SCORES
-    const next30Days = policyHolders.filter(p => {
-      const renewalDate = p.renewal_date;
-      if (!renewalDate || renewalDate === '') return false;
-      const rDate = new Date(renewalDate);
-      const daysDiff = Math.ceil((rDate - now) / (1000 * 60 * 60 * 24));
-      return daysDiff <= 30 && daysDiff >= 0;
-    });
-
-    const highConfidenceRenewals = next30Days.filter(p => {
-      const churnRisk = getNumericValue(p.churn_risk);
-      const engagementScore = getNumericValue(p.engagement_score);
-      return churnRisk < 40 && engagementScore > 60;
-    });
-
-    const projectedValue = next30Days.reduce((sum, p) => {
-      const lifetimeValue = getNumericValue(p.lifetime_value);
-      const clv = getNumericValue(p.clv);
-      return sum + Math.max(lifetimeValue, clv);
-    }, 0);
-
-    return {
-      renewalConversionRate: {
-        value: Math.round(renewalConversionRate * 100) / 100,
-        trend: renewalConversionRate > 75 ? '+2.3%' : renewalConversionRate > 60 ? '+0.8%' : '-1.2%',
-        target: 85
-      },
-      churnRate: {
-        value: Math.round(churnRate * 100) / 100,
-        trend: churnRate < 10 ? '-0.8%' : churnRate < 15 ? '+0.3%' : '+2.1%',
-        target: 5
-      },
-      clvByTier,
-      campaignROI: {
-        value: Math.round(campaignROI * 100) / 100,
-        trend: campaignROI > 120 ? '+12.5%' : campaignROI > 100 ? '+5.2%' : '-3.4%',
-        target: 150
-      },
-      projectedRenewals: {
-        count: next30Days.length,
-        value: projectedValue,
-        confidence: highConfidenceRenewals.length
-      }
-    };
-  };
-
-  const calculateDynamicPerformanceMetrics = (policyHolders, campaigns) => {
-    console.log('Calculating Dynamic Performance Metrics...');
-    
-    const now = new Date();
-
-    // RENEWAL PIPELINE FUNNEL (30/60/90-day windows)
-    const renewalFunnel = {
-      thirtyDays: policyHolders.filter(p => {
-        const renewalDate = p.renewal_date;
-        if (!renewalDate) return false;
-        const rDate = new Date(renewalDate);
-        const daysDiff = Math.ceil((rDate - now) / (1000 * 60 * 60 * 24));
-        return daysDiff <= 30 && daysDiff >= 0;
-      }),
-      sixtyDays: policyHolders.filter(p => {
-        const renewalDate = p.renewal_date;
-        if (!renewalDate) return false;
-        const rDate = new Date(renewalDate);
-        const daysDiff = Math.ceil((rDate - now) / (1000 * 60 * 60 * 24));
-        return daysDiff <= 60 && daysDiff > 30;
-      }),
-      ninetyDays: policyHolders.filter(p => {
-        const renewalDate = p.renewal_date;
-        if (!renewalDate) return false;
-        const rDate = new Date(renewalDate);
-        const daysDiff = Math.ceil((rDate - now) / (1000 * 60 * 60 * 24));
-        return daysDiff <= 90 && daysDiff > 60;
-      })
-    };
-
-    // HIGH-RISK CUSTOMER SNAPSHOTS with tier breakdown
-    const highRiskCustomers = policyHolders.filter(p => {
-      const churnRisk = getNumericValue(p.churn_risk);
-      return churnRisk > 60 || p.risk === 'high';
-    });
-
-    const tierBreakdown = highRiskCustomers.reduce((acc, customer) => {
-      const tier = customer.tier || 'Unknown';
-      const tierKey = tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
-      acc[tierKey] = (acc[tierKey] || 0) + 1;
-      return acc;
-    }, {});
-
-    // COVERAGE GAP OPPORTUNITIES (cross-sell identification)
-    const crossSellOpportunities = policyHolders.filter(p => {
-      const engagementScore = getNumericValue(p.engagement_score);
-      const churnRisk = getNumericValue(p.churn_risk);
-      const missingCoverage = p.missing_coverage;
-      return engagementScore > 50 && churnRisk < 50 && missingCoverage && missingCoverage !== 'None';
-    });
-
-    // CHANNEL PERFORMANCE ANALYSIS (App, Email, Call, Advisor)
-    const channelData = policyHolders.reduce((acc, p) => {
-      const channel = p.preferred_channel;
-      if (!acc[channel]) {
-        acc[channel] = { customers: 0, engagementSum: 0, appSessionsSum: 0 };
-      }
-      acc[channel].customers++;
-      acc[channel].engagementSum += getNumericValue(p.engagement_score);
-      acc[channel].appSessionsSum += getNumericValue(p.app_sessions_30_days);
-      return acc;
-    }, {});
-
-    const channelPerformance = Object.entries(channelData).reduce((acc, [channel, data]) => {
-      acc[channel] = {
-        conversions: Math.round((data.engagementSum / data.customers) * 0.8), // Mock conversion rate
-        engagement: Math.round(data.engagementSum / data.customers)
-      };
-      return acc;
-    }, {});
-
-    // CROSS-SELL/UPSELL PERFORMANCE tracking
-    const upsellCampaigns = campaigns.filter(c => c.campaign_type === 'upsell' || c.campaign_type === 'cross_sell');
-    const crossSellUpsellPerformance = {
-      totalCampaigns: upsellCampaigns.length,
-      reachSum: upsellCampaigns.reduce((sum, c) => sum + getNumericValue(c.estimated_reach), 0),
-      conversionRate: upsellCampaigns.length > 0 ? 23.5 : 0 // Mock conversion rate
-    };
-
-    return {
-      renewalFunnel,
-      highRiskCustomers: {
-        total: highRiskCustomers.length,
-        tierBreakdown
-      },
-      crossSellOpportunities: crossSellOpportunities.length,
-      coverageGapDetails: crossSellOpportunities.map(p => ({
-        name: `${p.first_name} ${p.last_name}`,
-        tier: p.tier,
-        missingCoverage: p.missing_coverage,
-        engagementScore: p.engagement_score
-      })),
-      channelPerformance,
-      crossSellUpsellPerformance
-    };
-  };
-
-  const calculateMarketIntelligence = (policyHolders, productPerformance, competitorBenchmark) => {
-    console.log('Calculating Market Intelligence...');
-
-    // PRODUCT BENCHMARKING vs. Competitors (Premium, Renewal Rate, Claims Ratio)
-    const productBenchmarking = productPerformance.map(p => ({
-      productName: p.product_name,
-      performanceLabel: p.performance_label,
-      premiumVsComp1: getNumericValue(p.premium_vs_competitor_1),
-      premiumVsComp2: getNumericValue(p.premium_vs_competitor_2),
-      renewalVsComp1: getNumericValue(p.renewal_vs_competitor_1),
-      renewalVsComp2: getNumericValue(p.renewal_vs_competitor_2),
-      claimsRatio: getNumericValue(p.our_claims_ratio),
-      addOnRate: getNumericValue(p.our_add_on_rate)
-    }));
-
-    // CUSTOMER TIER DISTRIBUTION analytics
-    const tierDistribution = policyHolders.reduce((acc, p) => {
-      const tier = p.tier || 'Unknown';
-      const tierKey = tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
-      acc[tierKey] = (acc[tierKey] || 0) + 1;
-      return acc;
-    }, {});
-
-    // CLV BAND DISTRIBUTION
-    const clvBands = policyHolders.reduce((acc, p) => {
-      const clv = Math.max(getNumericValue(p.lifetime_value), getNumericValue(p.clv));
-      if (clv <= 5000) acc['$0-$5K']++;
-      else if (clv <= 15000) acc['$5K-$15K']++;
-      else if (clv <= 30000) acc['$15K-$30K']++;
-      else acc['$30K+']++;
-      return acc;
-    }, { '$0-$5K': 0, '$5K-$15K': 0, '$15K-$30K': 0, '$30K+': 0 });
-
-    // RISK FACTOR ANALYSIS (Credit, Property, Combined)
-    const riskFactors = policyHolders.reduce((acc, p) => {
-      const creditScore = getNumericValue(p.credit_score);
-      const churnRisk = getNumericValue(p.churn_risk);
-      const creditUtil = getNumericValue(p.credit_utilization_percent);
-
-      if (creditScore > 0 && creditScore < 600) acc.lowCredit++;
-      if (churnRisk > 70) acc.highChurn++;
-      if (creditUtil > 80) acc.highUtilization++;
-      if (p.bankruptcies_flag === '1') acc.bankruptcy++;
-      
-      return acc;
-    }, { lowCredit: 0, highChurn: 0, highUtilization: 0, bankruptcy: 0 });
-
-    // CLAIMS IMPACT ANALYSIS
-    const claimsAnalysis = {
-      avgClaimsRatio: productPerformance.length > 0 
-        ? productPerformance.reduce((sum, p) => sum + getNumericValue(p.our_claims_ratio), 0) / productPerformance.length
-        : 0,
-      claimsImpactOnRenewal: policyHolders.filter(p => {
-        const churnRisk = getNumericValue(p.churn_risk);
-        return churnRisk > 50; // Assume high churn risk indicates claims impact
-      }).length
-    };
-
-    return {
-      productBenchmarking,
-      tierDistribution,
-      clvBands,
-      riskFactors,
-      claimsAnalysis,
-      competitorData: competitorBenchmark.map(c => ({
-        name: c.competitor_name,
-        marketShare: getNumericValue(c.market_share),
-        renewalRate: getNumericValue(c.renewal_rate),
-        claimsRatio: getNumericValue(c.claims_ratio),
-        avgPremium: getNumericValue(c.avg_premium),
-        satisfaction: getNumericValue(c.customer_satisfaction)
-      }))
-    };
   };
 
   if (loading) {
     return (
       <div className="enhanced-dashboard-loading">
         <div className="loading-spinner"></div>
-        <p>Loading Enhanced CLV Dashboard...</p>
+        <p>Loading Enhanced Analytics Dashboard...</p>
       </div>
     );
   }
 
+  if (error) {
+    return (
+      <div className="enhanced-dashboard-error">
+        <h3>Error Loading Dashboard</h3>
+        <p>{error}</p>
+        <button onClick={loadDashboardData} className="retry-button">Retry</button>
+      </div>
+    );
+  }
+
+  if (!dashboardData) {
+    return <div className="no-data">No dashboard data available</div>;
+  }
+
+  const renderOverviewReport = () => (
+    <div className="overview-report">
+      <div className="dashboard-header">
+        <h1>CLV Maximizer Dashboard</h1>
+        <p>Comprehensive Analytics from Policy Holders Data</p>
+      </div>
+
+      {/* Key Metrics Cards */}
+      <div className="metrics-grid">
+        <div className="metric-card primary">
+          <div className="metric-icon">👥</div>
+          <div className="metric-content">
+            <div className="metric-value">{dashboardData.customerMetrics.totalCustomers.toLocaleString()}</div>
+            <div className="metric-label">Total Customers</div>
+            <div className="metric-sublabel">Active Policy Holders</div>
+          </div>
+        </div>
+
+        <div className="metric-card success">
+          <div className="metric-icon">⭐</div>
+          <div className="metric-content">
+            <div className="metric-value">{dashboardData.customerMetrics.highValueCustomers.toLocaleString()}</div>
+            <div className="metric-label">High-Value Customers</div>
+            <div className="metric-sublabel">{dashboardData.customerMetrics.percentageHighValue}% of total</div>
+          </div>
+        </div>
+
+        <div className="metric-card info">
+          <div className="metric-icon">💰</div>
+          <div className="metric-content">
+            <div className="metric-value">${dashboardData.clvAnalytics.avgLifetimeValue.toLocaleString()}</div>
+            <div className="metric-label">Average Lifetime Value</div>
+            <div className="metric-sublabel">${dashboardData.clvAnalytics.avgCLV12Month.toLocaleString()} 12-month</div>
+          </div>
+        </div>
+
+        <div className="metric-card warning">
+          <div className="metric-icon">⚠️</div>
+          <div className="metric-content">
+            <div className="metric-value">{dashboardData.riskAnalytics.avgChurnRisk}%</div>
+            <div className="metric-label">Average Churn Risk</div>
+            <div className="metric-sublabel">{dashboardData.riskAnalytics.churnRiskDistribution.high} high risk</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Quick Insights Grid */}
+      <div className="insights-grid">
+        <div className="insight-card">
+          <h3>🏆 Customer Tier Distribution</h3>
+          <div className="tier-breakdown">
+            {Object.entries(dashboardData.customerMetrics.tierDistribution).map(([tier, customers]) => (
+              <div key={tier} className={`tier-item ${tier}`}>
+                <span className="tier-name">{tier.charAt(0).toUpperCase() + tier.slice(1)}</span>
+                <span className="tier-count">{customers.length}</span>
+                <div className="tier-bar">
+                  <div 
+                    className={`tier-fill ${tier}`} 
+                    style={{width: `${(customers.length / dashboardData.customerMetrics.totalCustomers) * 100}%`}}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="insight-card">
+          <h3>📊 Engagement Levels</h3>
+          <div className="engagement-breakdown">
+            <div className="engagement-item high">
+              <span>High Engagement</span>
+              <span>{dashboardData.engagementMetrics.engagementLevels.high}</span>
+            </div>
+            <div className="engagement-item medium">
+              <span>Medium Engagement</span>
+              <span>{dashboardData.engagementMetrics.engagementLevels.medium}</span>
+            </div>
+            <div className="engagement-item low">
+              <span>Low Engagement</span>
+              <span>{dashboardData.engagementMetrics.engagementLevels.low}</span>
+            </div>
+          </div>
+          <div className="engagement-stats">
+            <p>Avg Score: {dashboardData.engagementMetrics.avgEngagementScore}</p>
+            <p>Avg App Sessions: {dashboardData.engagementMetrics.avgAppSessions}/month</p>
+          </div>
+        </div>
+
+        <div className="insight-card">
+          <h3>📅 Renewal Pipeline</h3>
+          <div className="renewal-timeline">
+            <div className="renewal-period">
+              <div className="period-label">Next 30 Days</div>
+              <div className="period-value urgent">{dashboardData.renewalAnalytics.renewalPipeline.next30Days}</div>
+            </div>
+            <div className="renewal-period">
+              <div className="period-label">Next 60 Days</div>
+              <div className="period-value warning">{dashboardData.renewalAnalytics.renewalPipeline.next60Days}</div>
+            </div>
+            <div className="renewal-period">
+              <div className="period-label">Next 90 Days</div>
+              <div className="period-value normal">{dashboardData.renewalAnalytics.renewalPipeline.next90Days}</div>
+            </div>
+          </div>
+          <div className="renewal-alert">
+            <strong>{dashboardData.renewalAnalytics.atRiskRenewals}</strong> at-risk renewals
+          </div>
+        </div>
+
+        <div className="insight-card">
+          <h3>🎯 Risk Distribution</h3>
+          <div className="risk-breakdown">
+            {Object.entries(dashboardData.riskAnalytics.riskLevelDistribution).map(([level, customers]) => (
+              <div key={level} className={`risk-item ${level}`}>
+                <span className="risk-level">{level.charAt(0).toUpperCase() + level.slice(1)} Risk</span>
+                <span className="risk-count">{customers.length}</span>
+              </div>
+            ))}
+          </div>
+          <div className="credit-risk-summary">
+            <p>Bankruptcy Rate: {dashboardData.riskAnalytics.bankruptcyRate}%</p>
+            <p>Avg Credit Score: {dashboardData.creditRiskInsights.avgCreditScore}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCustomerAnalytics = () => (
+    <div className="customer-analytics">
+      <h2>Customer Analytics</h2>
+      
+      <div className="analytics-grid">
+        <div className="analytics-card">
+          <h3>Demographics Overview</h3>
+          <div className="demographics-stats">
+            <div className="stat-item">
+              <span className="stat-label">Average Age</span>
+              <span className="stat-value">{dashboardData.customerMetrics.avgAge} years</span>
+            </div>
+            <div className="stat-item">
+              <span className="stat-label">Average Tenure</span>
+              <span className="stat-value">{dashboardData.customerMetrics.avgTenure} years</span>
+            </div>
+          </div>
+          <div className="age-groups">
+            <h4>Age Distribution</h4>
+            {Object.entries(dashboardData.customerMetrics.ageGroups).map(([group, count]) => (
+              <div key={group} className="age-group-item">
+                <span>{group}</span>
+                <span>{count} customers</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="analytics-card">
+          <h3>Tier Performance</h3>
+          <div className="tier-performance">
+            {Object.entries(dashboardData.tierAnalytics.tierAnalytics).map(([tier, data]) => (
+              <div key={tier} className={`tier-performance-item ${tier}`}>
+                <div className="tier-header">
+                  <h4>{tier.charAt(0).toUpperCase() + tier.slice(1)}</h4>
+                  <span className="customer-count">{data.count} customers</span>
+                </div>
+                <div className="tier-metrics">
+                  <div className="tier-metric">
+                    <span>Avg LTV</span>
+                    <span>${data.avgLifetimeValue.toLocaleString()}</span>
+                  </div>
+                  <div className="tier-metric">
+                    <span>Engagement</span>
+                    <span>{data.avgEngagementScore}</span>
+                  </div>
+                  <div className="tier-metric">
+                    <span>Churn Risk</span>
+                    <span>{data.avgChurnRisk}%</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="analytics-card">
+          <h3>Channel Preferences</h3>
+          <div className="channel-analysis">
+            {Object.entries(dashboardData.channelPreferences.channelDistribution).map(([channel, customers]) => (
+              <div key={channel} className="channel-item">
+                <div className="channel-info">
+                  <span className="channel-name">{channel}</span>
+                  <span className="channel-count">{customers.length} customers</span>
+                </div>
+                <div className="channel-metrics">
+                  <span>Avg Engagement: {dashboardData.channelPreferences.channelEngagement[channel]?.avgEngagementScore || 'N/A'}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderRiskAnalytics = () => (
+    <div className="risk-analytics">
+      <h2>Risk Analytics</h2>
+      
+      <div className="risk-overview">
+        <div className="risk-card critical">
+          <h3>High Risk Customers</h3>
+          <div className="risk-count">{dashboardData.riskAnalytics.churnRiskDistribution.high}</div>
+          <p>Customers with &gt;70% churn risk</p>
+        </div>
+        
+        <div className="risk-card moderate">
+          <h3>Medium Risk Customers</h3>
+          <div className="risk-count">{dashboardData.riskAnalytics.churnRiskDistribution.medium}</div>
+          <p>Customers with 40-70% churn risk</p>
+        </div>
+        
+        <div className="risk-card safe">
+          <h3>Low Risk Customers</h3>
+          <div className="risk-count">{dashboardData.riskAnalytics.churnRiskDistribution.low}</div>
+          <p>Customers with &lt;40% churn risk</p>
+        </div>
+      </div>
+
+      <div className="credit-risk-analysis">
+        <h3>Credit Risk Factors</h3>
+        <div className="risk-factors-grid">
+          <div className="risk-factor-card">
+            <div className="factor-icon">📉</div>
+            <div className="factor-content">
+              <div className="factor-value">{dashboardData.riskAnalytics.creditRiskFactors.lowCreditScore}</div>
+              <div className="factor-label">Low Credit Score (&lt;600)</div>
+            </div>
+          </div>
+          
+          <div className="risk-factor-card">
+            <div className="factor-icon">💳</div>
+            <div className="factor-content">
+              <div className="factor-value">{dashboardData.riskAnalytics.creditRiskFactors.highUtilization}</div>
+              <div className="factor-label">High Utilization (&gt;80%)</div>
+            </div>
+          </div>
+          
+          <div className="risk-factor-card">
+            <div className="factor-icon">⚖️</div>
+            <div className="factor-content">
+              <div className="factor-value">{dashboardData.riskAnalytics.creditRiskFactors.bankruptcies}</div>
+              <div className="factor-label">Bankruptcy History</div>
+            </div>
+          </div>
+          
+          <div className="risk-factor-card">
+            <div className="factor-icon">🚫</div>
+            <div className="factor-content">
+              <div className="factor-value">{dashboardData.riskAnalytics.creditRiskFactors.multipleDelinquencies}</div>
+              <div className="factor-label">Multiple Delinquencies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="credit-score-distribution">
+        <h3>Credit Score Distribution</h3>
+        <div className="score-bands">
+          {Object.entries(dashboardData.creditRiskInsights.creditScoreBands).map(([band, count]) => (
+            <div key={band} className={`score-band ${band}`}>
+              <span className="band-label">{band.charAt(0).toUpperCase() + band.slice(1)}</span>
+              <span className="band-count">{count}</span>
+            </div>
+          ))}
+        </div>
+        <div className="credit-stats">
+          <p>Average Credit Score: <strong>{dashboardData.creditRiskInsights.avgCreditScore}</strong></p>
+          <p>Average Credit Utilization: <strong>{dashboardData.creditRiskInsights.avgCreditUtilization}%</strong></p>
+        </div>
+      </div>
+    </div>
+  );
+
+  const renderCLVAnalytics = () => (
+    <div className="clv-analytics">
+      <h2>Customer Lifetime Value Analytics</h2>
+      
+      <div className="clv-summary">
+        <div className="clv-metric-card">
+          <h3>Average Lifetime Value</h3>
+          <div className="clv-value">${dashboardData.clvAnalytics.avgLifetimeValue.toLocaleString()}</div>
+        </div>
+        
+        <div className="clv-metric-card">
+          <h3>Average 12-Month CLV</h3>
+          <div className="clv-value">${dashboardData.clvAnalytics.avgCLV12Month.toLocaleString()}</div>
+        </div>
+        
+        <div className="clv-metric-card">
+          <h3>Average CLV Score</h3>
+          <div className="clv-value">{dashboardData.clvAnalytics.avgCLVScore}</div>
+        </div>
+      </div>
+
+      <div className="clv-distribution">
+        <h3>CLV Band Distribution</h3>
+        <div className="clv-bands">
+          <div className="clv-band high">
+            <div className="band-header">
+              <span className="band-title">High CLV (&gt;$50K)</span>
+              <span className="band-count">{dashboardData.clvAnalytics.clvBands.high}</span>
+            </div>
+          </div>
+          
+          <div className="clv-band medium">
+            <div className="band-header">
+              <span className="band-title">Medium CLV ($20K-$50K)</span>
+              <span className="band-count">{dashboardData.clvAnalytics.clvBands.medium}</span>
+            </div>
+          </div>
+          
+          <div className="clv-band low">
+            <div className="band-header">
+              <span className="band-title">Low CLV (&lt;$20K)</span>
+              <span className="band-count">{dashboardData.clvAnalytics.clvBands.low}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="clv-by-tier">
+        <h3>CLV by Customer Tier</h3>
+        <div className="tier-clv-grid">
+          {Object.entries(dashboardData.clvAnalytics.clvByTier).map(([tier, data]) => (
+            <div key={tier} className={`tier-clv-card ${tier}`}>
+              <h4>{tier.charAt(0).toUpperCase() + tier.slice(1)}</h4>
+              <div className="tier-clv-metrics">
+                <div className="clv-metric">
+                  <span>Customers</span>
+                  <span>{data.count}</span>
+                </div>
+                <div className="clv-metric">
+                  <span>Avg LTV</span>
+                  <span>${data.avgLifetimeValue.toLocaleString()}</span>
+                </div>
+                <div className="clv-metric">
+                  <span>Avg 12M CLV</span>
+                  <span>${data.avgCLV12Month.toLocaleString()}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {dashboardData.clvAnalytics.topValueCustomers.length > 0 && (
+        <div className="top-value-customers">
+          <h3>Top Value Customers</h3>
+          <div className="customer-list">
+            {dashboardData.clvAnalytics.topValueCustomers.slice(0, 5).map((customer, index) => (
+              <div key={index} className="customer-item">
+                <div className="customer-info">
+                  <span className="customer-name">{customer.name}</span>
+                  <span className={`customer-tier ${customer.tier}`}>{customer.tier}</span>
+                </div>
+                <div className="customer-value">
+                  <span className="lifetime-value">${customer.lifetimeValue?.toLocaleString() || 'N/A'}</span>
+                  <span className="clv-12m">${customer.clv12Month?.toLocaleString() || 'N/A'} (12M)</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+
+  const reportTabs = [
+    { id: 'overview', label: 'Overview', icon: '📊' },
+    { id: 'customers', label: 'Customer Analytics', icon: '👥' },
+    { id: 'risk', label: 'Risk Analytics', icon: '⚠️' },
+    { id: 'clv', label: 'CLV Analytics', icon: '💰' },
+  ];
+
+  const renderSelectedReport = () => {
+    switch (selectedReport) {
+      case 'overview':
+        return renderOverviewReport();
+      case 'customers':
+        return renderCustomerAnalytics();
+      case 'risk':
+        return renderRiskAnalytics();
+      case 'clv':
+        return renderCLVAnalytics();
+      default:
+        return renderOverviewReport();
+    }
+  };
+
   return (
     <div className="enhanced-dashboard">
-      <div className="dashboard-header">
-        <h1>CLV Maximizer - Enhanced Analytics Dashboard</h1>
+      <div className="dashboard-tabs">
+        {reportTabs.map(tab => (
+          <button
+            key={tab.id}
+            className={`tab-button ${selectedReport === tab.id ? 'active' : ''}`}
+            onClick={() => setSelectedReport(tab.id)}
+          >
+            <span className="tab-icon">{tab.icon}</span>
+            <span className="tab-label">{tab.label}</span>
+          </button>
+        ))}
       </div>
 
       <div className="dashboard-content">
-        {/* Enhanced KPI Row: Real-time performance metrics */}
-        <KPIRow 
-          data={dashboardData.kpis} 
-          onKpiClick={(kpi) => console.log('KPI clicked:', kpi)} 
-        />
+        {renderSelectedReport()}
+      </div>
 
-        {/* Dynamic Performance Metrics */}
-        <PerformanceMetrics 
-          data={dashboardData.performanceMetrics}
-          onMetricClick={(metric) => console.log('Metric clicked:', metric)}
-        />
-
-        {/* Market Intelligence */}
-        <MarketIntelligence 
-          data={dashboardData.marketIntelligence}
-          onIntelligenceClick={(intel) => console.log('Intelligence clicked:', intel)}
-        />
+      <div className="dashboard-footer">
+        <p>Data source: Policy Holders Table • Last updated: {new Date().toLocaleString()}</p>
+        <button onClick={loadDashboardData} className="refresh-button">
+          Refresh Data
+        </button>
       </div>
     </div>
   );
