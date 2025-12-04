@@ -19,7 +19,77 @@
 .dashboard-header p {
   font-size: 1.1rem;
   color: #7f8c8d;
-  margin: 0;
+  margin: 0 0 12px 0;
+}
+
+/* Data Source Information */
+.data-source-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 12px;
+}
+
+.data-source-info small {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* Debug Panel Styles */
+.debug-panel {
+  background: #fff3cd;
+  border: 1px solid #ffeaa7;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.debug-panel h3 {
+  color: #856404;
+  margin: 0 0 16px 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.debug-content {
+  color: #856404;
+}
+
+.debug-success {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 6px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.debug-success p {
+  margin: 8px 0;
+  color: #155724;
+}
+
+.debug-success strong {
+  color: #0c4128;
+}
+
+.debug-success ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.debug-success li {
+  margin: 4px 0;
+  color: #155724;
+}
+
+.debug-error {
+  background: #f8d7da;
+  border: 1px solid #f1aeb5;
+  border-radius: 6px;
+  padding: 16px;
+  color: #721c24;
+  font-weight: 500;
 }
 
 .simple-dashboard-loading {
@@ -29,6 +99,12 @@
   justify-content: center;
   height: 400px;
   color: #6c757d;
+}
+
+.loading-subtext {
+  font-size: 0.9rem;
+  color: #8e9ba6;
+  margin-top: 8px;
 }
 
 .loading-spinner {
@@ -131,6 +207,15 @@
   font-style: italic;
 }
 
+.kpi-source {
+  font-size: 0.75rem;
+  color: #8e9ba6;
+  font-style: italic;
+  margin-top: 4px;
+  padding-top: 4px;
+  border-top: 1px solid #f1f2f6;
+}
+
 /* Dynamic Performance Metrics - Default 2x2 Grid Layout */
 .metrics-grid {
   display: grid;
@@ -172,6 +257,17 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+/* Data Source Notes */
+.data-source-note {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #f1f2f6;
+  font-size: 0.75rem;
+  color: #8e9ba6;
+  font-style: italic;
+  text-align: center;
 }
 
 /* Renewal Pipeline */
@@ -624,6 +720,79 @@
   margin: 8px 0;
 }
 
+/* Dashboard Footer */
+.dashboard-footer {
+  margin-top: 48px;
+  padding: 32px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.data-source-details {
+  flex: 1;
+  min-width: 300px;
+}
+
+.data-source-details strong {
+  color: #2c3e50;
+  font-size: 1.1rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.data-source-details ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.data-source-details li {
+  padding: 6px 0;
+  color: #5a6c7d;
+  border-bottom: 1px solid #f1f2f6;
+  font-size: 0.9rem;
+}
+
+.data-source-details li:last-child {
+  border-bottom: none;
+}
+
+.data-source-details li strong {
+  color: #3498db;
+  font-size: inherit;
+  display: inline;
+  margin: 0;
+}
+
+.refresh-data-btn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(52, 152, 219, 0.3);
+}
+
+.refresh-data-btn:hover {
+  background: linear-gradient(135deg, #2980b9, #21618c);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+.refresh-data-btn:active {
+  transform: translateY(0);
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .intelligence-grid {
@@ -639,6 +808,19 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
+  
+  .dashboard-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .data-source-details {
+    min-width: auto;
+  }
+  
+  .debug-panel {
+    margin-bottom: 24px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -648,6 +830,10 @@
   
   .dashboard-header h1 {
     font-size: 2rem;
+  }
+  
+  .data-source-info {
+    align-items: center;
   }
   
   .simple-kpi-grid {
@@ -683,6 +869,14 @@
   
   .product-card {
     min-width: 240px;
+  }
+  
+  .debug-panel {
+    padding: 16px;
+  }
+  
+  .debug-panel h3 {
+    font-size: 1.1rem;
   }
 }
 
@@ -722,5 +916,22 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 2px;
+  }
+  
+  .dashboard-footer {
+    padding: 20px;
+  }
+  
+  .data-source-details strong {
+    font-size: 1rem;
+  }
+  
+  .refresh-data-btn {
+    width: 100%;
+    padding: 14px 24px;
+  }
+  
+  .debug-panel {
+    padding: 12px;
   }
 }
