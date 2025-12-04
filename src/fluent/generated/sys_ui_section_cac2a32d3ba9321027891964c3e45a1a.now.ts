@@ -1,6 +1,15 @@
 import { Record } from '@servicenow/sdk/core'
 
 Record({
+    $id: Now.ID['1074f1de3b653a1027891964c3e45a7c'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'customer_id',
+        position: 0,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['c2c2a32d3ba9321027891964c3e45a1f'],
     table: 'sys_ui_element',
     data: {
@@ -20,11 +29,38 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a7c'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'first_name',
+        position: 1,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['0ec2a32d3ba9321027891964c3e45a20'],
     table: 'sys_ui_element',
     data: {
         element: 'credit_inquiries_last_6m',
         position: 2,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a7d'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'last_name',
+        position: 2,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a7d'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'email',
+        position: 3,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -38,11 +74,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a7e'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'age',
+        position: 4,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af1'],
     table: 'sys_ui_element',
     data: {
         element: 'abandoned_journeys',
         position: 4,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a7e'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'phone',
+        position: 5,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -56,11 +110,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a7f'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'preferred_channel',
+        position: 6,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af2'],
     table: 'sys_ui_element',
     data: {
         element: 'delinquency_12m',
         position: 6,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a7f'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'number_of_open_accounts',
+        position: 7,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -74,11 +146,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a80'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'number_of_closed_accounts',
+        position: 8,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af3'],
     table: 'sys_ui_element',
     data: {
         element: 'website_visits_30_days',
         position: 8,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a80'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'bankruptcies_flag',
+        position: 9,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -93,11 +183,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a81'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'clv',
+        position: 10,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af4'],
     table: 'sys_ui_element',
     data: {
         element: 'credit_score',
         position: 10,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a81'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'clv_score',
+        position: 11,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -111,11 +219,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a82'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'lifetime_value',
+        position: 12,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af5'],
     table: 'sys_ui_element',
     data: {
         element: 'tenure_years',
         position: 12,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a82'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'delinquency_12m',
+        position: 13,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -129,11 +255,30 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a83'],
+    table: 'sys_ui_element',
+    data: {
+        element: '.split',
+        position: 14,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+        type: '.split',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af6'],
     table: 'sys_ui_element',
     data: {
         element: 'lifetime_value',
         position: 14,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a83'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'tier',
+        position: 15,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -147,6 +292,15 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a84'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'churn_risk',
+        position: 16,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['cac2afe13be9321027891964c3e45af7'],
     table: 'sys_ui_element',
     data: {
@@ -156,11 +310,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a84'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'credit_score',
+        position: 17,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['c2c2afe13be9321027891964c3e45af8'],
     table: 'sys_ui_element',
     data: {
         element: 'first_name',
         position: 17,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a85'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'risk',
+        position: 18,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -175,11 +347,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a85'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'engagement_score',
+        position: 19,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['c2c2afe13be9321027891964c3e45af9'],
     table: 'sys_ui_element',
     data: {
         element: 'missing_coverage',
         position: 19,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a86'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'abandoned_journeys',
+        position: 20,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -194,11 +384,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a86'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'app_sessions_30_days',
+        position: 21,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['c2c2afe13be9321027891964c3e45afa'],
     table: 'sys_ui_element',
     data: {
         element: 'avg_session_time_min',
         position: 21,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a87'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'avg_session_time_min',
+        position: 22,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -212,11 +420,29 @@ Record({
     },
 })
 Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a87'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'credit_inquiries_last_6m',
+        position: 23,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
     $id: Now.ID['c2c2afe13be9321027891964c3e45afb'],
     table: 'sys_ui_element',
     data: {
         element: 'age',
         position: 23,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
+    },
+})
+Record({
+    $id: Now.ID['9474f1de3b653a1027891964c3e45a88'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'credit_utilization_percent',
+        position: 24,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
@@ -228,6 +454,15 @@ Record({
         position: 24,
         sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
         type: '.split',
+    },
+})
+Record({
+    $id: Now.ID['9c74f1de3b653a1027891964c3e45a88'],
+    table: 'sys_ui_element',
+    data: {
+        element: 'tenure_years',
+        position: 25,
+        sys_ui_section: 'cac2a32d3ba9321027891964c3e45a1a',
     },
 })
 Record({

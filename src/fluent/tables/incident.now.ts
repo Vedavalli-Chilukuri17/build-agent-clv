@@ -32,6 +32,7 @@ export const x_hete_clv_maximiz_incident = Table({
                 closed: { label: 'Closed', sequence: 4 },
             },
             default: 'new',
+            dropdown: 'dropdown_with_none',
         }),
         priority: IntegerColumn({
             label: 'Priority',
@@ -42,6 +43,7 @@ export const x_hete_clv_maximiz_incident = Table({
                 '4': { label: 'Low', sequence: 3 },
             },
             default: '3',
+            dropdown: 'dropdown_with_none',
         }),
         opened_at: DateTimeColumn({
             label: 'Opened At',
@@ -53,11 +55,14 @@ export const x_hete_clv_maximiz_incident = Table({
     },
     accessibleFrom: 'public',
     callerAccess: 'tracking',
-    actions: ['read', 'update', 'delete', 'create'],
+    actions: ['read', 'update', 'create'],
     allowWebServiceAccess: true,
     autoNumber: {
         prefix: 'INC',
         number: 1000,
         numberOfDigits: 7,
     },
+    allowClientScripts: true,
+    allowNewFields: true,
+    allowUiActions: true,
 })

@@ -1,4 +1,3 @@
-import '@servicenow/sdk/global'
 import {
     Table,
     IntegerColumn,
@@ -42,19 +41,18 @@ export const x_hete_clv_maximiz_policy_holders = Table({
             label: 'Churn Risk (%)',
             maxLength: 38,
         }),
-        clv_score: DecimalColumn({
-            label: 'CLV Score',
-            maxLength: 38,
-        }),
-        // NEW FIELD: CLV for 12 months (Currency type)
         clv: GenericColumn({
-            columnType: 'currency',
-            label: 'CLV (12 Months)',
-            maxLength: 20,
-            default: '0',
             attributes: {
                 omit_sys_original: true,
             },
+            columnType: 'currency',
+            default: '0',
+            label: 'CLV (12 Months)',
+            maxLength: 20,
+        }),
+        clv_score: DecimalColumn({
+            label: 'CLV Score',
+            maxLength: 38,
         }),
         credit_inquiries_last_6m: IntegerColumn({
             label: 'Credit Inquiries (last 6m)',
@@ -78,10 +76,9 @@ export const x_hete_clv_maximiz_policy_holders = Table({
             columnType: 'email',
             label: 'Email',
         }),
-        // NEW FIELD: Engagement Score
         engagement_score: IntegerColumn({
-            label: 'Engagement Score',
             default: '50',
+            label: 'Engagement Score',
         }),
         first_name: StringColumn({
             label: 'First Name',
@@ -136,11 +133,9 @@ export const x_hete_clv_maximiz_policy_holders = Table({
         quote_views: IntegerColumn({
             label: 'Quote Views',
         }),
-        // NEW FIELD: Renewal Date
         renewal_date: DateColumn({
             label: 'Renewal Date',
         }),
-        // NEW FIELD: Risk Level
         risk: ChoiceColumn({
             choices: {
                 low: {
@@ -170,26 +165,19 @@ export const x_hete_clv_maximiz_policy_holders = Table({
             choices: {
                 bronze: {
                     label: 'Bronze',
-                    sequence: 0,
-                },
-                silver: {
-                    label: 'Silver',
-                    sequence: 1,
                 },
                 gold: {
                     label: 'Gold',
-                    sequence: 2,
                 },
                 platinum: {
                     label: 'Platinum',
-                    sequence: 3,
+                },
+                silver: {
+                    label: 'Silver',
                 },
             },
             dropdown: 'dropdown_with_none',
             label: 'Tier',
-        }),
-        website_visits_30_days: IntegerColumn({
-            label: 'Website Visits (30 Days)',
         }),
         u_risk: StringColumn({
             choices: {
@@ -208,6 +196,9 @@ export const x_hete_clv_maximiz_policy_holders = Table({
             },
             dropdown: 'dropdown_with_none',
             label: 'Risk',
+        }),
+        website_visits_30_days: IntegerColumn({
+            label: 'Website Visits (30 Days)',
         }),
     },
 })

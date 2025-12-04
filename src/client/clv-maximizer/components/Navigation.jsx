@@ -1,6 +1,7 @@
 import React from 'react';
 import './Navigation.css';
 
+// UPDATED 2024-12-28: Changed to "CLV Maximization Solution"
 export default function Navigation({ currentTab, onTabChange }) {
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard' },

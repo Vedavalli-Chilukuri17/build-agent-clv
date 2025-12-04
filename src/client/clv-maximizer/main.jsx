@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import CLVMaximizerApp from './app.jsx';
+import CLVMaximizationSolutionApp from './app.jsx';
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <CLVMaximizerApp />
+    <CLVMaximizationSolutionApp />
   </React.StrictMode>
 );
