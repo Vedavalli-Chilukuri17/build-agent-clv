@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>59da2ddb33c949978bbee26ae93830a8</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>5</abandoned_journeys>
+        <age>29</age>
+        <app_sessions_30_days>35</app_sessions_30_days>
+        <avg_session_time_min>4</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>35</churn_risk>
+        <clv_score>6.8</clv_score>
+        <credit_inquiries_last_6m>4</credit_inquiries_last_6m>
+        <credit_score>720</credit_score>
+        <credit_utilization_percent>45</credit_utilization_percent>
+        <customer_id/>
+        <delinquency_12m>1</delinquency_12m>
+        <email>david.wilson@startup.io</email>
+        <engagement_score/>
+        <first_name>David</first_name>
+        <last_name>Wilson</last_name>
+        <lifetime_value>45800</lifetime_value>
+        <missing_coverage>Disability Insurance</missing_coverage>
+        <name>David Andrew Wilson</name>
+        <number_of_closed_accounts>0</number_of_closed_accounts>
+        <number_of_open_accounts>4</number_of_open_accounts>
+        <phone>+15550104</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>12</quote_views>
+        <renewal_date/>
+        <risk/>
+        <risk_flags>Credit Utilization High</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:42:13</sys_created_on>
+        <sys_id>59da2ddb33c949978bbee26ae93830a8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:42:13</sys_updated_on>
+        <tenure_years>3</tenure_years>
+        <tier>gold</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>42</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:08</sys_created_on>
+        <sys_id>3d42e622eb2d7e904870fc4dbad0cd4f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>David Andrew Wilson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_3d42e622eb2d7e904870fc4dbad0cd4f</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:08</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_3d42e622eb2d7e904870fc4dbad0cd4f</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;59da2ddb33c949978bbee26ae93830a8&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_policy_holders"&gt;
+    &lt;x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE"&gt;
+        &lt;abandoned_journeys&gt;5&lt;/abandoned_journeys&gt;
+        &lt;age&gt;29&lt;/age&gt;
+        &lt;app_sessions_30_days&gt;35&lt;/app_sessions_30_days&gt;
+        &lt;avg_session_time_min&gt;4&lt;/avg_session_time_min&gt;
+        &lt;bankruptcies_flag&gt;false&lt;/bankruptcies_flag&gt;
+        &lt;churn_risk&gt;35&lt;/churn_risk&gt;
+        &lt;clv_score&gt;6.8&lt;/clv_score&gt;
+        &lt;credit_inquiries_last_6m&gt;4&lt;/credit_inquiries_last_6m&gt;
+        &lt;credit_score&gt;720&lt;/credit_score&gt;
+        &lt;credit_utilization_percent&gt;45&lt;/credit_utilization_percent&gt;
+        &lt;customer_id/&gt;
+        &lt;delinquency_12m&gt;1&lt;/delinquency_12m&gt;
+        &lt;email&gt;david.wilson@startup.io&lt;/email&gt;
+        &lt;engagement_score/&gt;
+        &lt;first_name&gt;David&lt;/first_name&gt;
+        &lt;last_name&gt;Wilson&lt;/last_name&gt;
+        &lt;lifetime_value&gt;45800&lt;/lifetime_value&gt;
+        &lt;missing_coverage&gt;Disability Insurance&lt;/missing_coverage&gt;
+        &lt;name&gt;David Andrew Wilson&lt;/name&gt;
+        &lt;number_of_closed_accounts&gt;0&lt;/number_of_closed_accounts&gt;
+        &lt;number_of_open_accounts&gt;4&lt;/number_of_open_accounts&gt;
+        &lt;phone&gt;+15550104&lt;/phone&gt;
+        &lt;preferred_channel&gt;Mobile App&lt;/preferred_channel&gt;
+        &lt;quote_views&gt;12&lt;/quote_views&gt;
+        &lt;renewal_date/&gt;
+        &lt;risk/&gt;
+        &lt;risk_flags&gt;Credit Utilization High&lt;/risk_flags&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:42:13&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;59da2ddb33c949978bbee26ae93830a8&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:42:13&lt;/sys_updated_on&gt;
+        &lt;tenure_years&gt;3&lt;/tenure_years&gt;
+        &lt;tier&gt;gold&lt;/tier&gt;
+        &lt;u_abandoned_journeys/&gt;
+        &lt;u_age/&gt;
+        &lt;u_app_sessions__30_days_/&gt;
+        &lt;u_avg_session_time__min_/&gt;
+        &lt;u_bankruptcies_flag/&gt;
+        &lt;u_churn_risk____/&gt;
+        &lt;u_clv__12_months_/&gt;
+        &lt;u_clv_score/&gt;
+        &lt;u_credit_inquiries__last_6m_/&gt;
+        &lt;u_credit_score/&gt;
+        &lt;u_credit_utilization_percent/&gt;
+        &lt;u_delinquency_12m/&gt;
+        &lt;u_email/&gt;
+        &lt;u_engagement_score/&gt;
+        &lt;u_first_name/&gt;
+        &lt;u_last_name/&gt;
+        &lt;u_lifetime_value____/&gt;
+        &lt;u_missing_coverage/&gt;
+        &lt;u_number_of_closed_accounts/&gt;
+        &lt;u_number_of_open_accounts/&gt;
+        &lt;u_phone/&gt;
+        &lt;u_preferred_channel/&gt;
+        &lt;u_quote_views/&gt;
+        &lt;u_renewal_date/&gt;
+        &lt;u_risk/&gt;
+        &lt;u_risk_flags/&gt;
+        &lt;u_risk_level/&gt;
+        &lt;u_tenure__years_/&gt;
+        &lt;u_tier/&gt;
+        &lt;u_website_visits__30_days_/&gt;
+        &lt;website_visits_30_days&gt;42&lt;/website_visits_30_days&gt;
+    &lt;/x_hete_clv_maximiz_policy_holders&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:49:08&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;3d42e622eb2d7e904870fc4dbad0cd4f&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;David Andrew Wilson&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_3d42e622eb2d7e904870fc4dbad0cd4f&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:49:08&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_policy_holders&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>729688702</payload_hash>
+        <record_name>David Andrew Wilson</record_name>
+        <reverted_from/>
+        <source>9c93222aeb2d7e904870fc4dbad0cddf</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:48</sys_created_on>
+        <sys_id>b093a22aeb2d7e904870fc4dbad0cd33</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae96df4ac0000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:48</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>7c93a22ac02d7e907e2d3bcb75957f32</update_guid>
+        <update_guid_history>7c93a22ac02d7e907e2d3bcb75957f32:0,fd42e622052d7e90a6aea6eee28bd050:-1226460186</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:46:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>13c2385b712048c68d9150979f609e84</sys_id>
+        <sys_metadata>3d42e622eb2d7e904870fc4dbad0cd4f</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>David Andrew Wilson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_3d42e622eb2d7e904870fc4dbad0cd4f</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_3d42e622eb2d7e904870fc4dbad0cd4f">b093a22aeb2d7e904870fc4dbad0cd33</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:46:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

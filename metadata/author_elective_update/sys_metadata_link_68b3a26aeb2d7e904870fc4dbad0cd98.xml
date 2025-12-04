@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>841cadd6425c45b6a51f571956cee701</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_renewal_tracker">
+    <x_hete_clv_maximiz_renewal_tracker action="INSERT_OR_UPDATE">
+        <churn_risk>medium</churn_risk>
+        <clv_score>6.4</clv_score>
+        <customer_id>CUST_005</customer_id>
+        <customer_name>Lisa Thompson</customer_name>
+        <customer_tier>gold</customer_tier>
+        <engagement_score>58</engagement_score>
+        <notes>Mid-tier customer with potential for upselling</notes>
+        <opportunity_score>67</opportunity_score>
+        <renewal_amount>1950</renewal_amount>
+        <renewal_date>2024-03-05</renewal_date>
+        <status>pending</status>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 04:44:41</sys_created_on>
+        <sys_id>841cadd6425c45b6a51f571956cee701</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 04:44:41</sys_updated_on>
+    </x_hete_clv_maximiz_renewal_tracker>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:55:20</sys_created_on>
+        <sys_id>68b3a26aeb2d7e904870fc4dbad0cd98</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Lisa Thompson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_68b3a26aeb2d7e904870fc4dbad0cd98</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:55:20</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_renewal_tracker</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_68b3a26aeb2d7e904870fc4dbad0cd98</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;841cadd6425c45b6a51f571956cee701&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_renewal_tracker"&gt;
+    &lt;x_hete_clv_maximiz_renewal_tracker action="INSERT_OR_UPDATE"&gt;
+        &lt;churn_risk&gt;medium&lt;/churn_risk&gt;
+        &lt;clv_score&gt;6.4&lt;/clv_score&gt;
+        &lt;customer_id&gt;CUST_005&lt;/customer_id&gt;
+        &lt;customer_name&gt;Lisa Thompson&lt;/customer_name&gt;
+        &lt;customer_tier&gt;gold&lt;/customer_tier&gt;
+        &lt;engagement_score&gt;58&lt;/engagement_score&gt;
+        &lt;notes&gt;Mid-tier customer with potential for upselling&lt;/notes&gt;
+        &lt;opportunity_score&gt;67&lt;/opportunity_score&gt;
+        &lt;renewal_amount&gt;1950&lt;/renewal_amount&gt;
+        &lt;renewal_date&gt;2024-03-05&lt;/renewal_date&gt;
+        &lt;status&gt;pending&lt;/status&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 04:44:41&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;841cadd6425c45b6a51f571956cee701&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 04:44:41&lt;/sys_updated_on&gt;
+    &lt;/x_hete_clv_maximiz_renewal_tracker&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:55:20&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;68b3a26aeb2d7e904870fc4dbad0cd98&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Lisa Thompson&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_68b3a26aeb2d7e904870fc4dbad0cd98&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:55:20&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_renewal_tracker&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-193566477</payload_hash>
+        <record_name>Lisa Thompson</record_name>
+        <reverted_from/>
+        <source>d9a72e6eeb6d7e904870fc4dbad0cd73</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 13:12:38</sys_created_on>
+        <sys_id>c6a76e6eeb6d7e904870fc4dbad0cddb</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae97e474b0000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 13:12:38</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>82a76e6e4a6d7e90b7e210c08d4da1db</update_guid>
+        <update_guid_history>82a76e6e4a6d7e90b7e210c08d4da1db:0,2cb3a26ac02d7e9069147bf406dbb499:-97306211</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:45:15</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>36bc5d98fe104f62a1e000cad86785c4</sys_id>
+        <sys_metadata>68b3a26aeb2d7e904870fc4dbad0cd98</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Lisa Thompson</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_68b3a26aeb2d7e904870fc4dbad0cd98</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_68b3a26aeb2d7e904870fc4dbad0cd98">c6a76e6eeb6d7e904870fc4dbad0cddb</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:45:15</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

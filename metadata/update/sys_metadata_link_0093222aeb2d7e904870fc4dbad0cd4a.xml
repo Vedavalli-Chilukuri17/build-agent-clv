@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>0905b0d7043d4f76ba24ea8358a2f1be</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_product_performance">
+    <x_hete_clv_maximiz_product_performance action="INSERT_OR_UPDATE">
+        <data_source>Auto Insurance</data_source>
+        <last_updated>2024-01-18 14:15:00</last_updated>
+        <our_add_on_rate>42</our_add_on_rate>
+        <our_claims_ratio>68</our_claims_ratio>
+        <performance_label>strong</performance_label>
+        <premium_vs_competitor_1>1100</premium_vs_competitor_1>
+        <premium_vs_competitor_2>1200</premium_vs_competitor_2>
+        <product_name>Auto Insurance</product_name>
+        <renewal_vs_competitor_1>76</renewal_vs_competitor_1>
+        <renewal_vs_competitor_2>76.5</renewal_vs_competitor_2>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 10:21:11</sys_created_on>
+        <sys_id>0905b0d7043d4f76ba24ea8358a2f1be</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 05:10:14</sys_updated_on>
+    </x_hete_clv_maximiz_product_performance>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:45</sys_created_on>
+        <sys_id>0093222aeb2d7e904870fc4dbad0cd4a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Auto Insurance</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_0093222aeb2d7e904870fc4dbad0cd4a</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:45</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_product_performance</tablename>
+    </sys_metadata_link>
+</record_update>

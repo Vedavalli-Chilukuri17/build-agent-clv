@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>unload</directory>
+        <documentkey>1ac9d0a1545d40a58ac81b1fa94de9cd</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>4</abandoned_journeys>
+        <age>39</age>
+        <app_sessions_30_days>29</app_sessions_30_days>
+        <avg_session_time_min>6</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>34</churn_risk>
+        <clv_score>6.2</clv_score>
+        <credit_inquiries_last_6m>3</credit_inquiries_last_6m>
+        <credit_score>698</credit_score>
+        <credit_utilization_percent>36</credit_utilization_percent>
+        <customer_id>CUST-2024-1031</customer_id>
+        <delinquency_12m>0</delinquency_12m>
+        <email>angela.brown@hospitality.hotel</email>
+        <first_name>Angela</first_name>
+        <last_name>Brown</last_name>
+        <lifetime_value>49200</lifetime_value>
+        <missing_coverage>Business Travel Protection</missing_coverage>
+        <name>Angela Brown</name>
+        <number_of_closed_accounts>2</number_of_closed_accounts>
+        <number_of_open_accounts>5</number_of_open_accounts>
+        <phone>+15550131</phone>
+        <preferred_channel>Email</preferred_channel>
+        <quote_views>11</quote_views>
+        <risk_flags>Hospitality Industry, Seasonal Variations</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-01 19:22:22</sys_created_on>
+        <sys_id>1ac9d0a1545d40a58ac81b1fa94de9cd</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-01 19:22:22</sys_updated_on>
+        <tenure_years>7</tenure_years>
+        <tier>silver</tier>
+        <website_visits_30_days>20</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>879f4482ebe176904870fc4dbad0cd00</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Angela Brown</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_879f4482ebe176904870fc4dbad0cd00</sys_update_name>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-02 12:51:23</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_879f4482ebe176904870fc4dbad0cd00</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;&lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;&lt;directory&gt;unload&lt;/directory&gt;&lt;documentkey&gt;1ac9d0a1545d40a58ac81b1fa94de9cd&lt;/documentkey&gt;&lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_policy_holders"&gt;
+    &lt;x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE"&gt;
+        &lt;abandoned_journeys&gt;4&lt;/abandoned_journeys&gt;
+        &lt;age&gt;39&lt;/age&gt;
+        &lt;app_sessions_30_days&gt;29&lt;/app_sessions_30_days&gt;
+        &lt;avg_session_time_min&gt;6&lt;/avg_session_time_min&gt;
+        &lt;bankruptcies_flag&gt;false&lt;/bankruptcies_flag&gt;
+        &lt;churn_risk&gt;34&lt;/churn_risk&gt;
+        &lt;clv_score&gt;6.2&lt;/clv_score&gt;
+        &lt;credit_inquiries_last_6m&gt;3&lt;/credit_inquiries_last_6m&gt;
+        &lt;credit_score&gt;698&lt;/credit_score&gt;
+        &lt;credit_utilization_percent&gt;36&lt;/credit_utilization_percent&gt;
+        &lt;customer_id&gt;CUST-2024-1031&lt;/customer_id&gt;
+        &lt;delinquency_12m&gt;0&lt;/delinquency_12m&gt;
+        &lt;email&gt;angela.brown@hospitality.hotel&lt;/email&gt;
+        &lt;first_name&gt;Angela&lt;/first_name&gt;
+        &lt;last_name&gt;Brown&lt;/last_name&gt;
+        &lt;lifetime_value&gt;49200&lt;/lifetime_value&gt;
+        &lt;missing_coverage&gt;Business Travel Protection&lt;/missing_coverage&gt;
+        &lt;name&gt;Angela Brown&lt;/name&gt;
+        &lt;number_of_closed_accounts&gt;2&lt;/number_of_closed_accounts&gt;
+        &lt;number_of_open_accounts&gt;5&lt;/number_of_open_accounts&gt;
+        &lt;phone&gt;+15550131&lt;/phone&gt;
+        &lt;preferred_channel&gt;Email&lt;/preferred_channel&gt;
+        &lt;quote_views&gt;11&lt;/quote_views&gt;
+        &lt;risk_flags&gt;Hospitality Industry, Seasonal Variations&lt;/risk_flags&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-01 19:22:22&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;1ac9d0a1545d40a58ac81b1fa94de9cd&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-01 19:22:22&lt;/sys_updated_on&gt;
+        &lt;tenure_years&gt;7&lt;/tenure_years&gt;
+        &lt;tier&gt;silver&lt;/tier&gt;
+        &lt;website_visits_30_days&gt;20&lt;/website_visits_30_days&gt;
+    &lt;/x_hete_clv_maximiz_policy_holders&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;&lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;&lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2025-12-02 12:51:23&lt;/sys_created_on&gt;&lt;sys_id&gt;879f4482ebe176904870fc4dbad0cd00&lt;/sys_id&gt;&lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;&lt;sys_name&gt;Angela Brown&lt;/sys_name&gt;&lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;&lt;sys_update_name&gt;sys_metadata_link_879f4482ebe176904870fc4dbad0cd00&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-12-02 12:51:23&lt;/sys_updated_on&gt;&lt;tablename&gt;x_hete_clv_maximiz_policy_holders&lt;/tablename&gt;&lt;/sys_metadata_link&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>1222033851</payload_hash>
+        <record_name>Angela Brown</record_name>
+        <reverted_from/>
+        <source>8c60ab2d3ba9321027891964c3e45a8d</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-02 12:51:23</sys_created_on>
+        <sys_id>0b9f4482ebe176904870fc4dbad0cd02</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_recorded_at>19adf1e1a220000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 09:02:06</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>4b9f4482ede176908ebe78f192294601</update_guid>
+        <update_guid_history>4b9f4482ede176908ebe78f192294601:1222033851</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:47:24</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>0b65e14e15d34ad0ae6c5cd4b72de900</sys_id>
+        <sys_metadata>879f4482ebe176904870fc4dbad0cd00</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Angela Brown</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_879f4482ebe176904870fc4dbad0cd00</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_879f4482ebe176904870fc4dbad0cd00">0b9f4482ebe176904870fc4dbad0cd02</sys_update_version>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:47:24</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

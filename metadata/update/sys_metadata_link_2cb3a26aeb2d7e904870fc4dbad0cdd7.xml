@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="INSERT_OR_UPDATE">
+        <directory>update</directory>
+        <documentkey>f3aaece980724e36bf3f098dd0c0d5db</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_renewal_tracker">
+    <x_hete_clv_maximiz_renewal_tracker action="INSERT_OR_UPDATE">
+        <churn_risk>low</churn_risk>
+        <clv_score>9.1</clv_score>
+        <customer_id>CUST_004</customer_id>
+        <customer_name>David Park</customer_name>
+        <customer_tier>platinum</customer_tier>
+        <engagement_score>94</engagement_score>
+        <notes>Premium customer with referral bonus eligibility</notes>
+        <opportunity_score>96</opportunity_score>
+        <renewal_amount>4100</renewal_amount>
+        <renewal_date>2024-03-01</renewal_date>
+        <status>confirmed</status>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 03:51:59</sys_created_on>
+        <sys_id>f3aaece980724e36bf3f098dd0c0d5db</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 03:51:59</sys_updated_on>
+    </x_hete_clv_maximiz_renewal_tracker>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:55:20</sys_created_on>
+        <sys_id>2cb3a26aeb2d7e904870fc4dbad0cdd7</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>David Park</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_2cb3a26aeb2d7e904870fc4dbad0cdd7</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:55:20</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_renewal_tracker</tablename>
+    </sys_metadata_link>
+</record_update>

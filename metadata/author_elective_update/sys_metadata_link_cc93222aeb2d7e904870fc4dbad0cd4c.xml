@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>242d3022eba53e904870fc4dbad0cdfc</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_product_performance">
+    <x_hete_clv_maximiz_product_performance action="INSERT_OR_UPDATE">
+        <data_source>Property Rider</data_source>
+        <last_updated>2024-01-18 14:15:00</last_updated>
+        <our_add_on_rate>29</our_add_on_rate>
+        <our_claims_ratio>55</our_claims_ratio>
+        <performance_label>strong</performance_label>
+        <premium_vs_competitor_1>350</premium_vs_competitor_1>
+        <premium_vs_competitor_2>350</premium_vs_competitor_2>
+        <product_name>Property Rider</product_name>
+        <renewal_vs_competitor_1>72</renewal_vs_competitor_1>
+        <renewal_vs_competitor_2>72</renewal_vs_competitor_2>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 05:27:14</sys_created_on>
+        <sys_id>242d3022eba53e904870fc4dbad0cdfc</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 05:27:14</sys_updated_on>
+    </x_hete_clv_maximiz_product_performance>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:45</sys_created_on>
+        <sys_id>cc93222aeb2d7e904870fc4dbad0cd4c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Property Rider</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_cc93222aeb2d7e904870fc4dbad0cd4c</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:45</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_product_performance</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_cc93222aeb2d7e904870fc4dbad0cd4c</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;242d3022eba53e904870fc4dbad0cdfc&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_product_performance"&gt;
+    &lt;x_hete_clv_maximiz_product_performance action="INSERT_OR_UPDATE"&gt;
+        &lt;data_source&gt;Property Rider&lt;/data_source&gt;
+        &lt;last_updated&gt;2024-01-18 14:15:00&lt;/last_updated&gt;
+        &lt;our_add_on_rate&gt;29&lt;/our_add_on_rate&gt;
+        &lt;our_claims_ratio&gt;55&lt;/our_claims_ratio&gt;
+        &lt;performance_label&gt;strong&lt;/performance_label&gt;
+        &lt;premium_vs_competitor_1&gt;350&lt;/premium_vs_competitor_1&gt;
+        &lt;premium_vs_competitor_2&gt;350&lt;/premium_vs_competitor_2&gt;
+        &lt;product_name&gt;Property Rider&lt;/product_name&gt;
+        &lt;renewal_vs_competitor_1&gt;72&lt;/renewal_vs_competitor_1&gt;
+        &lt;renewal_vs_competitor_2&gt;72&lt;/renewal_vs_competitor_2&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 05:27:14&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;242d3022eba53e904870fc4dbad0cdfc&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 05:27:14&lt;/sys_updated_on&gt;
+    &lt;/x_hete_clv_maximiz_product_performance&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:54:45&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;cc93222aeb2d7e904870fc4dbad0cd4c&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Property Rider&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_cc93222aeb2d7e904870fc4dbad0cd4c&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:54:45&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_product_performance&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-406868654</payload_hash>
+        <record_name>Property Rider</record_name>
+        <reverted_from/>
+        <source>d9a72e6eeb6d7e904870fc4dbad0cd73</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 13:12:40</sys_created_on>
+        <sys_id>a2a7ae6eeb6d7e904870fc4dbad0cdb8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae97e4f820000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 13:12:40</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>6ea7ae6ef56d7e907d8a3613aa7fb1b7</update_guid>
+        <update_guid_history>6ea7ae6ef56d7e907d8a3613aa7fb1b7:0,8093222acc2d7e90e24eb63af4cbb24e:998524534</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:45:17</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>033804c8f4cd4ef780e7c93b49540481</sys_id>
+        <sys_metadata>cc93222aeb2d7e904870fc4dbad0cd4c</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Property Rider</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_cc93222aeb2d7e904870fc4dbad0cd4c</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_cc93222aeb2d7e904870fc4dbad0cd4c">a2a7ae6eeb6d7e904870fc4dbad0cdb8</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:45:17</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

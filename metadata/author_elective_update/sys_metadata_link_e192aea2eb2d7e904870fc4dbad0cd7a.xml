@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>ad403953c09b4d8cab434668bb8b29f9</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_competitor_benchmark">
+    <x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE">
+        <avg_premium>4500</avg_premium>
+        <campaign_uplift>+8.9%</campaign_uplift>
+        <claims_ratio>0.52</claims_ratio>
+        <competitor_name>Commercial Insurance Market</competitor_name>
+        <customer_satisfaction>4.1</customer_satisfaction>
+        <data_source>SMB Insurance Performance Study</data_source>
+        <last_updated>2024-03-20 16:30:00</last_updated>
+        <market_share>9.7</market_share>
+        <premium_vs_competitor>+5.8%</premium_vs_competitor>
+        <product>Business Insurance Package</product>
+        <product_category>Business Insurance</product_category>
+        <purchase_frequency>competitive</purchase_frequency>
+        <renewal_rate>87.9</renewal_rate>
+        <revenue_per_customer>$6K</revenue_per_customer>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 03:51:56</sys_created_on>
+        <sys_id>ad403953c09b4d8cab434668bb8b29f9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 03:51:56</sys_updated_on>
+    </x_hete_clv_maximiz_competitor_benchmark>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:50:29</sys_created_on>
+        <sys_id>e192aea2eb2d7e904870fc4dbad0cd7a</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Business Insurance Package</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_e192aea2eb2d7e904870fc4dbad0cd7a</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:50:29</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_competitor_benchmark</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_e192aea2eb2d7e904870fc4dbad0cd7a</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;ad403953c09b4d8cab434668bb8b29f9&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_competitor_benchmark"&gt;
+    &lt;x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE"&gt;
+        &lt;avg_premium&gt;4500&lt;/avg_premium&gt;
+        &lt;campaign_uplift&gt;+8.9%&lt;/campaign_uplift&gt;
+        &lt;claims_ratio&gt;0.52&lt;/claims_ratio&gt;
+        &lt;competitor_name&gt;Commercial Insurance Market&lt;/competitor_name&gt;
+        &lt;customer_satisfaction&gt;4.1&lt;/customer_satisfaction&gt;
+        &lt;data_source&gt;SMB Insurance Performance Study&lt;/data_source&gt;
+        &lt;last_updated&gt;2024-03-20 16:30:00&lt;/last_updated&gt;
+        &lt;market_share&gt;9.7&lt;/market_share&gt;
+        &lt;premium_vs_competitor&gt;+5.8%&lt;/premium_vs_competitor&gt;
+        &lt;product&gt;Business Insurance Package&lt;/product&gt;
+        &lt;product_category&gt;Business Insurance&lt;/product_category&gt;
+        &lt;purchase_frequency&gt;competitive&lt;/purchase_frequency&gt;
+        &lt;renewal_rate&gt;87.9&lt;/renewal_rate&gt;
+        &lt;revenue_per_customer&gt;$6K&lt;/revenue_per_customer&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 03:51:56&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;ad403953c09b4d8cab434668bb8b29f9&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 03:51:56&lt;/sys_updated_on&gt;
+    &lt;/x_hete_clv_maximiz_competitor_benchmark&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:50:29&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;e192aea2eb2d7e904870fc4dbad0cd7a&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Business Insurance Package&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_e192aea2eb2d7e904870fc4dbad0cd7a&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:50:29&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_competitor_benchmark&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>-519156793</payload_hash>
+        <record_name>Business Insurance Package</record_name>
+        <reverted_from/>
+        <source>9c93222aeb2d7e904870fc4dbad0cddf</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:53</sys_created_on>
+        <sys_id>0a93662aeb2d7e904870fc4dbad0cd0b</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae96e066d0000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:53</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>c293662ad42d7e9020c728163fd7b30b</update_guid>
+        <update_guid_history>c293662ad42d7e9020c728163fd7b30b:0,a592aea2962d7e90efa2d2637c6aef7b:1199221013</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:45:18</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>25f38450470546db8277762517619701</sys_id>
+        <sys_metadata>e192aea2eb2d7e904870fc4dbad0cd7a</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Business Insurance Package</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_e192aea2eb2d7e904870fc4dbad0cd7a</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_e192aea2eb2d7e904870fc4dbad0cd7a">0a93662aeb2d7e904870fc4dbad0cd0b</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:45:18</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

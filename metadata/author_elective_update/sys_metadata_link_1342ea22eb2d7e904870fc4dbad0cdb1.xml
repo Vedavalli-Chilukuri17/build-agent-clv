@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>b2ffc435e5074383990994667c348c95</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_policy_holders">
+    <x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE">
+        <abandoned_journeys>1</abandoned_journeys>
+        <age>38</age>
+        <app_sessions_30_days>58</app_sessions_30_days>
+        <avg_session_time_min>11</avg_session_time_min>
+        <bankruptcies_flag>false</bankruptcies_flag>
+        <churn_risk>9</churn_risk>
+        <clv_score>8.9</clv_score>
+        <credit_inquiries_last_6m>2</credit_inquiries_last_6m>
+        <credit_score>805</credit_score>
+        <credit_utilization_percent>16</credit_utilization_percent>
+        <customer_id>CUST-2024-1023</customer_id>
+        <delinquency_12m>0</delinquency_12m>
+        <email>marcus.thompson.jr@finance.corp</email>
+        <engagement_score/>
+        <first_name>Marcus</first_name>
+        <last_name>Thompson</last_name>
+        <lifetime_value>172500</lifetime_value>
+        <missing_coverage>Executive Protection</missing_coverage>
+        <name>Marcus Thompson Jr.</name>
+        <number_of_closed_accounts>3</number_of_closed_accounts>
+        <number_of_open_accounts>13</number_of_open_accounts>
+        <phone>+15550123</phone>
+        <preferred_channel>Mobile App</preferred_channel>
+        <quote_views>4</quote_views>
+        <renewal_date/>
+        <risk/>
+        <risk_flags>Executive Level, High Engagement</risk_flags>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:42:14</sys_created_on>
+        <sys_id>b2ffc435e5074383990994667c348c95</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:42:14</sys_updated_on>
+        <tenure_years>9</tenure_years>
+        <tier>platinum</tier>
+        <u_abandoned_journeys/>
+        <u_age/>
+        <u_app_sessions__30_days_/>
+        <u_avg_session_time__min_/>
+        <u_bankruptcies_flag/>
+        <u_churn_risk____/>
+        <u_clv__12_months_/>
+        <u_clv_score/>
+        <u_credit_inquiries__last_6m_/>
+        <u_credit_score/>
+        <u_credit_utilization_percent/>
+        <u_delinquency_12m/>
+        <u_email/>
+        <u_engagement_score/>
+        <u_first_name/>
+        <u_last_name/>
+        <u_lifetime_value____/>
+        <u_missing_coverage/>
+        <u_number_of_closed_accounts/>
+        <u_number_of_open_accounts/>
+        <u_phone/>
+        <u_preferred_channel/>
+        <u_quote_views/>
+        <u_renewal_date/>
+        <u_risk/>
+        <u_risk_flags/>
+        <u_risk_level/>
+        <u_tenure__years_/>
+        <u_tier/>
+        <u_website_visits__30_days_/>
+        <website_visits_30_days>31</website_visits_30_days>
+    </x_hete_clv_maximiz_policy_holders>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:49:14</sys_created_on>
+        <sys_id>1342ea22eb2d7e904870fc4dbad0cdb1</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Marcus Thompson Jr.</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_1342ea22eb2d7e904870fc4dbad0cdb1</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:49:14</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_policy_holders</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_1342ea22eb2d7e904870fc4dbad0cdb1</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;b2ffc435e5074383990994667c348c95&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_policy_holders"&gt;
+    &lt;x_hete_clv_maximiz_policy_holders action="INSERT_OR_UPDATE"&gt;
+        &lt;abandoned_journeys&gt;1&lt;/abandoned_journeys&gt;
+        &lt;age&gt;38&lt;/age&gt;
+        &lt;app_sessions_30_days&gt;58&lt;/app_sessions_30_days&gt;
+        &lt;avg_session_time_min&gt;11&lt;/avg_session_time_min&gt;
+        &lt;bankruptcies_flag&gt;false&lt;/bankruptcies_flag&gt;
+        &lt;churn_risk&gt;9&lt;/churn_risk&gt;
+        &lt;clv_score&gt;8.9&lt;/clv_score&gt;
+        &lt;credit_inquiries_last_6m&gt;2&lt;/credit_inquiries_last_6m&gt;
+        &lt;credit_score&gt;805&lt;/credit_score&gt;
+        &lt;credit_utilization_percent&gt;16&lt;/credit_utilization_percent&gt;
+        &lt;customer_id&gt;CUST-2024-1023&lt;/customer_id&gt;
+        &lt;delinquency_12m&gt;0&lt;/delinquency_12m&gt;
+        &lt;email&gt;marcus.thompson.jr@finance.corp&lt;/email&gt;
+        &lt;engagement_score/&gt;
+        &lt;first_name&gt;Marcus&lt;/first_name&gt;
+        &lt;last_name&gt;Thompson&lt;/last_name&gt;
+        &lt;lifetime_value&gt;172500&lt;/lifetime_value&gt;
+        &lt;missing_coverage&gt;Executive Protection&lt;/missing_coverage&gt;
+        &lt;name&gt;Marcus Thompson Jr.&lt;/name&gt;
+        &lt;number_of_closed_accounts&gt;3&lt;/number_of_closed_accounts&gt;
+        &lt;number_of_open_accounts&gt;13&lt;/number_of_open_accounts&gt;
+        &lt;phone&gt;+15550123&lt;/phone&gt;
+        &lt;preferred_channel&gt;Mobile App&lt;/preferred_channel&gt;
+        &lt;quote_views&gt;4&lt;/quote_views&gt;
+        &lt;renewal_date/&gt;
+        &lt;risk/&gt;
+        &lt;risk_flags&gt;Executive Level, High Engagement&lt;/risk_flags&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:42:14&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;b2ffc435e5074383990994667c348c95&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:42:14&lt;/sys_updated_on&gt;
+        &lt;tenure_years&gt;9&lt;/tenure_years&gt;
+        &lt;tier&gt;platinum&lt;/tier&gt;
+        &lt;u_abandoned_journeys/&gt;
+        &lt;u_age/&gt;
+        &lt;u_app_sessions__30_days_/&gt;
+        &lt;u_avg_session_time__min_/&gt;
+        &lt;u_bankruptcies_flag/&gt;
+        &lt;u_churn_risk____/&gt;
+        &lt;u_clv__12_months_/&gt;
+        &lt;u_clv_score/&gt;
+        &lt;u_credit_inquiries__last_6m_/&gt;
+        &lt;u_credit_score/&gt;
+        &lt;u_credit_utilization_percent/&gt;
+        &lt;u_delinquency_12m/&gt;
+        &lt;u_email/&gt;
+        &lt;u_engagement_score/&gt;
+        &lt;u_first_name/&gt;
+        &lt;u_last_name/&gt;
+        &lt;u_lifetime_value____/&gt;
+        &lt;u_missing_coverage/&gt;
+        &lt;u_number_of_closed_accounts/&gt;
+        &lt;u_number_of_open_accounts/&gt;
+        &lt;u_phone/&gt;
+        &lt;u_preferred_channel/&gt;
+        &lt;u_quote_views/&gt;
+        &lt;u_renewal_date/&gt;
+        &lt;u_risk/&gt;
+        &lt;u_risk_flags/&gt;
+        &lt;u_risk_level/&gt;
+        &lt;u_tenure__years_/&gt;
+        &lt;u_tier/&gt;
+        &lt;u_website_visits__30_days_/&gt;
+        &lt;website_visits_30_days&gt;31&lt;/website_visits_30_days&gt;
+    &lt;/x_hete_clv_maximiz_policy_holders&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:49:14&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;1342ea22eb2d7e904870fc4dbad0cdb1&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Marcus Thompson Jr.&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_1342ea22eb2d7e904870fc4dbad0cdb1&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:49:14&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_policy_holders&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>332248076</payload_hash>
+        <record_name>Marcus Thompson Jr.</record_name>
+        <reverted_from/>
+        <source>9c93222aeb2d7e904870fc4dbad0cddf</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:47</sys_created_on>
+        <sys_id>e493622aeb2d7e904870fc4dbad0cd67</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae96def380000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:47</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>a093622aa62d7e9051c21ea538128467</update_guid>
+        <update_guid_history>a093622aa62d7e9051c21ea538128467:0,d342ea229d2d7e90c726699469552cb2:185819192</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:46:14</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>24c43dcc491e40d48ffa36b105c8ace4</sys_id>
+        <sys_metadata>1342ea22eb2d7e904870fc4dbad0cdb1</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Marcus Thompson Jr.</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_1342ea22eb2d7e904870fc4dbad0cdb1</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_1342ea22eb2d7e904870fc4dbad0cdb1">e493622aeb2d7e904870fc4dbad0cd67</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:46:14</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

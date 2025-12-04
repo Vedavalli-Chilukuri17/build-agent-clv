@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>6b107218e3f84c9f99081741fe8a0352</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_competitor_benchmark">
+    <x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE">
+        <avg_premium>890</avg_premium>
+        <campaign_uplift>+13.2%</campaign_uplift>
+        <claims_ratio>0.59</claims_ratio>
+        <competitor_name>UBI Insurance Market</competitor_name>
+        <customer_satisfaction>4.2</customer_satisfaction>
+        <data_source>Telematics Insurance Innovation Report</data_source>
+        <last_updated>2024-03-20 17:30:00</last_updated>
+        <market_share>2.8</market_share>
+        <premium_vs_competitor>+7.3%</premium_vs_competitor>
+        <product>Usage-Based Auto Insurance</product>
+        <product_category>Usage-Based Insurance</product_category>
+        <purchase_frequency>competitive</purchase_frequency>
+        <renewal_rate>81.3</renewal_rate>
+        <revenue_per_customer>$3K</revenue_per_customer>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 03:51:56</sys_created_on>
+        <sys_id>6b107218e3f84c9f99081741fe8a0352</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 03:51:56</sys_updated_on>
+    </x_hete_clv_maximiz_competitor_benchmark>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:50:28</sys_created_on>
+        <sys_id>9d926ea2eb2d7e904870fc4dbad0cd13</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Usage-Based Auto Insurance</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_9d926ea2eb2d7e904870fc4dbad0cd13</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:50:28</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_competitor_benchmark</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_9d926ea2eb2d7e904870fc4dbad0cd13</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;6b107218e3f84c9f99081741fe8a0352&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_competitor_benchmark"&gt;
+    &lt;x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE"&gt;
+        &lt;avg_premium&gt;890&lt;/avg_premium&gt;
+        &lt;campaign_uplift&gt;+13.2%&lt;/campaign_uplift&gt;
+        &lt;claims_ratio&gt;0.59&lt;/claims_ratio&gt;
+        &lt;competitor_name&gt;UBI Insurance Market&lt;/competitor_name&gt;
+        &lt;customer_satisfaction&gt;4.2&lt;/customer_satisfaction&gt;
+        &lt;data_source&gt;Telematics Insurance Innovation Report&lt;/data_source&gt;
+        &lt;last_updated&gt;2024-03-20 17:30:00&lt;/last_updated&gt;
+        &lt;market_share&gt;2.8&lt;/market_share&gt;
+        &lt;premium_vs_competitor&gt;+7.3%&lt;/premium_vs_competitor&gt;
+        &lt;product&gt;Usage-Based Auto Insurance&lt;/product&gt;
+        &lt;product_category&gt;Usage-Based Insurance&lt;/product_category&gt;
+        &lt;purchase_frequency&gt;competitive&lt;/purchase_frequency&gt;
+        &lt;renewal_rate&gt;81.3&lt;/renewal_rate&gt;
+        &lt;revenue_per_customer&gt;$3K&lt;/revenue_per_customer&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 03:51:56&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;6b107218e3f84c9f99081741fe8a0352&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 03:51:56&lt;/sys_updated_on&gt;
+    &lt;/x_hete_clv_maximiz_competitor_benchmark&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:50:28&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;9d926ea2eb2d7e904870fc4dbad0cd13&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Usage-Based Auto Insurance&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_9d926ea2eb2d7e904870fc4dbad0cd13&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:50:28&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_competitor_benchmark&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>531970067</payload_hash>
+        <record_name>Usage-Based Auto Insurance</record_name>
+        <reverted_from/>
+        <source>9c93222aeb2d7e904870fc4dbad0cddf</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:51</sys_created_on>
+        <sys_id>a193262aeb2d7e904870fc4dbad0cd08</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae96dff340000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:51</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>6d93262af02d7e90b297d9b7895a3c07</update_guid>
+        <update_guid_history>6d93262af02d7e90b297d9b7895a3c07:0,51926ea27b2d7e90fc9eb4979515a115:-1272044451</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:45:16</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>af11fb24c99944ac918c537b2d068f51</sys_id>
+        <sys_metadata>9d926ea2eb2d7e904870fc4dbad0cd13</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Usage-Based Auto Insurance</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_9d926ea2eb2d7e904870fc4dbad0cd13</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_9d926ea2eb2d7e904870fc4dbad0cd13">a193262aeb2d7e904870fc4dbad0cd08</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:45:16</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

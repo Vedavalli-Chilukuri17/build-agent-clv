@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_metadata_link">
+    <sys_metadata_link action="DELETE">
+        <directory>update</directory>
+        <documentkey>9fbe0664370943c0b34bae976dcbcd2f</documentkey>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="x_hete_clv_maximiz_competitor_benchmark">
+    <x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE">
+        <avg_premium>3150</avg_premium>
+        <campaign_uplift>+10.3%</campaign_uplift>
+        <claims_ratio>0.78</claims_ratio>
+        <competitor_name>Health Insurance Market</competitor_name>
+        <customer_satisfaction>3.7</customer_satisfaction>
+        <data_source>Healthcare Product Benchmarking 2024</data_source>
+        <last_updated>2024-03-20 11:15:00</last_updated>
+        <market_share>12.8</market_share>
+        <premium_vs_competitor>+2.8%</premium_vs_competitor>
+        <product>Health Insurance Plus</product>
+        <product_category>Health Insurance</product_category>
+        <purchase_frequency>competitive</purchase_frequency>
+        <renewal_rate>79.4</renewal_rate>
+        <revenue_per_customer>$4K</revenue_per_customer>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 04:44:39</sys_created_on>
+        <sys_id>9fbe0664370943c0b34bae976dcbcd2f</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 04:44:39</sys_updated_on>
+    </x_hete_clv_maximiz_competitor_benchmark>
+</record_update>
+]]></payload>
+        <sys_class_name>sys_metadata_link</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:50:28</sys_created_on>
+        <sys_id>1d926ea2eb2d7e904870fc4dbad0cdf5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Health Insurance Plus</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_update_name>sys_metadata_link_1d926ea2eb2d7e904870fc4dbad0cdf5</sys_update_name>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:50:28</sys_updated_on>
+        <tablename>x_hete_clv_maximiz_competitor_benchmark</tablename>
+    </sys_metadata_link>
+<sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</application>
+        <file_path/>
+        <instance_id>19d9a8401b3bf11419254089bd4bcbcc</instance_id>
+        <instance_name>ven06937</instance_name>
+        <name>sys_metadata_link_1d926ea2eb2d7e904870fc4dbad0cdf5</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sys_metadata_link"&gt;
+    &lt;sys_metadata_link action="INSERT_OR_UPDATE"&gt;
+        &lt;directory&gt;update&lt;/directory&gt;
+        &lt;documentkey&gt;9fbe0664370943c0b34bae976dcbcd2f&lt;/documentkey&gt;
+        &lt;payload&gt;&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="x_hete_clv_maximiz_competitor_benchmark"&gt;
+    &lt;x_hete_clv_maximiz_competitor_benchmark action="INSERT_OR_UPDATE"&gt;
+        &lt;avg_premium&gt;3150&lt;/avg_premium&gt;
+        &lt;campaign_uplift&gt;+10.3%&lt;/campaign_uplift&gt;
+        &lt;claims_ratio&gt;0.78&lt;/claims_ratio&gt;
+        &lt;competitor_name&gt;Health Insurance Market&lt;/competitor_name&gt;
+        &lt;customer_satisfaction&gt;3.7&lt;/customer_satisfaction&gt;
+        &lt;data_source&gt;Healthcare Product Benchmarking 2024&lt;/data_source&gt;
+        &lt;last_updated&gt;2024-03-20 11:15:00&lt;/last_updated&gt;
+        &lt;market_share&gt;12.8&lt;/market_share&gt;
+        &lt;premium_vs_competitor&gt;+2.8%&lt;/premium_vs_competitor&gt;
+        &lt;product&gt;Health Insurance Plus&lt;/product&gt;
+        &lt;product_category&gt;Health Insurance&lt;/product_category&gt;
+        &lt;purchase_frequency&gt;competitive&lt;/purchase_frequency&gt;
+        &lt;renewal_rate&gt;79.4&lt;/renewal_rate&gt;
+        &lt;revenue_per_customer&gt;$4K&lt;/revenue_per_customer&gt;
+        &lt;sys_created_by&gt;vedavallic@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 04:44:39&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;9fbe0664370943c0b34bae976dcbcd2f&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_updated_by&gt;vedavallic@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 04:44:39&lt;/sys_updated_on&gt;
+    &lt;/x_hete_clv_maximiz_competitor_benchmark&gt;
+&lt;/record_update&gt;
+]]&gt;&lt;/payload&gt;
+        &lt;sys_class_name&gt;sys_metadata_link&lt;/sys_class_name&gt;
+        &lt;sys_created_by&gt;VedavalliC@hexaware.com&lt;/sys_created_by&gt;
+        &lt;sys_created_on&gt;2025-12-04 12:50:28&lt;/sys_created_on&gt;
+        &lt;sys_id&gt;1d926ea2eb2d7e904870fc4dbad0cdf5&lt;/sys_id&gt;
+        &lt;sys_mod_count&gt;0&lt;/sys_mod_count&gt;
+        &lt;sys_name&gt;Health Insurance Plus&lt;/sys_name&gt;
+        &lt;sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_package&gt;
+        &lt;sys_policy/&gt;
+        &lt;sys_scope display_value="Customer Lifetime Value Maximisation Solution"&gt;2a5016a53be9f29027891964c3e45a9c&lt;/sys_scope&gt;
+        &lt;sys_update_name&gt;sys_metadata_link_1d926ea2eb2d7e904870fc4dbad0cdf5&lt;/sys_update_name&gt;
+        &lt;sys_updated_by&gt;VedavalliC@hexaware.com&lt;/sys_updated_by&gt;
+        &lt;sys_updated_on&gt;2025-12-04 12:50:28&lt;/sys_updated_on&gt;
+        &lt;tablename&gt;x_hete_clv_maximiz_competitor_benchmark&lt;/tablename&gt;
+    &lt;/sys_metadata_link&gt;
+&lt;/record_update&gt;</payload>
+        <payload_hash>394340807</payload_hash>
+        <record_name>Health Insurance Plus</record_name>
+        <reverted_from/>
+        <source>9c93222aeb2d7e904870fc4dbad0cddf</source>
+        <source_table>sys_upgrade_history</source_table>
+        <state>previous</state>
+        <sys_created_by>vedavallic@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 12:54:47</sys_created_on>
+        <sys_id>ac93622aeb2d7e904870fc4dbad0cd89</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>19ae96df0610000001</sys_recorded_at>
+        <sys_updated_by>vedavallic@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 12:54:47</sys_updated_on>
+        <type>Metadata Snapshot</type>
+        <update_guid>6893622a282d7e90fefdb7f08a729889</update_guid>
+        <update_guid_history>6893622a282d7e90fefdb7f08a729889:0,dd926ea23b2d7e90f837054e9026cdf6:1611793093</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete/>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>VedavalliC@hexaware.com</sys_created_by>
+        <sys_created_on>2025-12-04 14:45:13</sys_created_on>
+        <sys_db_object display_value="" name="sys_metadata_link">sys_metadata_link</sys_db_object>
+        <sys_id>2d54c2f2754847c0ae4e902515060400</sys_id>
+        <sys_metadata>1d926ea2eb2d7e904870fc4dbad0cdf5</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Health Insurance Plus</sys_name>
+        <sys_package display_value="Customer Lifetime Value Maximisation Solution" source="x_hete_clv_maximiz">2a5016a53be9f29027891964c3e45a9c</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Customer Lifetime Value Maximisation Solution">2a5016a53be9f29027891964c3e45a9c</sys_scope>
+        <sys_scope_delete display_value="">01fde59dc0a84ad8869358282bbe4404</sys_scope_delete>
+        <sys_update_name>sys_metadata_link_1d926ea2eb2d7e904870fc4dbad0cdf5</sys_update_name>
+        <sys_update_version display_value="sys_metadata_link_1d926ea2eb2d7e904870fc4dbad0cdf5">ac93622aeb2d7e904870fc4dbad0cd89</sys_update_version>
+        <sys_updated_by>VedavalliC@hexaware.com</sys_updated_by>
+        <sys_updated_on>2025-12-04 14:45:13</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
