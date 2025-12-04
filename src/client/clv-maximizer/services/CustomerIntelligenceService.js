@@ -1,17 +1,30 @@
 export class CustomerIntelligenceService {
   constructor() {
     this.baseUrl = '/api/now/table';
-    this.headers = {
-      "Accept": "application/json",
-      "X-UserToken": window.g_ck
+    // Don't set X-UserToken in constructor - set it dynamically in each request
+    this.baseHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     };
+  }
+
+  // Helper method to get headers with authentication
+  getHeaders() {
+    const headers = { ...this.baseHeaders };
+    
+    // Only add X-UserToken if it's available
+    if (window.g_ck) {
+      headers['X-UserToken'] = window.g_ck;
+    }
+    
+    return headers;
   }
 
   // Fetch customer data from csm_consumer table specifically
   async getCSMConsumerData() {
     try {
       const response = await fetch(`${this.baseUrl}/csm_consumer?sysparm_display_value=all&sysparm_limit=1000`, {
-        headers: this.headers
+        headers: this.getHeaders()
       });
       
       if (!response.ok) {

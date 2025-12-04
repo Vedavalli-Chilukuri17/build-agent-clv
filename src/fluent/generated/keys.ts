@@ -12,14 +12,17 @@ declare global {
                     '02b22be13be9321027891964c3e45a30': {
                         table: 'sys_transform_entry'
                         id: '02b22be13be9321027891964c3e45a30'
+                        deleted: true
                     }
                     '02b22be13be9321027891964c3e45a58': {
                         table: 'sys_transform_entry'
                         id: '02b22be13be9321027891964c3e45a58'
+                        deleted: true
                     }
                     '06b22be13be9321027891964c3e45a25': {
                         table: 'sys_transform_entry'
                         id: '06b22be13be9321027891964c3e45a25'
+                        deleted: true
                     }
                     '06c2a32d3ba9321027891964c3e45a20': {
                         table: 'sys_ui_element'
@@ -28,10 +31,12 @@ declare global {
                     '0de29da2eba93e904870fc4dbad0cdcf': {
                         table: 'sys_transform_entry'
                         id: '0de29da2eba93e904870fc4dbad0cdcf'
+                        deleted: true
                     }
                     '0eb22be13be9321027891964c3e45a10': {
                         table: 'sys_transform_entry'
                         id: '0eb22be13be9321027891964c3e45a10'
+                        deleted: true
                     }
                     '0ec2a32d3ba9321027891964c3e45a20': {
                         table: 'sys_ui_element'
@@ -44,6 +49,7 @@ declare global {
                     '11e211e2eba93e904870fc4dbad0cd8c': {
                         table: 'sys_transform_entry'
                         id: '11e211e2eba93e904870fc4dbad0cd8c'
+                        deleted: true
                     }
                     '13c223253be9321027891964c3e45a4c': {
                         table: 'sys_security_acl'
@@ -56,10 +62,21 @@ declare global {
                     '19e211e2eba93e904870fc4dbad0cd91': {
                         table: 'sys_transform_entry'
                         id: '19e211e2eba93e904870fc4dbad0cd91'
+                        deleted: true
                     }
                     '1de211e2eba93e904870fc4dbad0cd8e': {
                         table: 'sys_transform_entry'
                         id: '1de211e2eba93e904870fc4dbad0cd8e'
+                        deleted: true
+                    }
+                    '1ea313980e4c4ae298f934948ac255ee': {
+                        table: 'sys_ui_page'
+                        id: '1ea313980e4c4ae298f934948ac255ee'
+                    }
+                    '214a9aa747594fb8ad690fcba8524815': {
+                        table: 'sys_script'
+                        id: '214a9aa747594fb8ad690fcba8524815'
+                        deleted: true
                     }
                     '22bdec2eeba13e904870fc4dbad0cd86': {
                         table: 'sys_ui_element'
@@ -84,6 +101,11 @@ declare global {
                     '22bdec2eeba13e904870fc4dbad0cd8b': {
                         table: 'sys_ui_element'
                         id: '22bdec2eeba13e904870fc4dbad0cd8b'
+                    }
+                    '2618f7d2f4604c8f8339a9ba5aef710b': {
+                        table: 'sys_ui_page'
+                        id: '2618f7d2f4604c8f8339a9ba5aef710b'
+                        deleted: true
                     }
                     '2a869c0aeb6576904870fc4dbad0cde2': {
                         table: 'sys_app_module'
@@ -116,6 +138,7 @@ declare global {
                     '2dd1d5eeeb693e904870fc4dbad0cd78': {
                         table: 'sys_data_source'
                         id: '2dd1d5eeeb693e904870fc4dbad0cd78'
+                        deleted: true
                     }
                     '2ebdec2eeba13e904870fc4dbad0cd4b': {
                         table: 'sys_ui_section'
@@ -124,14 +147,22 @@ declare global {
                     '31b2e7e13be9321027891964c3e45add': {
                         table: 'sys_transform_entry'
                         id: '31b2e7e13be9321027891964c3e45add'
+                        deleted: true
+                    }
+                    '31ff28c7012d42dfb7bafc28b5598a94': {
+                        table: 'sys_script'
+                        id: '31ff28c7012d42dfb7bafc28b5598a94'
+                        deleted: true
                     }
                     '35b2e7e13be9321027891964c3e45afc': {
                         table: 'sys_transform_entry'
                         id: '35b2e7e13be9321027891964c3e45afc'
+                        deleted: true
                     }
                     '39b2e7e13be9321027891964c3e45ac8': {
                         table: 'sys_transform_entry'
                         id: '39b2e7e13be9321027891964c3e45ac8'
+                        deleted: true
                     }
                     '40c2cda2ebe53e904870fc4dbad0cd90': {
                         table: 'sys_ui_element'
@@ -140,10 +171,17 @@ declare global {
                     '46b22be13be9321027891964c3e45a2d': {
                         table: 'sys_transform_entry'
                         id: '46b22be13be9321027891964c3e45a2d'
+                        deleted: true
                     }
                     '49d21da2eba93e904870fc4dbad0cd5e': {
                         table: 'sys_data_source'
                         id: '49d21da2eba93e904870fc4dbad0cd5e'
+                        deleted: true
+                    }
+                    '4d6366eb4682413f85eaf155590a89e1': {
+                        table: 'sys_script_client'
+                        id: '4d6366eb4682413f85eaf155590a89e1'
+                        deleted: true
                     }
                     '54a87d1e3ba53a1027891964c3e45afb': {
                         table: 'sys_ui_element'
@@ -232,10 +270,12 @@ declare global {
                     '71b22be13be9321027891964c3e45a0e': {
                         table: 'sys_transform_entry'
                         id: '71b22be13be9321027891964c3e45a0e'
+                        deleted: true
                     }
                     '71b2e7e13be9321027891964c3e45ae5': {
                         table: 'sys_transform_entry'
                         id: '71b2e7e13be9321027891964c3e45ae5'
+                        deleted: true
                     }
                     '74e55446eb6576904870fc4dbad0cdc6': {
                         table: 'sys_app_module'
@@ -244,14 +284,22 @@ declare global {
                     '75b2e7e13be9321027891964c3e45ada': {
                         table: 'sys_transform_entry'
                         id: '75b2e7e13be9321027891964c3e45ada'
+                        deleted: true
+                    }
+                    '77e569f07ee74496b82297bd20860f9f': {
+                        table: 'sys_script'
+                        id: '77e569f07ee74496b82297bd20860f9f'
+                        deleted: true
                     }
                     '79b2e7e13be9321027891964c3e45af9': {
                         table: 'sys_transform_entry'
                         id: '79b2e7e13be9321027891964c3e45af9'
+                        deleted: true
                     }
                     '7db2e7e13be9321027891964c3e45ac5': {
                         table: 'sys_transform_entry'
                         id: '7db2e7e13be9321027891964c3e45ac5'
+                        deleted: true
                     }
                     '7f850deaebe53e904870fc4dbad0cdc2': {
                         table: 'sys_app_module'
@@ -261,22 +309,31 @@ declare global {
                     '81e211e2eba93e904870fc4dbad0cd0a': {
                         table: 'sys_transform_entry'
                         id: '81e211e2eba93e904870fc4dbad0cd0a'
+                        deleted: true
                     }
                     '82324162ebe53e904870fc4dbad0cd6f': {
                         table: 'sys_ui_form'
                         id: '82324162ebe53e904870fc4dbad0cd6f'
                     }
+                    '8273f847e29d415c9c4e513d368f2fe6': {
+                        table: 'sys_ui_page'
+                        id: '8273f847e29d415c9c4e513d368f2fe6'
+                        deleted: true
+                    }
                     '82b22be13be9321027891964c3e45a16': {
                         table: 'sys_transform_entry'
                         id: '82b22be13be9321027891964c3e45a16'
+                        deleted: true
                     }
                     '8ab22be13be9321027891964c3e45a2a': {
                         table: 'sys_transform_entry'
                         id: '8ab22be13be9321027891964c3e45a2a'
+                        deleted: true
                     }
                     '8de211e2eba93e904870fc4dbad0cd0c': {
                         table: 'sys_transform_entry'
                         id: '8de211e2eba93e904870fc4dbad0cd0c'
+                        deleted: true
                     }
                     '8e324162ebe53e904870fc4dbad0cdcb': {
                         table: 'sys_ui_form_section'
@@ -293,18 +350,22 @@ declare global {
                     '91e211e2eba93e904870fc4dbad0cd6d': {
                         table: 'sys_transform_entry'
                         id: '91e211e2eba93e904870fc4dbad0cd6d'
+                        deleted: true
                     }
                     '91e211e2eba93e904870fc4dbad0cd78': {
                         table: 'sys_transform_entry'
                         id: '91e211e2eba93e904870fc4dbad0cd78'
+                        deleted: true
                     }
                     '91e211e2eba93e904870fc4dbad0cd83': {
                         table: 'sys_transform_entry'
                         id: '91e211e2eba93e904870fc4dbad0cd83'
+                        deleted: true
                     }
                     '91e211e2eba93e904870fc4dbad0cd9d': {
                         table: 'sys_transform_entry'
                         id: '91e211e2eba93e904870fc4dbad0cd9d'
+                        deleted: true
                     }
                     '9474f1de3b653a1027891964c3e45a7d': {
                         table: 'sys_ui_element'
@@ -358,45 +419,70 @@ declare global {
                         table: 'sys_kmf_crypto_caller_policy'
                         id: '94ff615aebed7a904870fc4dbad0cd56'
                     }
+                    '95557c1a40ff4cb48516843b4a328979': {
+                        table: 'sys_script'
+                        id: '95557c1a40ff4cb48516843b4a328979'
+                        deleted: true
+                    }
                     '95e211e2eba93e904870fc4dbad0cd12': {
                         table: 'sys_transform_entry'
                         id: '95e211e2eba93e904870fc4dbad0cd12'
+                        deleted: true
                     }
                     '95e211e2eba93e904870fc4dbad0cd57': {
                         table: 'sys_transform_entry'
                         id: '95e211e2eba93e904870fc4dbad0cd57'
+                        deleted: true
                     }
                     '95e211e2eba93e904870fc4dbad0cd75': {
                         table: 'sys_transform_entry'
                         id: '95e211e2eba93e904870fc4dbad0cd75'
+                        deleted: true
                     }
                     '95e211e2eba93e904870fc4dbad0cd80': {
                         table: 'sys_transform_entry'
                         id: '95e211e2eba93e904870fc4dbad0cd80'
+                        deleted: true
                     }
                     '95e211e2eba93e904870fc4dbad0cd9a': {
                         table: 'sys_transform_entry'
                         id: '95e211e2eba93e904870fc4dbad0cd9a'
+                        deleted: true
                     }
                     '99e211e2eba93e904870fc4dbad0cd0f': {
                         table: 'sys_transform_entry'
                         id: '99e211e2eba93e904870fc4dbad0cd0f'
+                        deleted: true
                     }
                     '99e211e2eba93e904870fc4dbad0cd54': {
                         table: 'sys_transform_entry'
                         id: '99e211e2eba93e904870fc4dbad0cd54'
+                        deleted: true
                     }
                     '99e211e2eba93e904870fc4dbad0cd72': {
                         table: 'sys_transform_entry'
                         id: '99e211e2eba93e904870fc4dbad0cd72'
+                        deleted: true
                     }
                     '99e211e2eba93e904870fc4dbad0cd7d': {
                         table: 'sys_transform_entry'
                         id: '99e211e2eba93e904870fc4dbad0cd7d'
+                        deleted: true
                     }
                     '99e211e2eba93e904870fc4dbad0cd97': {
                         table: 'sys_transform_entry'
                         id: '99e211e2eba93e904870fc4dbad0cd97'
+                        deleted: true
+                    }
+                    '9a4e5bc157874330a7faa5eb33f69d4b': {
+                        table: 'sys_script'
+                        id: '9a4e5bc157874330a7faa5eb33f69d4b'
+                        deleted: true
+                    }
+                    '9c4b3b8bb6234bc1a17792f4afb7942d': {
+                        table: 'sys_script'
+                        id: '9c4b3b8bb6234bc1a17792f4afb7942d'
+                        deleted: true
                     }
                     '9c74f1de3b653a1027891964c3e45a7c': {
                         table: 'sys_ui_element'
@@ -461,18 +547,22 @@ declare global {
                     '9de211e2eba93e904870fc4dbad0cd51': {
                         table: 'sys_transform_entry'
                         id: '9de211e2eba93e904870fc4dbad0cd51'
+                        deleted: true
                     }
                     '9de211e2eba93e904870fc4dbad0cd6f': {
                         table: 'sys_transform_entry'
                         id: '9de211e2eba93e904870fc4dbad0cd6f'
+                        deleted: true
                     }
                     '9de211e2eba93e904870fc4dbad0cd7a': {
                         table: 'sys_transform_entry'
                         id: '9de211e2eba93e904870fc4dbad0cd7a'
+                        deleted: true
                     }
                     '9de211e2eba93e904870fc4dbad0cd85': {
                         table: 'sys_transform_entry'
                         id: '9de211e2eba93e904870fc4dbad0cd85'
+                        deleted: true
                     }
                     a201e7ad3ba9321027891964c3e45a7f: {
                         table: 'sys_scope_privilege'
@@ -489,26 +579,32 @@ declare global {
                     b1b2e7e13be9321027891964c3e45ac3: {
                         table: 'sys_transform_entry'
                         id: 'b1b2e7e13be9321027891964c3e45ac3'
+                        deleted: true
                     }
                     b5b22be13be9321027891964c3e45a0b: {
                         table: 'sys_transform_entry'
                         id: 'b5b22be13be9321027891964c3e45a0b'
+                        deleted: true
                     }
                     b5b2e7e13be9321027891964c3e45ae2: {
                         table: 'sys_transform_entry'
                         id: 'b5b2e7e13be9321027891964c3e45ae2'
+                        deleted: true
                     }
                     b9b227e13be9321027891964c3e45af5: {
                         table: 'sys_transform_map'
                         id: 'b9b227e13be9321027891964c3e45af5'
+                        deleted: true
                     }
                     bdb227e13be9321027891964c3e45af9: {
                         table: 'sys_transform_entry'
                         id: 'bdb227e13be9321027891964c3e45af9'
+                        deleted: true
                     }
                     bdb2e7e13be9321027891964c3e45af6: {
                         table: 'sys_transform_entry'
                         id: 'bdb2e7e13be9321027891964c3e45af6'
+                        deleted: true
                     }
                     bfe4d802eb6576904870fc4dbad0cd48: {
                         table: 'sys_app_application'
@@ -521,14 +617,17 @@ declare global {
                     br_campaign_scheduler: {
                         table: 'sys_script'
                         id: '95557c1a40ff4cb48516843b4a328979'
+                        deleted: true
                     }
                     br_restore_campaign_messages: {
                         table: 'sys_script'
                         id: '77e569f07ee74496b82297bd20860f9f'
+                        deleted: true
                     }
                     br_suppress_campaign_messages: {
                         table: 'sys_script'
                         id: 'dc7f02482e994265b2216be5ddb49bdd'
+                        deleted: true
                     }
                     'bronze-customer-001': {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -613,6 +712,7 @@ declare global {
                     c38589eaebe53e904870fc4dbad0cd2b: {
                         table: 'sys_data_source'
                         id: 'c38589eaebe53e904870fc4dbad0cd2b'
+                        deleted: true
                     }
                     c4954deaebe53e904870fc4dbad0cd2c: {
                         table: 'sys_ui_section'
@@ -630,6 +730,7 @@ declare global {
                     c6b22be13be9321027891964c3e45a13: {
                         table: 'sys_transform_entry'
                         id: 'c6b22be13be9321027891964c3e45a13'
+                        deleted: true
                     }
                     cac2a32d3ba9321027891964c3e45a1a: {
                         table: 'sys_ui_section'
@@ -694,6 +795,7 @@ declare global {
                     cde29da2eba93e904870fc4dbad0cdcb: {
                         table: 'sys_transform_map'
                         id: 'cde29da2eba93e904870fc4dbad0cdcb'
+                        deleted: true
                     }
                     ce324162ebe53e904870fc4dbad0cd6c: {
                         table: 'sys_ui_section'
@@ -703,6 +805,7 @@ declare global {
                     ceb22be13be9321027891964c3e45a27: {
                         table: 'sys_transform_entry'
                         id: 'ceb22be13be9321027891964c3e45a27'
+                        deleted: true
                     }
                     clv_bronze_001: {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -847,6 +950,7 @@ declare global {
                     'clv-maximizer-workspace': {
                         table: 'sys_ui_page'
                         id: '8273f847e29d415c9c4e513d368f2fe6'
+                        deleted: true
                     }
                     'clv-maximizer/components/CampaignTab.css': {
                         table: 'sys_ux_theme_asset'
@@ -934,13 +1038,25 @@ declare global {
                         table: 'sys_ui_element'
                         id: 'd0954deaebe53e904870fc4dbad0cd40'
                     }
+                    d0dbfbdef1414cb78fd2180e741fba96: {
+                        table: 'sys_script'
+                        id: 'd0dbfbdef1414cb78fd2180e741fba96'
+                        deleted: true
+                    }
                     d1e211e2eba93e904870fc4dbad0cd3d: {
                         table: 'sys_transform_entry'
                         id: 'd1e211e2eba93e904870fc4dbad0cd3d'
+                        deleted: true
                     }
                     d5e211e2eba93e904870fc4dbad0cd3a: {
                         table: 'sys_transform_entry'
                         id: 'd5e211e2eba93e904870fc4dbad0cd3a'
+                        deleted: true
+                    }
+                    d705346ddace478b887ce151a5b28816: {
+                        table: 'sys_script'
+                        id: 'd705346ddace478b887ce151a5b28816'
+                        deleted: true
                     }
                     d8954deaebe53e904870fc4dbad0cd2f: {
                         table: 'sys_ui_element'
@@ -1017,14 +1133,22 @@ declare global {
                     d9e211e2eba93e904870fc4dbad0cd42: {
                         table: 'sys_transform_entry'
                         id: 'd9e211e2eba93e904870fc4dbad0cd42'
+                        deleted: true
+                    }
+                    dc7f02482e994265b2216be5ddb49bdd: {
+                        table: 'sys_script'
+                        id: 'dc7f02482e994265b2216be5ddb49bdd'
+                        deleted: true
                     }
                     dde211e2eba93e904870fc4dbad0cd3f: {
                         table: 'sys_transform_entry'
                         id: 'dde211e2eba93e904870fc4dbad0cd3f'
+                        deleted: true
                     }
                     dde211e2eba93e904870fc4dbad0cd5d: {
                         table: 'sys_transform_entry'
                         id: 'dde211e2eba93e904870fc4dbad0cd5d'
+                        deleted: true
                     }
                     deea508eeba576904870fc4dbad0cd57: {
                         table: 'sys_security_acl'
@@ -1041,6 +1165,11 @@ declare global {
                     eaa32fa53be9321027891964c3e45acb: {
                         table: 'sys_ui_element'
                         id: 'eaa32fa53be9321027891964c3e45acb'
+                    }
+                    eacd5ae7ecb14768b78dce1199f4b1e5: {
+                        table: 'sys_script_client'
+                        id: 'eacd5ae7ecb14768b78dce1199f4b1e5'
+                        deleted: true
                     }
                     eeca184eeba576904870fc4dbad0cd25: {
                         table: 'sys_security_acl'
@@ -1153,18 +1282,27 @@ declare global {
                     f1b2e7e13be9321027891964c3e45acb: {
                         table: 'sys_transform_entry'
                         id: 'f1b2e7e13be9321027891964c3e45acb'
+                        deleted: true
                     }
                     f1b2e7e13be9321027891964c3e45af4: {
                         table: 'sys_transform_entry'
                         id: 'f1b2e7e13be9321027891964c3e45af4'
+                        deleted: true
+                    }
+                    f1cdcdb050d24ef291463edf033cdb0a: {
+                        table: 'sys_script_client'
+                        id: 'f1cdcdb050d24ef291463edf033cdb0a'
+                        deleted: true
                     }
                     f501a3ad3ba9321027891964c3e45abd: {
                         table: 'sys_data_source'
                         id: 'f501a3ad3ba9321027891964c3e45abd'
+                        deleted: true
                     }
                     f9b2e7e13be9321027891964c3e45adf: {
                         table: 'sys_transform_entry'
                         id: 'f9b2e7e13be9321027891964c3e45adf'
+                        deleted: true
                     }
                     fa2bd84eeba576904870fc4dbad0cd61: {
                         table: 'sys_security_acl'
@@ -1593,6 +1731,7 @@ declare global {
                     suppress_campaign_messages: {
                         table: 'sys_script_client'
                         id: '4d6366eb4682413f85eaf155590a89e1'
+                        deleted: true
                     }
                     update_additional_record_1: {
                         table: 'x_hete_clv_maximiz_policy_holders'
@@ -1972,7 +2111,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '024f8dd21bcd44d38967b73cb215b388'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'channel'
@@ -2034,6 +2173,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '08206e21e496426f9badcf259c6c5a1e'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -2334,6 +2474,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '186f6ee82abe4019adf17bfcbbc284d9'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'resolved_at'
@@ -2564,6 +2705,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '221a407ed95a4ce793e0859220ef9df1'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'opened_at'
@@ -2615,7 +2757,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '2691bcd2d15a4e248ac251165751baf1'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'status'
@@ -2633,6 +2775,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '270699b5151844ef9d6752742de325d1'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -2661,6 +2804,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '2929a61f5e964145ac27474a0b06b429'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -2778,6 +2922,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '2ed26796c2884490a622cf59fd0e29b2'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -3066,7 +3211,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '3a667bc6ebedf6904870fc4dbad0cde3'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'u_risk'
@@ -3241,7 +3386,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '445d0d35803f4c51bb3797162071aeb3'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_competitor_benchmark'
                             element: 'purchase_frequency'
@@ -3285,6 +3430,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '46550ff743604d18bb94ca786fb4710b'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'resolved_at'
@@ -3293,6 +3439,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '46dd16af3ee249388f3a89f892222503'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -3335,6 +3482,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '4aadf953fcd64d618609041900a3b824'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'number'
@@ -3343,7 +3491,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '4ab22be13be9321027891964c3e45a71'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'preferred_channel'
@@ -3471,6 +3619,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '4f9009f68ae64b9baaaee92bed3b51fa'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'opened_at'
@@ -3540,7 +3689,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '53b5fbac11494a1583196cd470f36b27'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_product_performance'
                             element: 'performance_label'
@@ -3668,6 +3817,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '5a7fe956444c46709df385dfabbeff6a'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'NULL'
@@ -3802,7 +3952,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '6120f1282ca2448cad19684ab8786af8'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'risk'
@@ -3811,6 +3961,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '618cd698f93f41858020741a2a7cafd0'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -3837,6 +3988,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '643142832d93465183d6f4af4a6a4426'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -3968,6 +4120,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '6bfdb77b98e2460cb29138b33f08bfc0'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -4117,6 +4270,7 @@ declare global {
                     {
                         table: 'sys_number'
                         id: '79824f36bb54458dbb66ed5693ea7682'
+                        deleted: true
                         key: {
                             category: 'x_hete_clv_maximiz_incident'
                             prefix: 'INC'
@@ -4134,6 +4288,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '7b8df1a5c1804315a4fbd99f2b4fe800'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -4150,6 +4305,7 @@ declare global {
                     {
                         table: 'ua_table_licensing_config'
                         id: '7beb5cf9777a4697a4949df04ac337ba'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                         }
@@ -4200,6 +4356,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '7ec04cd929794743b913adfff2dd0996'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -4320,6 +4477,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '89672fd858c5433094d51de76cc4a6cc'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'NULL'
@@ -4380,7 +4538,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '8c2694948a4643b7848f2b6355c08588'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'tone_style'
@@ -4414,7 +4572,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '8da2bc6f3f0d404a897c8f05cd812f1e'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'customer_tier'
@@ -4423,6 +4581,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: '8de4d1deb07c4c279b0e07238a76f318'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'short_description'
@@ -4451,7 +4610,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '8f461991823e4f4a8fc9eba3a7509dc7'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'status'
@@ -4550,6 +4709,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: '945980f26f3346768081fb2a4783b341'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -4658,7 +4818,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '95de72b55e3e49fcb2634c470f5f2b84'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'campaign_type'
@@ -4819,6 +4979,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: '9a7478dde9c9492c88ac07a4e3f51e07'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'description'
@@ -4862,7 +5023,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '9c1cbe3facc34ac69c4023cae6e59290'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'priority'
@@ -4952,7 +5113,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: '9db2e7e13be9321027891964c3e45a3d'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_policy_holders'
                             element: 'tier'
@@ -5082,6 +5243,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: 'a39c6829ca2c4200a1fb35c78174d9a6'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'number'
@@ -5136,6 +5298,7 @@ declare global {
                     {
                         table: 'sys_db_object'
                         id: 'a9e8a5e5737a48b2be67f9de517a2cc3'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                         }
@@ -5299,6 +5462,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: 'b72a64d13d59473f9b6c00e09d227934'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'priority'
@@ -5376,6 +5540,7 @@ declare global {
                     {
                         table: 'sys_dictionary'
                         id: 'bb62cafca64e49028213aa5b2f9be632'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'short_description'
@@ -5866,6 +6031,7 @@ declare global {
                     {
                         table: 'sys_documentation'
                         id: 'dd0e4550e50240dba73b3d050e283109'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'description'
@@ -5927,7 +6093,7 @@ declare global {
                     {
                         table: 'sys_ui_view'
                         id: 'Default view'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'NULL'
                         }
@@ -6368,6 +6534,7 @@ declare global {
                     {
                         table: 'sys_choice'
                         id: 'f3df35a9be6143a0ad1cfeaa7a161d17'
+                        deleted: true
                         key: {
                             name: 'x_hete_clv_maximiz_incident'
                             element: 'status'
@@ -6412,7 +6579,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'f5593a6ff2ca4382a602550044c0c9db'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_renewal_tracker'
                             element: 'churn_risk'
@@ -6429,7 +6596,7 @@ declare global {
                     {
                         table: 'sys_choice_set'
                         id: 'f6a65391bc2540499fd782398bd6700c'
-                        deleted: true
+                        deleted: false
                         key: {
                             name: 'x_hete_clv_maximiz_campaigns'
                             element: 'customer_tier'

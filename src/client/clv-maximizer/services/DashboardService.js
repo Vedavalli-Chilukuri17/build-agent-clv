@@ -1,11 +1,23 @@
 export class DashboardService {
   constructor() {
     this.baseUrl = '/api/now/table';
-    this.headers = {
+    // Don't set X-UserToken in constructor - set it dynamically in each request
+    this.baseHeaders = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-UserToken': window.g_ck
+      'Accept': 'application/json'
     };
+  }
+
+  // Helper method to get headers with authentication
+  getHeaders() {
+    const headers = { ...this.baseHeaders };
+    
+    // Only add X-UserToken if it's available
+    if (window.g_ck) {
+      headers['X-UserToken'] = window.g_ck;
+    }
+    
+    return headers;
   }
 
   // NEW: Enhanced Dashboard Reports using Policy Holders Data
@@ -39,7 +51,7 @@ export class DashboardService {
         `${this.baseUrl}/x_hete_clv_maximiz_policy_holders?${params.toString()}`,
         {
           method: 'GET',
-          headers: this.headers
+          headers: this.getHeaders()
         }
       );
 
@@ -439,7 +451,7 @@ export class DashboardService {
         `${this.baseUrl}/x_hete_clv_maximiz_renewal_tracker?${params.toString()}`,
         {
           method: 'GET',
-          headers: this.headers
+          headers: this.getHeaders()
         }
       );
 
@@ -466,7 +478,7 @@ export class DashboardService {
         `${this.baseUrl}/x_hete_clv_maximiz_product_performance?${params.toString()}`,
         {
           method: 'GET',
-          headers: this.headers
+          headers: this.getHeaders()
         }
       );
 
@@ -492,7 +504,7 @@ export class DashboardService {
         `${this.baseUrl}/x_hete_clv_maximiz_competitor_benchmark?${params.toString()}`,
         {
           method: 'GET',
-          headers: this.headers
+          headers: this.getHeaders()
         }
       );
 

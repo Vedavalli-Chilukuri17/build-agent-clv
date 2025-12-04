@@ -1,11 +1,23 @@
 export class RenewalService {
   constructor() {
     this.baseUrl = '/api/now/table';
-    this.headers = {
+    // Don't set X-UserToken in constructor - set it dynamically in each request
+    this.baseHeaders = {
       'Content-Type': 'application/json',
-      'Accept': 'application/json',
-      'X-UserToken': window.g_ck
+      'Accept': 'application/json'
     };
+  }
+
+  // Helper method to get headers with authentication
+  getHeaders() {
+    const headers = { ...this.baseHeaders };
+    
+    // Only add X-UserToken if it's available
+    if (window.g_ck) {
+      headers['X-UserToken'] = window.g_ck;
+    }
+    
+    return headers;
   }
 
   // NEW: Get detailed high-risk customers with comprehensive profiles
@@ -596,19 +608,19 @@ export class RenewalService {
   // NEW: Execute specific action for a customer
   async executeAction(customerId, action) {
     try {
-      console.log(`Executing ${action.action} for customer ${customerId}`, action);
+      console.log(`Executing ${action} for customer ${customerId}`);
       
       // Simulate API call to execute action
       const response = await fetch(`${this.baseUrl}/x_hete_clv_maximiz_campaigns`, {
         method: 'POST',
-        headers: this.headers,
+        headers: this.getHeaders(),
         body: JSON.stringify({
           customer_id: customerId,
-          campaign_type: action.campaign,
-          action_type: action.type,
-          priority: action.priority,
-          expected_uplift: action.expectedUplift,
-          description: action.description
+          campaign_type: action,
+          action_type: 'renewal_retention',
+          priority: 'high',
+          status: 'launched',
+          description: `Executed ${action} for customer ${customerId}`
         })
       });
 
@@ -617,7 +629,7 @@ export class RenewalService {
         console.log('Campaign table not available, simulating action execution');
       }
 
-      return { success: true, message: `${action.action} executed successfully` };
+      return { success: true, message: `${action} executed successfully` };
     } catch (error) {
       console.error('Error executing action:', error);
       throw error;
