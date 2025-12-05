@@ -850,6 +850,10 @@ declare global {
                         table: 'sys_ux_theme_asset'
                         id: 'd24a07cb74d944da9b0162add4623c6b'
                     }
+                    'clv-maximizer/components/CustomerIntelligenceTab.css': {
+                        table: 'sys_ux_theme_asset'
+                        id: 'cd061182658547bcaa0d84a7240eed57'
+                    }
                     'clv-maximizer/components/DataIngestionTab.css': {
                         table: 'sys_ux_theme_asset'
                         id: 'fc7226ae72044b5688ec769fe81ea2cf'

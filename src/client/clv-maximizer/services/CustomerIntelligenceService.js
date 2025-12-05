@@ -21,7 +21,8 @@ export class CustomerIntelligenceService {
   // Fetch customer data from the policy holders table
   async getPolicyHoldersData() {
     try {
-      const response = await fetch(`${this.baseUrl}/x_hete_clv_maximiz_policy_holders?sysparm_display_value=all&sysparm_limit=1000`, {
+      // Remove sysparm_display_value=all to get raw values instead of display values
+      const response = await fetch(`${this.baseUrl}/x_hete_clv_maximiz_policy_holders?sysparm_limit=1000`, {
         headers: this.getHeaders()
       });
       
@@ -46,7 +47,7 @@ export class CustomerIntelligenceService {
     const totalCustomers = customers.length;
     const highRiskCount = customers.filter(c => c.churnRisk === 'High').length;
     const platinumCount = customers.filter(c => c.tier === 'Platinum').length;
-    const averageCLV = customers.reduce((sum, c) => sum + c.clv, 0) / customers.length;
+    const averageCLV = customers.length > 0 ? customers.reduce((sum, c) => sum + c.clv, 0) / customers.length : 0;
     
     // Calculate churn risk distribution
     const churnDistribution = {
@@ -57,7 +58,7 @@ export class CustomerIntelligenceService {
     
     // Add percentages
     Object.keys(churnDistribution).forEach(key => {
-      churnDistribution[key].percentage = ((churnDistribution[key].count / totalCustomers) * 100).toFixed(1);
+      churnDistribution[key].percentage = totalCustomers > 0 ? ((churnDistribution[key].count / totalCustomers) * 100).toFixed(1) : '0.0';
     });
     
     // Calculate renewal timeline
@@ -69,15 +70,15 @@ export class CustomerIntelligenceService {
     
     customers.forEach(customer => {
       const daysToRenewal = this.getDaysUntilRenewal(customer.renewalDate);
-      if (daysToRenewal <= 30) renewalTimeline.next30.count++;
-      else if (daysToRenewal <= 60) renewalTimeline.days31to60.count++;
-      else if (daysToRenewal <= 90) renewalTimeline.days61to90.count++;
+      if (daysToRenewal <= 30 && daysToRenewal >= 0) renewalTimeline.next30.count++;
+      else if (daysToRenewal <= 60 && daysToRenewal > 30) renewalTimeline.days31to60.count++;
+      else if (daysToRenewal <= 90 && daysToRenewal > 60) renewalTimeline.days61to90.count++;
     });
     
     // Calculate engagement & loyalty metrics
     const engagementMetrics = {
       engagement: {
-        score: customers.reduce((sum, c) => sum + c.engagementScore, 0) / customers.length,
+        score: customers.length > 0 ? customers.reduce((sum, c) => sum + c.engagementScore, 0) / customers.length : 0,
         color: '#3b82f6'
       },
       retention: {
@@ -111,8 +112,13 @@ export class CustomerIntelligenceService {
   // Transform policy holders data to customer intelligence format
   transformPolicyHoldersData(policyHolders) {
     return policyHolders.map((holder, index) => {
-      const customerName = this.getValue(holder.name) || 
-                          `${this.getValue(holder.first_name)} ${this.getValue(holder.last_name)}`;
+      // Build customer name with fallback logic
+      let customerName = this.getValue(holder.name);
+      if (!customerName) {
+        const firstName = this.getValue(holder.first_name) || '';
+        const lastName = this.getValue(holder.last_name) || '';
+        customerName = `${firstName} ${lastName}`.trim() || `Customer ${index + 1}`;
+      }
       
       const email = this.getValue(holder.email) || 'N/A';
       const phone = this.getValue(holder.phone) || 'N/A';
@@ -120,40 +126,80 @@ export class CustomerIntelligenceService {
       // Transform tier to proper case
       const tier = this.formatTier(this.getValue(holder.tier));
       
-      // Get CLV values
-      const clv = parseFloat(this.getValue(holder.clv)) || 0;
-      const lifetimeValue = parseFloat(this.getValue(holder.lifetime_value)) || 0;
+      // Get CLV values - improved parsing with multiple fallback checks
+      let clv = 0;
+      const clvRaw = this.getValue(holder.clv);
+      if (clvRaw !== null && clvRaw !== undefined && clvRaw !== '') {
+        const clvParsed = parseFloat(String(clvRaw).replace(/[,$]/g, ''));
+        if (!isNaN(clvParsed) && clvParsed >= 0) {
+          clv = clvParsed;
+        }
+      }
       
-      // Calculate churn risk category
-      const churnRiskValue = parseFloat(this.getValue(holder.churn_risk)) || 0;
+      let lifetimeValue = 0;
+      const lifetimeValueRaw = this.getValue(holder.lifetime_value);
+      if (lifetimeValueRaw !== null && lifetimeValueRaw !== undefined && lifetimeValueRaw !== '') {
+        const lifetimeValueParsed = parseFloat(String(lifetimeValueRaw).replace(/[,$]/g, ''));
+        if (!isNaN(lifetimeValueParsed) && lifetimeValueParsed >= 0) {
+          lifetimeValue = lifetimeValueParsed;
+        }
+      }
+      
+      // Calculate churn risk category with improved parsing
+      let churnRiskValue = 0;
+      const churnRiskRaw = this.getValue(holder.churn_risk);
+      if (churnRiskRaw !== null && churnRiskRaw !== undefined && churnRiskRaw !== '') {
+        const churnRiskParsed = parseFloat(String(churnRiskRaw));
+        if (!isNaN(churnRiskParsed) && churnRiskParsed >= 0) {
+          churnRiskValue = churnRiskParsed;
+        }
+      }
+      
       let churnRisk;
-      if (churnRiskValue > 30) churnRisk = 'High';
-      else if (churnRiskValue >= 15) churnRisk = 'Medium';
+      if (churnRiskValue > 50) churnRisk = 'High';
+      else if (churnRiskValue >= 30) churnRisk = 'Medium';
       else churnRisk = 'Low';
       
-      // Get renewal date
-      const renewalDate = this.getValue(holder.renewal_date) || null;
-      const hasUpcomingRenewal = renewalDate && this.getDaysUntilRenewal(renewalDate) <= 365;
+      // Get renewal date with improved handling
+      let renewalDate = this.getValue(holder.renewal_date);
+      if (!renewalDate || renewalDate === '') {
+        renewalDate = null;
+      }
+      const hasUpcomingRenewal = renewalDate && this.getDaysUntilRenewal(renewalDate) <= 365 && this.getDaysUntilRenewal(renewalDate) >= 0;
       
-      // Get engagement score
-      const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
+      // Get engagement score with improved parsing
+      let engagementScore = 0;
+      const engagementScoreRaw = this.getValue(holder.engagement_score);
+      if (engagementScoreRaw !== null && engagementScoreRaw !== undefined && engagementScoreRaw !== '') {
+        const engagementScoreParsed = parseInt(String(engagementScoreRaw));
+        if (!isNaN(engagementScoreParsed) && engagementScoreParsed >= 0) {
+          engagementScore = engagementScoreParsed;
+        }
+      }
       
-      // Get tenure
-      const tenure = parseFloat(this.getValue(holder.tenure_years)) || 0;
+      // Get tenure with improved parsing
+      let tenure = 0;
+      const tenureRaw = this.getValue(holder.tenure_years);
+      if (tenureRaw !== null && tenureRaw !== undefined && tenureRaw !== '') {
+        const tenureParsed = parseFloat(String(tenureRaw));
+        if (!isNaN(tenureParsed) && tenureParsed >= 0) {
+          tenure = tenureParsed;
+        }
+      }
       
       return {
         id: this.getValue(holder.sys_id) || `holder_${index}`,
         customerName,
-        customerId: this.getValue(holder.customer_id) || `CUST${String(index).padStart(7, '0')}`,
+        customerId: this.getValue(holder.customer_id) || `CUST${String(index + 1).padStart(7, '0')}`,
         email,
         phone,
         tier,
-        clv: Math.floor(clv),
-        lifetimeValue: Math.floor(lifetimeValue),
+        clv: Math.floor(clv), // Ensure it's an integer
+        lifetimeValue: Math.floor(lifetimeValue), // Ensure it's an integer
         renewalDate: renewalDate || 'N/A',
         renewal: hasUpcomingRenewal ? 'Yes' : 'No',
         churnRisk,
-        churnRiskValue: churnRiskValue,
+        churnRiskValue: Math.round(churnRiskValue * 10) / 10, // Round to 1 decimal
         engagementScore,
         tenure: Math.round(tenure * 12), // Convert to months
         location: 'N/A', // Not available in policy holders data
@@ -161,15 +207,15 @@ export class CustomerIntelligenceService {
         active: true,
         totalContracts: 1, // Assume 1 contract per policy holder
         
-        // Additional fields from policy holders
-        age: parseInt(this.getValue(holder.age)) || 0,
-        creditScore: parseInt(this.getValue(holder.credit_score)) || 0,
-        creditUtilization: parseFloat(this.getValue(holder.credit_utilization_percent)) || 0,
-        bankruptcyFlag: this.getValue(holder.bankruptcies_flag) === '1',
+        // Additional fields from policy holders with improved parsing
+        age: this.parseIntegerField(holder.age),
+        creditScore: this.parseIntegerField(holder.credit_score),
+        creditUtilization: this.parseFloatField(holder.credit_utilization_percent),
+        bankruptcyFlag: this.getValue(holder.bankruptcies_flag) === '1' || this.getValue(holder.bankruptcies_flag) === true,
         preferredChannel: this.getValue(holder.preferred_channel) || 'Unknown',
-        appSessions: parseInt(this.getValue(holder.app_sessions_30_days)) || 0,
-        websiteVisits: parseInt(this.getValue(holder.website_visits_30_days)) || 0,
-        quoteViews: parseInt(this.getValue(holder.quote_views)) || 0,
+        appSessions: this.parseIntegerField(holder.app_sessions_30_days),
+        websiteVisits: this.parseIntegerField(holder.website_visits_30_days),
+        quoteViews: this.parseIntegerField(holder.quote_views),
         missingCoverage: this.getValue(holder.missing_coverage) || 'None',
         riskFlags: this.getValue(holder.risk_flags) || 'None',
         
@@ -178,6 +224,26 @@ export class CustomerIntelligenceService {
         opportunities: this.generateOpportunities(holder)
       };
     });
+  }
+
+  // Helper method to parse integer fields safely
+  parseIntegerField(field) {
+    const value = this.getValue(field);
+    if (value !== null && value !== undefined && value !== '') {
+      const parsed = parseInt(String(value));
+      return !isNaN(parsed) && parsed >= 0 ? parsed : 0;
+    }
+    return 0;
+  }
+
+  // Helper method to parse float fields safely  
+  parseFloatField(field) {
+    const value = this.getValue(field);
+    if (value !== null && value !== undefined && value !== '') {
+      const parsed = parseFloat(String(value));
+      return !isNaN(parsed) && parsed >= 0 ? parsed : 0;
+    }
+    return 0;
   }
 
   // Helper method to get field values
@@ -191,21 +257,23 @@ export class CustomerIntelligenceService {
   // Format tier to proper case
   formatTier(tier) {
     if (!tier) return 'Bronze';
-    return tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
+    const tierStr = String(tier).toLowerCase();
+    return tierStr.charAt(0).toUpperCase() + tierStr.slice(1);
   }
 
   // Generate risk factors based on actual policy holder data
   generateRiskFactors(holder) {
     const factors = [];
     
-    const churnRisk = parseFloat(this.getValue(holder.churn_risk)) || 0;
-    const creditScore = parseInt(this.getValue(holder.credit_score)) || 0;
-    const creditUtilization = parseFloat(this.getValue(holder.credit_utilization_percent)) || 0;
-    const bankruptcyFlag = this.getValue(holder.bankruptcies_flag) === '1';
-    const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
-    const delinquencies = parseInt(this.getValue(holder.delinquency_12m)) || 0;
+    const churnRisk = this.parseFloatField(holder.churn_risk);
+    const creditScore = this.parseIntegerField(holder.credit_score);
+    const creditUtilization = this.parseFloatField(holder.credit_utilization_percent);
+    const bankruptcyFlag = this.getValue(holder.bankruptcies_flag) === '1' || this.getValue(holder.bankruptcies_flag) === true;
+    const engagementScore = this.parseIntegerField(holder.engagement_score);
+    const delinquencies = this.parseIntegerField(holder.delinquency_12m);
     
-    if (churnRisk > 30) factors.push('High churn probability');
+    if (churnRisk > 50) factors.push('High churn probability');
+    else if (churnRisk > 30) factors.push('Elevated churn risk');
     if (creditScore < 600) factors.push('Low credit score');
     if (creditUtilization > 80) factors.push('High credit utilization');
     if (bankruptcyFlag) factors.push('Bankruptcy history');
@@ -221,14 +289,15 @@ export class CustomerIntelligenceService {
     
     const tier = this.getValue(holder.tier) || '';
     const missingCoverage = this.getValue(holder.missing_coverage) || '';
-    const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
-    const lifetimeValue = parseFloat(this.getValue(holder.lifetime_value)) || 0;
+    const engagementScore = this.parseIntegerField(holder.engagement_score);
+    const lifetimeValue = this.parseFloatField(holder.lifetime_value);
     
-    if (missingCoverage && missingCoverage !== 'falsene' && missingCoverage !== 'None') {
+    if (missingCoverage && missingCoverage !== 'None' && missingCoverage !== 'none' && missingCoverage.toLowerCase() !== 'none') {
       opportunities.push(`Add ${missingCoverage} coverage`);
     }
     
-    if (tier === 'bronze' || tier === 'silver') {
+    const tierLower = String(tier).toLowerCase();
+    if (tierLower === 'bronze' || tierLower === 'silver') {
       opportunities.push('Tier upgrade potential');
     }
     
@@ -236,8 +305,10 @@ export class CustomerIntelligenceService {
       opportunities.push('High engagement - cross-sell ready');
     }
     
-    if (lifetimeValue > 20000) {
+    if (lifetimeValue > 50000) {
       opportunities.push('Premium services upsell');
+    } else if (lifetimeValue > 25000) {
+      opportunities.push('Additional coverage opportunities');
     }
     
     return opportunities.length > 0 ? opportunities : ['Standard renewal'];
@@ -245,28 +316,43 @@ export class CustomerIntelligenceService {
 
   // Utility methods
   formatCurrency(amount) {
+    // Handle null, undefined, or invalid amounts
+    const numAmount = typeof amount === 'number' ? amount : parseFloat(String(amount)) || 0;
+    
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 0,
       maximumFractionDigits: 0
-    }).format(amount);
+    }).format(numAmount);
   }
 
   formatDate(dateString) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
+    if (!dateString || dateString === 'N/A') return 'N/A';
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) return dateString;
+      return date.toLocaleDateString('en-US', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+      });
+    } catch {
+      return dateString;
+    }
   }
 
   getDaysUntilRenewal(renewalDate) {
-    const today = new Date();
-    const renewal = new Date(renewalDate);
-    const diffTime = renewal - today;
-    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    if (!renewalDate || renewalDate === 'N/A') return Infinity;
+    try {
+      const today = new Date();
+      const renewal = new Date(renewalDate);
+      if (isNaN(renewal.getTime())) return Infinity;
+      const diffTime = renewal - today;
+      return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    } catch {
+      return Infinity;
+    }
   }
 
   getTierPriority(tier) {

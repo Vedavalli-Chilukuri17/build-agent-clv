@@ -420,7 +420,7 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 14px;
-  min-width: 1200px;
+  min-width: 1300px; /* Increased to accommodate Actions column */
 }
 
 .profile-table th {
@@ -521,6 +521,15 @@
   text-align: center;
 }
 
+.risk-level-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+}
+
 .risk-high {
   background: #fecaca;
   color: #991b1b;
@@ -536,6 +545,12 @@
   color: #065f46;
 }
 
+.churn-percentage {
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
 .profile-engagement {
   font-weight: 600;
   color: #7c3aed;
@@ -547,10 +562,49 @@
   font-size: 13px;
 }
 
+/* Actions Column and Profile Button Styles */
+.actions-header {
+  width: 120px;
+  text-align: center;
+}
+
 .profile-actions {
   display: flex;
   gap: 8px;
   justify-content: center;
+  align-items: center;
+  width: 120px;
+}
+
+/* Profile Button with high specificity */
+.profile-btn {
+  background: #3b82f6 !important;
+  color: #ffffff !important;
+  border: 1px solid #2563eb !important;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  min-width: 70px !important;
+  text-align: center !important;
+  box-shadow: 0 1px 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+.profile-btn:hover {
+  background: #2563eb !important;
+  color: #ffffff !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.3) !important;
+  border-color: #1d4ed8 !important;
+}
+
+.profile-btn:active {
+  transform: translateY(0) !important;
+  box-shadow: 0 1px 2px rgba(59, 130, 246, 0.2) !important;
 }
 
 .action-btn {
@@ -564,30 +618,6 @@
   min-width: 80px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-}
-
-/* Profile Button - Ultra-High Specificity for Maximum Visibility */
-.customer-intelligence-hub .intelligence-section .profile-table .profile-actions .action-btn.profile-btn,
-.customer-intelligence-hub .profile-table .profile-actions .profile-btn {
-  background: #1e40af !important;
-  color: #ffffff !important;
-  border: 2px solid #1d4ed8 !important;
-  box-shadow: 0 4px 8px rgba(30, 64, 175, 0.3) !important;
-  font-weight: 700 !important;
-}
-
-.customer-intelligence-hub .intelligence-section .profile-table .profile-actions .action-btn.profile-btn:hover,
-.customer-intelligence-hub .profile-table .profile-actions .profile-btn:hover {
-  background: #1d4ed8 !important;
-  color: #ffffff !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4) !important;
-  border-color: #1e3a8a !important;
-}
-
-.actions-header {
-  width: 100px;
-  text-align: center;
 }
 
 /* Pagination */
@@ -729,9 +759,20 @@
   color: #374151;
 }
 
-.detail-group p strong {
+.detail-group strong {
   color: #1f2937;
   font-weight: 600;
+}
+
+.detail-group ul {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.detail-group li {
+  margin: 4px 0;
+  font-size: 14px;
+  color: #374151;
 }
 
 /* Responsive Design */
@@ -786,6 +827,10 @@
   .customer-details-grid {
     grid-template-columns: 1fr;
   }
+  
+  .profile-table {
+    min-width: 1100px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -803,7 +848,7 @@
   
   .profile-table {
     font-size: 12px;
-    min-width: 900px;
+    min-width: 1000px;
   }
   
   .profile-table th,
@@ -816,8 +861,9 @@
     gap: 4px;
   }
   
-  .action-btn {
-    font-size: 10px;
-    padding: 4px 8px;
+  .profile-btn {
+    font-size: 10px !important;
+    padding: 6px 12px !important;
+    min-width: 60px !important;
   }
 }

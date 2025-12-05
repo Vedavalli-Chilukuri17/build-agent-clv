@@ -47,55 +47,6 @@ export default function CustomerIntelligenceTab() {
     }
   };
 
-  // Calculate churn risk display data
-  const churnRiskData = useMemo(() => {
-    if (!analyticsData) return [];
-    
-    return [
-      {
-        risk: 'High Risk',
-        count: analyticsData.churnDistribution.high.count,
-        percentage: analyticsData.churnDistribution.high.percentage,
-        color: analyticsData.churnDistribution.high.color
-      },
-      {
-        risk: 'Medium Risk', 
-        count: analyticsData.churnDistribution.medium.count,
-        percentage: analyticsData.churnDistribution.medium.percentage,
-        color: analyticsData.churnDistribution.medium.color
-      },
-      {
-        risk: 'Low Risk',
-        count: analyticsData.churnDistribution.low.count,
-        percentage: analyticsData.churnDistribution.low.percentage,
-        color: analyticsData.churnDistribution.low.color
-      }
-    ];
-  }, [analyticsData]);
-
-  // Calculate renewal timeline display data
-  const renewalTimelineData = useMemo(() => {
-    if (!analyticsData) return [];
-    
-    return [
-      {
-        period: 'Next 30 Days',
-        count: analyticsData.renewalTimeline.next30.count,
-        isUrgent: analyticsData.renewalTimeline.next30.urgent
-      },
-      {
-        period: '31–60 Days',
-        count: analyticsData.renewalTimeline.days31to60.count,
-        isUrgent: false
-      },
-      {
-        period: '61–90 Days',
-        count: analyticsData.renewalTimeline.days61to90.count,
-        isUrgent: false
-      }
-    ];
-  }, [analyticsData]);
-
   // Filter and sort customers
   const filteredCustomers = useMemo(() => {
     if (!analyticsData) return [];
@@ -146,9 +97,14 @@ export default function CustomerIntelligenceTab() {
       let aVal = a[profileSort.field];
       let bVal = b[profileSort.field];
       
-      if (['clv', 'lifetimeValue', 'engagementScore', 'tenure', 'age', 'creditScore'].includes(profileSort.field)) {
+      if (['clv', 'lifetimeValue', 'engagementScore', 'tenure', 'age', 'creditScore', 'churnRiskValue'].includes(profileSort.field)) {
         aVal = typeof aVal === 'number' ? aVal : parseFloat(aVal) || 0;
         bVal = typeof bVal === 'number' ? bVal : parseFloat(bVal) || 0;
+      }
+
+      if (profileSort.field === 'renewalDate') {
+        aVal = new Date(aVal || '1900-01-01');
+        bVal = new Date(bVal || '1900-01-01');
       }
 
       if (profileSort.direction === 'asc') {
@@ -177,24 +133,34 @@ export default function CustomerIntelligenceTab() {
     };
   }, [filteredCustomers, profilePage, profilePageSize]);
 
-  // Handle actions
-  const handleChurnRiskClick = (risk) => {
-    setSelectedChurnRisk(selectedChurnRisk === risk ? null : risk);
-    setSelectedRenewalPeriod(null);
-    setProfilePage(1);
-  };
-
-  const handleRenewalTimelineClick = (period) => {
-    setSelectedRenewalPeriod(selectedRenewalPeriod === period ? null : period);
-    setSelectedChurnRisk(null);
-    setProfilePage(1);
-  };
-
   const handleProfileSort = (field) => {
     setProfileSort(prev => ({
       field,
       direction: prev.field === field && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
+  };
+
+  // Handle viewing customer profile
+  const handleViewProfile = (customer) => {
+    setSelectedCustomer(customer);
+  };
+
+  // Helper function to format renewal date
+  const formatRenewalDate = (renewalDate) => {
+    if (!renewalDate) return 'N/A';
+    try {
+      const date = new Date(renewalDate);
+      return date.toLocaleDateString();
+    } catch {
+      return renewalDate;
+    }
+  };
+
+  // Helper function to get risk level based on churn risk percentage
+  const getRiskLevel = (churnRiskValue) => {
+    if (churnRiskValue >= 70) return 'High';
+    if (churnRiskValue >= 40) return 'Medium';
+    return 'Low';
   };
 
   if (loading) {
@@ -232,133 +198,6 @@ export default function CustomerIntelligenceTab() {
 
   return (
     <div className="customer-intelligence-hub">
-      {/* Header Panel */}
-      <div className="intelligence-header-panel">
-        <div className="header-content">
-          <div className="header-text">
-            <h1>Customer Intelligence Hub</h1>
-            <p>Analyzing {analyticsData.summaryMetrics.totalCustomers} policy holders from x_hete_clv_maximiz_policy_holders table</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Summary Metrics Panel */}
-      <div className="summary-metrics-panel">
-        <div className="metric-card">
-          <div className="metric-icon">👥</div>
-          <div className="metric-content">
-            <div className="metric-value">{analyticsData.summaryMetrics.totalCustomers.toLocaleString()}</div>
-            <div className="metric-label">Total Customers</div>
-          </div>
-        </div>
-
-        <div className="metric-card high-risk" onClick={() => handleChurnRiskClick('High Risk')}>
-          <div className="metric-icon">⚠️</div>
-          <div className="metric-content">
-            <div className="metric-value">{analyticsData.summaryMetrics.highRiskCount.toLocaleString()}</div>
-            <div className="metric-label">High Risk Customers</div>
-          </div>
-        </div>
-
-        <div className="metric-card average-clv">
-          <div className="metric-icon">💰</div>
-          <div className="metric-content">
-            <div className="metric-value">{customerIntelligenceService.formatCurrency(analyticsData.summaryMetrics.averageCLV)}</div>
-            <div className="metric-label">Average CLV</div>
-          </div>
-        </div>
-
-        <div className="metric-card platinum-tier">
-          <div className="metric-icon">💎</div>
-          <div className="metric-content">
-            <div className="metric-value">{analyticsData.summaryMetrics.platinumCount.toLocaleString()}</div>
-            <div className="metric-label">Platinum Tier Count</div>
-          </div>
-        </div>
-      </div>
-
-      <div className="intelligence-grid">
-        {/* Churn Risk Heatmap */}
-        <div className="intelligence-section churn-heatmap-section">
-          <div className="section-header">
-            <h2>Churn Risk Heatmap</h2>
-            {selectedChurnRisk && (
-              <button 
-                className="clear-filter-btn"
-                onClick={() => setSelectedChurnRisk(null)}
-              >
-                Clear "{selectedChurnRisk}" filter ✕
-              </button>
-            )}
-          </div>
-          
-          <div className="churn-heatmap">
-            {churnRiskData.map(({ risk, count, percentage, color }) => (
-              <div 
-                key={risk} 
-                className={`churn-risk-bar ${selectedChurnRisk === risk ? 'selected' : ''}`}
-                onClick={() => handleChurnRiskClick(risk)}
-              >
-                <div className="risk-label">{risk}</div>
-                <div className="risk-bar-container">
-                  <div 
-                    className="risk-bar-fill" 
-                    style={{ 
-                      backgroundColor: color,
-                      width: `${Math.max((count / Math.max(...churnRiskData.map(d => d.count), 1)), 0.1) * 100}%`
-                    }}
-                  ></div>
-                  <div className="risk-stats">
-                    <span className="risk-count">{count}</span>
-                    <span className="risk-percentage">({percentage}%)</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Renewal Timeline Heatmap */}
-        <div className="intelligence-section renewal-timeline-section">
-          <div className="section-header">
-            <h2>Renewal Timeline Heatmap</h2>
-            {selectedRenewalPeriod && (
-              <button 
-                className="clear-filter-btn"
-                onClick={() => setSelectedRenewalPeriod(null)}
-              >
-                Clear "{selectedRenewalPeriod}" filter ✕
-              </button>
-            )}
-          </div>
-          
-          <div className="renewal-timeline-chart">
-            {renewalTimelineData.map(({ period, count, isUrgent }) => (
-              <div 
-                key={period}
-                className={`renewal-timeline-bar ${isUrgent ? 'urgent' : ''} ${selectedRenewalPeriod === period ? 'selected' : ''}`}
-                onClick={() => handleRenewalTimelineClick(period)}
-              >
-                <div className="timeline-label">
-                  {period}
-                  {isUrgent && <span className="urgent-indicator">⚠</span>}
-                </div>
-                <div className="timeline-bar-container">
-                  <div 
-                    className="timeline-bar-fill"
-                    style={{ 
-                      width: `${Math.max((count / Math.max(...renewalTimelineData.map(d => d.count), 1)), 0.1) * 100}%`,
-                      backgroundColor: isUrgent ? '#dc2626' : period === '31–60 Days' ? '#f59e0b' : '#059669'
-                    }}
-                  ></div>
-                  <span className="timeline-count">{count}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
       {/* Customer Profile List */}
       <div className="intelligence-section profile-list-section">
         <div className="section-header">
@@ -426,49 +265,54 @@ export default function CustomerIntelligenceTab() {
                 <th onClick={() => handleProfileSort('customerName')} className="sortable">
                   Name {profileSort.field === 'customerName' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                 </th>
-                <th onClick={() => handleProfileSort('customerId')} className="sortable">
-                  ID {profileSort.field === 'customerId' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                <th onClick={() => handleProfileSort('clv')} className="sortable">
+                  CLV (12 Months) {profileSort.field === 'clv' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                </th>
+                <th onClick={() => handleProfileSort('churnRiskValue')} className="sortable">
+                  Risk Level {profileSort.field === 'churnRiskValue' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                </th>
+                <th onClick={() => handleProfileSort('renewalDate')} className="sortable">
+                  Renewal Date {profileSort.field === 'renewalDate' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                 </th>
                 <th onClick={() => handleProfileSort('tier')} className="sortable">
                   Tier {profileSort.field === 'tier' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                 </th>
-                <th onClick={() => handleProfileSort('clv')} className="sortable">
-                  CLV (12M) {profileSort.field === 'clv' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                <th onClick={() => handleProfileSort('churnRiskValue')} className="sortable">
+                  Churn Risk (%) {profileSort.field === 'churnRiskValue' && (profileSort.direction === 'asc' ? '↑' : '↓')}
                 </th>
-                <th onClick={() => handleProfileSort('churnRisk')} className="sortable">
-                  Churn Risk {profileSort.field === 'churnRisk' && (profileSort.direction === 'asc' ? '↑' : '↓')}
+                <th className="actions-header">
+                  Actions
                 </th>
-                <th onClick={() => handleProfileSort('engagementScore')} className="sortable">
-                  Engagement {profileSort.field === 'engagementScore' && (profileSort.direction === 'asc' ? '↑' : '↓')}
-                </th>
-                <th onClick={() => handleProfileSort('preferredChannel')} className="sortable">
-                  Channel {profileSort.field === 'preferredChannel' && (profileSort.direction === 'asc' ? '↑' : '↓')}
-                </th>
-                <th className="actions-header">Actions</th>
               </tr>
             </thead>
             <tbody>
               {paginatedCustomers.data.map((customer) => (
                 <tr key={customer.id} className="profile-row">
                   <td className="profile-name">{customer.customerName}</td>
-                  <td className="profile-id">{customer.customerId}</td>
-                  <td className={`profile-tier tier-${customer.tier.toLowerCase()}`}>
-                    {customer.tier}
-                  </td>
                   <td className="profile-clv">
                     {customerIntelligenceService.formatCurrency(customer.clv)}
                   </td>
-                  <td className="profile-churn-risk">
-                    <span className={`churn-risk-badge risk-${customer.churnRisk.toLowerCase()}`}>
-                      {customer.churnRisk}
+                  <td className="profile-risk-level">
+                    <span className={`risk-level-badge risk-${getRiskLevel(customer.churnRiskValue).toLowerCase()}`}>
+                      {getRiskLevel(customer.churnRiskValue)}
                     </span>
                   </td>
-                  <td className="profile-engagement">{customer.engagementScore}</td>
-                  <td className="profile-channel">{customer.preferredChannel}</td>
+                  <td className="profile-renewal-date">
+                    {formatRenewalDate(customer.renewalDate)}
+                  </td>
+                  <td className={`profile-tier tier-${customer.tier.toLowerCase()}`}>
+                    {customer.tier}
+                  </td>
+                  <td className="profile-churn-percentage">
+                    <span className={`churn-percentage risk-${getRiskLevel(customer.churnRiskValue).toLowerCase()}`}>
+                      {customer.churnRiskValue ? customer.churnRiskValue.toFixed(1) : '0.0'}%
+                    </span>
+                  </td>
                   <td className="profile-actions">
                     <button 
-                      className="action-btn profile-btn"
-                      onClick={() => setSelectedCustomer(customer)}
+                      className="profile-btn"
+                      onClick={() => handleViewProfile(customer)}
+                      title="View Customer Profile"
                     >
                       Profile
                     </button>
