@@ -1,91 +1,46 @@
 export class CustomerIntelligenceService {
   constructor() {
     this.baseUrl = '/api/now/table';
-    this.headers = {
-      "Accept": "application/json",
-      "X-UserToken": window.g_ck
+    this.baseHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     };
   }
 
-  // Fetch customer data from csm_consumer table specifically
-  async getCSMConsumerData() {
+  // Helper method to get headers with authentication
+  getHeaders() {
+    const headers = { ...this.baseHeaders };
+    
+    if (window.g_ck) {
+      headers['X-UserToken'] = window.g_ck;
+    }
+    
+    return headers;
+  }
+
+  // Fetch customer data from the policy holders table
+  async getPolicyHoldersData() {
     try {
-      const response = await fetch(`${this.baseUrl}/csm_consumer?sysparm_display_value=all&sysparm_limit=1000`, {
-        headers: this.headers
+      const response = await fetch(`${this.baseUrl}/x_hete_clv_maximiz_policy_holders?sysparm_display_value=all&sysparm_limit=1000`, {
+        headers: this.getHeaders()
       });
       
       if (!response.ok) {
-        throw new Error(`Failed to fetch from csm_consumer: ${response.status}`);
+        throw new Error(`Failed to fetch from policy holders table: ${response.status}`);
       }
       
       const data = await response.json();
       return data.result || [];
     } catch (error) {
-      console.error('Error fetching csm_consumer data:', error);
-      // If csm_consumer doesn't exist, create mock data structure
-      return this.generateMockConsumerData();
+      console.error('Error fetching policy holders data:', error);
+      return [];
     }
   }
 
-  // Generate mock consumer data with realistic structure
-  generateMockConsumerData() {
-    const mockData = [];
-    const firstNames = ['John', 'Jane', 'Michael', 'Sarah', 'David', 'Emma', 'Robert', 'Lisa', 'William', 'Anna', 'James', 'Maria', 'Charles', 'Jennifer', 'Joseph', 'Patricia', 'Thomas', 'Linda', 'Christopher', 'Elizabeth'];
-    const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez', 'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin'];
-    const companies = ['Acme Corp', 'TechStart Inc', 'Global Solutions', 'Innovation Labs', 'Future Systems', 'Alpha Industries', 'Beta Technologies', 'Gamma Enterprises'];
-    
-    for (let i = 0; i < 150; i++) {
-      const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-      const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-      const company = companies[Math.floor(Math.random() * companies.length)];
-      
-      mockData.push({
-        sys_id: { value: `consumer_${i}_${Date.now()}` },
-        name: { 
-          display_value: `${firstName} ${lastName}`,
-          value: `${firstName} ${lastName}`
-        },
-        first_name: { 
-          display_value: firstName,
-          value: firstName
-        },
-        last_name: { 
-          display_value: lastName,
-          value: lastName
-        },
-        email: { 
-          display_value: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.toLowerCase().replace(' ', '')}.com`,
-          value: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${company.toLowerCase().replace(' ', '')}.com`
-        },
-        phone: {
-          display_value: `+1-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
-          value: `+1-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`
-        },
-        company: {
-          display_value: company,
-          value: company
-        },
-        active: {
-          display_value: 'true',
-          value: 'true'
-        },
-        sys_created_on: {
-          display_value: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString(),
-          value: new Date(Date.now() - Math.random() * 365 * 24 * 60 * 60 * 1000).toISOString()
-        },
-        sys_updated_on: {
-          display_value: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString(),
-          value: new Date(Date.now() - Math.random() * 30 * 24 * 60 * 60 * 1000).toISOString()
-        }
-      });
-    }
-    
-    return mockData;
-  }
-
-  // Generate comprehensive customer analytics from csm_consumer data
-  generateCustomerAnalytics(consumerData) {
-    const customers = this.enrichConsumerData(consumerData);
+  // Generate comprehensive customer analytics from policy holders data
+  async generateCustomerAnalytics() {
+    const policyHolders = await this.getPolicyHoldersData();
+    const customers = this.transformPolicyHoldersData(policyHolders);
     
     // Calculate summary metrics
     const totalCustomers = customers.length;
@@ -112,7 +67,6 @@ export class CustomerIntelligenceService {
       days61to90: { count: 0, color: '#10b981', urgent: false }
     };
     
-    const today = new Date();
     customers.forEach(customer => {
       const daysToRenewal = this.getDaysUntilRenewal(customer.renewalDate);
       if (daysToRenewal <= 30) renewalTimeline.next30.count++;
@@ -154,117 +108,139 @@ export class CustomerIntelligenceService {
     };
   }
 
-  // Enrich consumer data with calculated fields
-  enrichConsumerData(consumerData) {
-    const tiers = ['Platinum', 'Gold', 'Silver', 'Bronze'];
-    const churnLevels = ['Low', 'Medium', 'High'];
-    const locations = [
-      'New York, NY', 'Los Angeles, CA', 'Chicago, IL', 'Houston, TX', 
-      'Phoenix, AZ', 'Philadelphia, PA', 'San Antonio, TX', 'San Diego, CA',
-      'Dallas, TX', 'San Jose, CA', 'Austin, TX', 'Jacksonville, FL',
-      'Fort Worth, TX', 'Columbus, OH', 'Charlotte, NC', 'San Francisco, CA',
-      'Seattle, WA', 'Denver, CO', 'Boston, MA', 'Nashville, TN'
-    ];
-
-    return consumerData.map((consumer, index) => {
-      const customerName = consumer.name?.display_value || 
-                          `${consumer.first_name?.display_value || 'Customer'} ${consumer.last_name?.display_value || index + 1}`;
+  // Transform policy holders data to customer intelligence format
+  transformPolicyHoldersData(policyHolders) {
+    return policyHolders.map((holder, index) => {
+      const customerName = this.getValue(holder.name) || 
+                          `${this.getValue(holder.first_name)} ${this.getValue(holder.last_name)}`;
       
-      const email = consumer.email?.display_value || 
-                   `customer${index + 1}@example.com`;
+      const email = this.getValue(holder.email) || 'N/A';
+      const phone = this.getValue(holder.phone) || 'N/A';
       
-      // Generate realistic tier distribution (Platinum: 5%, Gold: 15%, Silver: 35%, Bronze: 45%)
-      const tierRand = Math.random();
-      let tier;
-      if (tierRand < 0.05) tier = 'Platinum';
-      else if (tierRand < 0.20) tier = 'Gold';
-      else if (tierRand < 0.55) tier = 'Silver';
-      else tier = 'Bronze';
+      // Transform tier to proper case
+      const tier = this.formatTier(this.getValue(holder.tier));
       
-      // Generate CLV based on tier
-      let clvBase;
-      switch (tier) {
-        case 'Platinum': clvBase = 35000 + Math.random() * 40000; break;
-        case 'Gold': clvBase = 18000 + Math.random() * 17000; break;
-        case 'Silver': clvBase = 8000 + Math.random() * 10000; break;
-        default: clvBase = 2000 + Math.random() * 6000;
-      }
-
-      // Generate renewal date (within next 12 months)
-      const renewalDate = new Date(Date.now() + Math.random() * 365 * 24 * 60 * 60 * 1000);
+      // Get CLV values
+      const clv = parseFloat(this.getValue(holder.clv)) || 0;
+      const lifetimeValue = parseFloat(this.getValue(holder.lifetime_value)) || 0;
       
-      // Generate churn risk (influenced by tier)
-      const churnWeights = tier === 'Platinum' ? [0.75, 0.20, 0.05] : 
-                          tier === 'Gold' ? [0.60, 0.30, 0.10] :
-                          tier === 'Silver' ? [0.40, 0.40, 0.20] :
-                          [0.25, 0.40, 0.35];
-      
-      const churnRand = Math.random();
+      // Calculate churn risk category
+      const churnRiskValue = parseFloat(this.getValue(holder.churn_risk)) || 0;
       let churnRisk;
-      if (churnRand < churnWeights[0]) churnRisk = 'Low';
-      else if (churnRand < churnWeights[0] + churnWeights[1]) churnRisk = 'Medium';
-      else churnRisk = 'High';
-
-      // Generate engagement score (higher for better tiers)
-      const engagementBase = tier === 'Platinum' ? 85 : 
-                            tier === 'Gold' ? 75 :
-                            tier === 'Silver' ? 65 : 55;
-      const engagementScore = Math.round(engagementBase + Math.random() * 20);
-
-      // Generate tenure (in months)
-      const createdDate = new Date(consumer.sys_created_on?.value || consumer.sys_created_on);
-      const tenure = Math.max(1, Math.floor((Date.now() - createdDate.getTime()) / (1000 * 60 * 60 * 24 * 30.44))); // Average days per month
-
-      // Determine renewal status based on renewal date
-      const daysToRenewal = this.getDaysUntilRenewal(renewalDate.toISOString());
-      const hasUpcomingRenewal = daysToRenewal <= 365 && daysToRenewal > 0;
-
+      if (churnRiskValue > 30) churnRisk = 'High';
+      else if (churnRiskValue >= 15) churnRisk = 'Medium';
+      else churnRisk = 'Low';
+      
+      // Get renewal date
+      const renewalDate = this.getValue(holder.renewal_date) || null;
+      const hasUpcomingRenewal = renewalDate && this.getDaysUntilRenewal(renewalDate) <= 365;
+      
+      // Get engagement score
+      const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
+      
+      // Get tenure
+      const tenure = parseFloat(this.getValue(holder.tenure_years)) || 0;
+      
       return {
-        id: consumer.sys_id?.value || `consumer_${index}`,
+        id: this.getValue(holder.sys_id) || `holder_${index}`,
         customerName,
+        customerId: this.getValue(holder.customer_id) || `CUST${String(index).padStart(7, '0')}`,
         email,
-        phone: consumer.phone?.display_value || 'N/A',
-        company: consumer.company?.display_value || 'Individual',
+        phone,
         tier,
-        clv: Math.floor(clvBase),
-        renewalDate: renewalDate.toISOString().split('T')[0],
+        clv: Math.floor(clv),
+        lifetimeValue: Math.floor(lifetimeValue),
+        renewalDate: renewalDate || 'N/A',
         renewal: hasUpcomingRenewal ? 'Yes' : 'No',
         churnRisk,
+        churnRiskValue: churnRiskValue,
         engagementScore,
-        tenure,
-        location: locations[Math.floor(Math.random() * locations.length)],
-        lastActivity: consumer.sys_updated_on?.display_value || consumer.sys_updated_on || new Date().toISOString(),
-        active: consumer.active?.display_value === 'true' || consumer.active?.value === 'true',
-        totalContracts: Math.floor(Math.random() * 5) + 1,
-        lifetimeValue: Math.floor(clvBase * (1.2 + Math.random() * 0.8)),
-        riskFactors: this.generateRiskFactors(churnRisk),
-        opportunities: this.generateOpportunities(tier, clvBase)
+        tenure: Math.round(tenure * 12), // Convert to months
+        location: 'N/A', // Not available in policy holders data
+        lastActivity: this.getValue(holder.sys_updated_on) || new Date().toISOString(),
+        active: true,
+        totalContracts: 1, // Assume 1 contract per policy holder
+        
+        // Additional fields from policy holders
+        age: parseInt(this.getValue(holder.age)) || 0,
+        creditScore: parseInt(this.getValue(holder.credit_score)) || 0,
+        creditUtilization: parseFloat(this.getValue(holder.credit_utilization_percent)) || 0,
+        bankruptcyFlag: this.getValue(holder.bankruptcies_flag) === '1',
+        preferredChannel: this.getValue(holder.preferred_channel) || 'Unknown',
+        appSessions: parseInt(this.getValue(holder.app_sessions_30_days)) || 0,
+        websiteVisits: parseInt(this.getValue(holder.website_visits_30_days)) || 0,
+        quoteViews: parseInt(this.getValue(holder.quote_views)) || 0,
+        missingCoverage: this.getValue(holder.missing_coverage) || 'None',
+        riskFlags: this.getValue(holder.risk_flags) || 'None',
+        
+        // Generate risk factors based on actual data
+        riskFactors: this.generateRiskFactors(holder),
+        opportunities: this.generateOpportunities(holder)
       };
     });
   }
 
-  // Generate risk factors based on churn level
-  generateRiskFactors(churnRisk) {
-    const allFactors = [
-      'Payment delays', 'Reduced engagement', 'Competitor interest',
-      'Service complaints', 'Price sensitivity', 'Contract disputes',
-      'Support ticket volume', 'Feature usage decline', 'Login frequency drop'
-    ];
-
-    const count = churnRisk === 'High' ? 3 : churnRisk === 'Medium' ? 2 : 1;
-    return allFactors.sort(() => 0.5 - Math.random()).slice(0, count);
+  // Helper method to get field values
+  getValue(field) {
+    if (typeof field === 'object' && field !== null && field.display_value !== undefined) {
+      return field.display_value;
+    }
+    return field;
   }
 
-  // Generate opportunities based on tier and CLV
-  generateOpportunities(tier, clv) {
-    const allOpportunities = [
-      'Service upgrade', 'Additional licenses', 'Premium support',
-      'Training services', 'Consulting hours', 'Custom integrations',
-      'Extended warranty', 'Mobile access', 'Advanced analytics'
-    ];
+  // Format tier to proper case
+  formatTier(tier) {
+    if (!tier) return 'Bronze';
+    return tier.charAt(0).toUpperCase() + tier.slice(1).toLowerCase();
+  }
 
-    const count = tier === 'Platinum' ? 4 : tier === 'Gold' ? 3 : tier === 'Silver' ? 2 : 1;
-    return allOpportunities.sort(() => 0.5 - Math.random()).slice(0, count);
+  // Generate risk factors based on actual policy holder data
+  generateRiskFactors(holder) {
+    const factors = [];
+    
+    const churnRisk = parseFloat(this.getValue(holder.churn_risk)) || 0;
+    const creditScore = parseInt(this.getValue(holder.credit_score)) || 0;
+    const creditUtilization = parseFloat(this.getValue(holder.credit_utilization_percent)) || 0;
+    const bankruptcyFlag = this.getValue(holder.bankruptcies_flag) === '1';
+    const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
+    const delinquencies = parseInt(this.getValue(holder.delinquency_12m)) || 0;
+    
+    if (churnRisk > 30) factors.push('High churn probability');
+    if (creditScore < 600) factors.push('Low credit score');
+    if (creditUtilization > 80) factors.push('High credit utilization');
+    if (bankruptcyFlag) factors.push('Bankruptcy history');
+    if (engagementScore < 40) factors.push('Low engagement');
+    if (delinquencies > 2) factors.push('Multiple delinquencies');
+    
+    return factors.length > 0 ? factors : ['No significant risk factors'];
+  }
+
+  // Generate opportunities based on actual policy holder data
+  generateOpportunities(holder) {
+    const opportunities = [];
+    
+    const tier = this.getValue(holder.tier) || '';
+    const missingCoverage = this.getValue(holder.missing_coverage) || '';
+    const engagementScore = parseInt(this.getValue(holder.engagement_score)) || 0;
+    const lifetimeValue = parseFloat(this.getValue(holder.lifetime_value)) || 0;
+    
+    if (missingCoverage && missingCoverage !== 'falsene' && missingCoverage !== 'None') {
+      opportunities.push(`Add ${missingCoverage} coverage`);
+    }
+    
+    if (tier === 'bronze' || tier === 'silver') {
+      opportunities.push('Tier upgrade potential');
+    }
+    
+    if (engagementScore > 70) {
+      opportunities.push('High engagement - cross-sell ready');
+    }
+    
+    if (lifetimeValue > 20000) {
+      opportunities.push('Premium services upsell');
+    }
+    
+    return opportunities.length > 0 ? opportunities : ['Standard renewal'];
   }
 
   // Utility methods
@@ -306,28 +282,30 @@ export class CustomerIntelligenceService {
   // Export functionality
   exportToCSV(customers) {
     const headers = [
-      'Customer Name', 'Email', 'Company', 'Tier', 'CLV (12M)', 'Renewal Date', 
-      'Renewal Status', 'Churn Risk', 'Engagement Score', 'Tenure (Months)', 'Location',
-      'Last Activity', 'Total Contracts', 'Lifetime Value'
+      'Customer ID', 'Customer Name', 'Email', 'Phone', 'Tier', 'CLV (12M)', 'Lifetime Value',
+      'Renewal Date', 'Renewal Status', 'Churn Risk', 'Engagement Score', 'Tenure (Months)',
+      'Age', 'Credit Score', 'Preferred Channel', 'Missing Coverage'
     ];
 
     const csvContent = [
       headers.join(','),
       ...customers.map(customer => [
+        customer.customerId,
         `"${customer.customerName}"`,
         customer.email,
-        `"${customer.company}"`,
+        customer.phone,
         customer.tier,
         customer.clv,
+        customer.lifetimeValue,
         customer.renewalDate,
         customer.renewal,
         customer.churnRisk,
         customer.engagementScore,
         customer.tenure,
-        `"${customer.location}"`,
-        customer.lastActivity.split('T')[0],
-        customer.totalContracts,
-        customer.lifetimeValue
+        customer.age,
+        customer.creditScore,
+        customer.preferredChannel,
+        `"${customer.missingCoverage}"`
       ].join(','))
     ].join('\n');
 
@@ -335,7 +313,7 @@ export class CustomerIntelligenceService {
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-    link.setAttribute('download', `csm_consumer_intelligence_${new Date().toISOString().split('T')[0]}.csv`);
+    link.setAttribute('download', `policy_holders_intelligence_${new Date().toISOString().split('T')[0]}.csv`);
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
@@ -375,6 +353,6 @@ export class CustomerIntelligenceService {
 
   // Get detailed customer profile
   getCustomerProfile(customerId, customers) {
-    return customers.find(c => c.id === customerId);
+    return customers.find(c => c.id === customerId || c.customerId === customerId);
   }
 }

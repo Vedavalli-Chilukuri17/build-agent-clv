@@ -1,10 +1,10 @@
 import { Table, IntegerColumn, DecimalColumn, StringColumn } from '@servicenow/sdk/core'
 
-export const u_imp_tmpl_x_hete_clv_maximiz_policy_holders = Table({
+export const x_hete_clv_maximiz_policy_holders = Table({
     allowWebServiceAccess: true,
     extends: 'sys_import_set_row',
     label: 'Imp Tmpl X Hete Clv Maximiz Policy Holders',
-    name: 'u_imp_tmpl_x_hete_clv_maximiz_policy_holders',
+    name: 'x_hete_clv_maximiz_policy_holders',
     schema: {
         u_abandoned_journeys: IntegerColumn({
             attributes: {
