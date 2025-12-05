@@ -378,22 +378,6 @@ export default function RenewalTab() {
                       {customer.clvTier || 'Bronze'} Tier
                     </span>
                   </div>
-                  <div className="customer-metrics">
-                    <div className="metric">
-                      <span className="metric-label">Risk Score</span>
-                      <span className="metric-value risk-score">{customer.riskScore || 'N/A'}</span>
-                    </div>
-                    <div className="metric">
-                      <span className="metric-label">CLV (12M)</span>
-                      <span className="metric-value clv-value">${customer.clv12M?.toLocaleString() || 'N/A'}</span>
-                    </div>
-                    <div className="metric">
-                      <span className="metric-label">Credit Score</span>
-                      <span className={`metric-value credit-score ${customer.creditScore < 650 ? 'poor' : customer.creditScore < 750 ? 'fair' : 'good'}`}>
-                        {customer.creditScore || 'N/A'}
-                      </span>
-                    </div>
-                  </div>
                   <div className="expand-indicator">
                     {isExpanded ? '▼' : '▶'}
                   </div>
