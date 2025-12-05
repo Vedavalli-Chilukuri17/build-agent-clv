@@ -401,49 +401,7 @@ export default function SimpleDashboard() {
         </div>
       )}
 
-      {/* Basic KPIs - All sourced from Policy Holders table */}
-      <div className="dashboard-section">
-        <h2>Key Performance Indicators</h2>
-        <div className="simple-kpi-grid">
-          <div className="simple-kpi-card">
-            <div className="kpi-icon">👥</div>
-            <div className="kpi-content">
-              <div className="kpi-value">{dashboardData.totalCustomers.toLocaleString()}</div>
-              <div className="kpi-label">Total Customers</div>
-              <div className="kpi-source">From Policy Holders Table</div>
-            </div>
-          </div>
-
-          <div className="simple-kpi-card high-value">
-            <div className="kpi-icon">⭐</div>
-            <div className="kpi-content">
-              <div className="kpi-value">{dashboardData.highValueCustomers.toLocaleString()}</div>
-              <div className="kpi-label">High-Value Customers</div>
-              <div className="kpi-sublabel">Platinum & Gold Tiers</div>
-            </div>
-          </div>
-
-          <div className="simple-kpi-card clv">
-            <div className="kpi-icon">💰</div>
-            <div className="kpi-content">
-              <div className="kpi-value">${dashboardData.avgCLV.toLocaleString()}</div>
-              <div className="kpi-label">Average CLV (12-Month)</div>
-              <div className="kpi-sublabel">From CLV Field</div>
-            </div>
-          </div>
-
-          <div className="simple-kpi-card risk">
-            <div className="kpi-icon">⚠️</div>
-            <div className="kpi-content">
-              <div className="kpi-value">{dashboardData.averageChurnRisk}%</div>
-              <div className="kpi-label">Average Churn Risk</div>
-              <div className="kpi-sublabel">From churn_risk(%) Field</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Dynamic Performance Metrics - Now in single row */}
+      {/* Dynamic Performance Metrics */}
       <div className="dashboard-section">
         <h2>Dynamic Performance Metrics</h2>
         

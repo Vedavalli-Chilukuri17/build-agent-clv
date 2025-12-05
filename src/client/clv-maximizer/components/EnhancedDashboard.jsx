@@ -1,14 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { DashboardService } from '../services/DashboardService.js';
+import { CustomerIntelligenceService } from '../services/CustomerIntelligenceService.js';
+import ChurnRiskHeatmap from './ChurnRiskHeatmap.jsx';
+import RenewalTimelineHeatmap from './RenewalTimelineHeatmap.jsx';
 import './EnhancedDashboard.css';
 
 export default function EnhancedDashboard() {
   const [dashboardData, setDashboardData] = useState(null);
+  const [customerIntelligenceData, setCustomerIntelligenceData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedReport, setSelectedReport] = useState('overview');
   const [error, setError] = useState(null);
   
   const dashboardService = new DashboardService();
+  const customerIntelligenceService = useMemo(() => new CustomerIntelligenceService(), []);
 
   useEffect(() => {
     loadDashboardData();
@@ -18,13 +23,29 @@ export default function EnhancedDashboard() {
     setLoading(true);
     setError(null);
     try {
-      const data = await dashboardService.getComprehensiveDashboardReports();
-      setDashboardData(data);
+      // Load both dashboard and customer intelligence data
+      const [dashData, customerData] = await Promise.all([
+        dashboardService.getComprehensiveDashboardReports(),
+        customerIntelligenceService.generateCustomerAnalytics()
+      ]);
+      
+      setDashboardData(dashData);
+      setCustomerIntelligenceData(customerData);
     } catch (error) {
       console.error('Error loading dashboard data:', error);
       setError('Failed to load dashboard data. Please try again.');
     } finally {
       setLoading(false);
+    }
+  };
+
+  // Handle heatmap drill-down interactions
+  const handleHeatmapDrillDown = (type, value) => {
+    console.log(`Drill down: ${type} = ${value}`);
+    // You can implement navigation to detailed views here
+    // For example, switching to Customer Analytics with filters
+    if (type === 'churnRisk' || type === 'renewal_timeline') {
+      setSelectedReport('customers');
     }
   };
 
@@ -53,11 +74,6 @@ export default function EnhancedDashboard() {
 
   const renderOverviewReport = () => (
     <div className="overview-report">
-      <div className="dashboard-header">
-        <h1>CLV Maximizer Dashboard</h1>
-        <p>Comprehensive Analytics from Policy Holders Data</p>
-      </div>
-
       {/* Key Metrics Cards */}
       <div className="metrics-grid">
         <div className="metric-card primary">
@@ -97,7 +113,7 @@ export default function EnhancedDashboard() {
         </div>
       </div>
 
-      {/* Quick Insights Grid */}
+      {/* First Insights Row - Original 3 components */}
       <div className="insights-grid">
         <div className="insight-card">
           <h3>🏆 Customer Tier Distribution</h3>
@@ -159,7 +175,11 @@ export default function EnhancedDashboard() {
             <strong>{dashboardData.renewalAnalytics.atRiskRenewals}</strong> at-risk renewals
           </div>
         </div>
+      </div>
 
+      {/* Second Insights Row - Risk Distribution + Heatmaps */}
+      <div className="insights-grid">
+        {/* Risk Distribution Card */}
         <div className="insight-card">
           <h3>🎯 Risk Distribution</h3>
           <div className="risk-breakdown">
@@ -175,6 +195,26 @@ export default function EnhancedDashboard() {
             <p>Avg Credit Score: {dashboardData.creditRiskInsights.avgCreditScore}</p>
           </div>
         </div>
+
+        {/* Renewal Timeline Heatmap Card */}
+        {customerIntelligenceData && (
+          <div className="insight-card heatmap-card">
+            <RenewalTimelineHeatmap 
+              renewalTimeline={customerIntelligenceData.renewalTimeline}
+              onDrillDown={handleHeatmapDrillDown}
+            />
+          </div>
+        )}
+
+        {/* Churn Risk Heatmap Card */}
+        {customerIntelligenceData && (
+          <div className="insight-card heatmap-card">
+            <ChurnRiskHeatmap 
+              analytics={customerIntelligenceData} 
+              onDrillDown={handleHeatmapDrillDown}
+            />
+          </div>
+        )}
       </div>
     </div>
   );
@@ -428,13 +468,6 @@ export default function EnhancedDashboard() {
     </div>
   );
 
-  const reportTabs = [
-    { id: 'overview', label: 'Overview', icon: '📊' },
-    { id: 'customers', label: 'Customer Analytics', icon: '👥' },
-    { id: 'risk', label: 'Risk Analytics', icon: '⚠️' },
-    { id: 'clv', label: 'CLV Analytics', icon: '💰' },
-  ];
-
   const renderSelectedReport = () => {
     switch (selectedReport) {
       case 'overview':
@@ -452,19 +485,6 @@ export default function EnhancedDashboard() {
 
   return (
     <div className="enhanced-dashboard">
-      <div className="dashboard-tabs">
-        {reportTabs.map(tab => (
-          <button
-            key={tab.id}
-            className={`tab-button ${selectedReport === tab.id ? 'active' : ''}`}
-            onClick={() => setSelectedReport(tab.id)}
-          >
-            <span className="tab-icon">{tab.icon}</span>
-            <span className="tab-label">{tab.label}</span>
-          </button>
-        ))}
-      </div>
-
       <div className="dashboard-content">
         {renderSelectedReport()}
       </div>
